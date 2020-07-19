@@ -1204,7 +1204,17 @@ class SiswaModel extends CI_Model
 
 		# code...
 	}
-
+	function cek_login($table, $where)
+	{
+		return $this->db->get_where($table, $where);
+	}
+	public function login($username)
+	{
+		$this->db->select('nisn,nama_lengkap,password');
+		$this->db->where('username', $username);
+		// $this->db->where('password', $password);
+		return $this->db->get('siswa');
+	}
 
 
 
