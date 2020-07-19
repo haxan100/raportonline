@@ -1153,6 +1153,57 @@ class SiswaModel extends CI_Model
 
 		return $this->db->insert('nilai', $in);
 	}
+	public function isNilaiSiswaAda($id_nilai)
+
+	{
+		$this->db->select('*');
+
+		$this->db->where('id_nilai', $id_nilai);
+
+		$query = $this->db->get('nilai s');
+
+		return $query->result();
+	}
+	public function edit_nilai_siswa($in, $id_nilai)
+
+	{
+
+		$this->db->where('id_nilai', $id_nilai);
+		return $this->db->update('nilai', $in);
+
+		// var_dump($this->db->last_query());
+
+
+		// $query = $this->db->get('siswa s');
+
+		//  $query;
+	}
+	public function getNilaiSiswaByidMap($id_nilai)
+	{
+
+		$this->db->select('*');
+
+		// $this->db->from('nilai s');
+		$this->db->join('mapel m', 'm.kode_mapel = s.kode_mapel', 'left');
+		
+		
+		$this->db->where('id_nilai', $id_nilai);
+		$query = $this->db->get('nilai s');
+		return $query->result();
+		# code...
+	}
+	public function HapusNilaiSiswa($id_nilai)
+	{
+		$this->db->where('id_nilai', $id_nilai);
+
+		$this->db->delete('nilai');
+		$query = $this->db->get('nilai s');
+
+		return $query->result();
+
+
+		# code...
+	}
 
 
 

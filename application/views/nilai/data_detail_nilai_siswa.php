@@ -69,6 +69,7 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 								<input type="hidden" name="nisn" id="nisn" value="<?php echo intval($nisn); ?>">
+								<input type="hidden" name="id_nilai" id="id_nilai">
 								<div class="x_content">
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
@@ -97,7 +98,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nilai <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="nilai" name="nilai" class="form-control " placeholder="Isikan Nama" type="text" class="form-control">
+												<input id="nilai" name="nilai" class="form-control " placeholder="Isikan Nama" type="number" class="form-control">
 
 											</div>
 										</div>
@@ -125,7 +126,7 @@
 	document.addEventListener("DOMContentLoaded", function(event) {
 
 		var bu = '<?= base_url(); ?>';
-		var url_form_ubah = bu + 'siswa/ubah_siswa_proses';
+		var url_form_ubah = bu + 'nilai/ubah_nilai_siswa_proses';
 		var url_form_tambah = bu + 'nilai/tambah_nilai_siswa_proses';
 
 
@@ -176,56 +177,36 @@
 			$('#tambah_act').hide();
 
 			// return false;
+			var id_nilai = $(this).data('id_nilai');
 			var nisn = $(this).data('nisn');
-			var nama = $(this).data('nama');
-			var kelas = $(this).data('id_kelas');
-			var jenkel = $(this).data('jen');
-			var tanggal_lahir = $(this).data('tanggal_lahir');
-			var tempat_lahir = $(this).data('tempat_lahir');
-			var alamat = $(this).data('alamat');
-			var username = $(this).data('username');
-			var password = $(this).data('password');
-
-			var foto = $(this).data('foto');
+			var nilai = $(this).data('nilai');
+			var kode_mapel = $(this).data('kode_mapel');
+			// var jenkel = $(this).data('jen');
 			// var foto = $(this).data('foto');
-			console.log(kelas)
+			console.log(nisn, nilai, kode_mapel, id_nilai);
 
 			$('#nisn').val(nisn);
-			$('#nama').val(nama);
-			$('#kelas').val(kelas);
-			$('#jenkel').val(jenkel);
-			$('#tempat_lahir').val(tempat_lahir);
-			$('#tanggal_lahir').val(tanggal_lahir);
-			$('#alamat').val(alamat);
-			$('#username').val(username);
-			$('#password').val(password);
-
-			$('#image').prop('src', 'upload/images/' + foto);
+			// $('#nama').val(nama);
+			// $('#kelas').val(kode_mapel);
+			// $('#nilai').val(nilai);
+			$('#id_nilai').val(id_nilai);
 			$('#Edit').show();
-			$("#kelas").val(parseInt(kelas));
+			$("#kelas").val(parseInt(kode_mapel));
+			$("#nilai").val(parseInt(nilai));
 
 
 		});
 		$('#Edit').on('click', function() {
 
+			var id_nilai = $('#id_nilai').val();
 			var nisn = $('#nisn').val();
-			var nama = $('#nama').val();
+			var nilai = parseInt($('#nilai').val());
 			var kelas = $('#kelas').val();
-			var jenis_kelamin = $('#jk').val();
-			var tanggal_lahir = $('#tanggal_lahir').val();
-			var tempat_lahir = $('#tempat_lahir').val();
-			// var foto = cekDeskripsi();
-
-			// console.log(nama, kelas, jenis_kelamin, tanggal_lahir, tempat_lahir);
-			// return (false);
-			// _draft = 1;
+			console.log(nilai);
 			if (
-				nama && kelas
+				nilai && kelas
 			) {
 				$("#form").submit();
-				// console.log(_foto);
-				// return;
-				// console.log("draft");
 			}
 			// return false;
 		});
@@ -235,16 +216,12 @@
 		// });
 		$('body').on('click', '.hapus', function() {
 
-			var nisn = $(this).data('nisn');
-			var nama = $(this).data('nama');
-			// var foto = $(this).data('foto');
-			console.log(nisn)
-			// return false;
-			// var c = confirm('Apakah anda yakin akan menghapus Siswa: "' + nama + '" ?');
-			// $('#Edit').hide();
+			var id_nilai = $(this).data('id_nilai');
+			var nama = $(this).data('nama_mapel');
+
 			Swal.fire({
 				title: 'Apakah Anda Yakin ?',
-				text: "Anda akan Menghapus Siswa: " + nama,
+				text: "Anda akan Menghapus Nilai Siswa: " + nama,
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
@@ -254,11 +231,11 @@
 
 				if (result.value) {
 					$.ajax({
-						url: bu + 'siswa/hapusSiswa',
+						url: bu + 'nilai/hapusMapelSiswa',
 						dataType: 'json',
 						method: 'POST',
 						data: {
-							nisn: nisn
+							id_nilai: id_nilai
 						}
 					}).done(function(e) {
 						console.log(e);
@@ -268,9 +245,11 @@
 							'success'
 						)
 						$('#modal-detail').modal('hide');
-						setTimeout(function() {
-							location.reload();
-						}, 4000);
+						datatable.ajax.reload();
+
+						// setTimeout(function() {
+						// location.reload();
+						// }, 4000);
 
 
 					}).fail(function(e) {
