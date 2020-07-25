@@ -230,7 +230,8 @@
 					text: "Excel",
 					extend: "excelHtml5",
 					className: "btn btn-round btn-info",
-					tittle: '',
+									title: 'Data Mapel',
+
 					exportOptions: {
 						columns: [1, 2]
 					}
@@ -238,7 +239,8 @@
 					text: "PDF",
 					extend: "pdfHtml5",
 					className: "<br>btn btn-round btn-danger",
-					tittle: '',
+										title: 'Data Mapel',
+
 					exportOptions: {
 						columns: [1, 2]
 					}

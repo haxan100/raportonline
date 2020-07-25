@@ -19,7 +19,7 @@
 					<div class="card-box table-responsive">
 						<a href="javascript:void(0)" data-toggle="modal" data-target="#myImport" class="btn m-t-20 btn-info waves-effect waves-light btnTambah">
 							<i class="fas fa-upload "></i>
-							<i class="fa fa-file-excel"></i> Import Harga
+							<i class="fa fa-file-excel"></i> Import Kelas
 						</a>
 
 						<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
@@ -244,7 +244,7 @@
 					text: "Excel",
 					extend: "excelHtml5",
 					className: "btn btn-round btn-info",
-					tittle: '',
+					title: 'Data Kelas',
 					exportOptions: {
 						columns: [1, 2]
 					}
@@ -252,7 +252,8 @@
 					text: "PDF",
 					extend: "pdfHtml5",
 					className: "<br>btn btn-round btn-danger",
-					tittle: '',
+					title: 'Data Kelas',
+
 					exportOptions: {
 						columns: [1, 2]
 					}

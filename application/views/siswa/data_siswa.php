@@ -520,7 +520,8 @@
 					text: "Excel",
 					extend: "excelHtml5",
 					className: "btn btn-round btn-info",
-					tittle: '',
+
+					title: 'Data Siswa',
 					exportOptions: {
 						columns: [1, 2, 3, 4, 5, 6, 7]
 					}
@@ -528,7 +529,7 @@
 					text: "PDF",
 					extend: "pdfHtml5",
 					className: "<br>btn btn-round btn-danger",
-					tittle: '',
+					title: 'Data Siswa',
 					exportOptions: {
 						columns: [1, 2, 3, 4, 5, 6, 7]
 					}

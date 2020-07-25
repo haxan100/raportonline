@@ -455,7 +455,7 @@
 		});
 
 		var datatable = $('#datatable_siswa').DataTable({
-			dom: "Bfrltip",
+			// dom: "Bfrltip",
 			'pageLength': 10,
 			"responsive": true,
 			"processing": true,
@@ -497,37 +497,37 @@
 				}
 			},
 
-			buttons: [
+			// buttons: [
 
-				// 'excelHtml5',
-				// 'pdfHtml5'
-				{
-					text: "Excel",
-					extend: "excelHtml5",
-					className: "btn btn-round btn-info",
-					tittle: '',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
-					}
-				}, {
-					text: "PDF",
-					extend: "pdfHtml5",
-					className: "<br>btn btn-round btn-danger",
-					tittle: '',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
-					}
-				}
-
-
+			// 	// 'excelHtml5',
+			// 	// 'pdfHtml5'
+			// 	{
+			// 		text: "Excel",
+			// 		extend: "excelHtml5",
+			// 		className: "btn btn-round btn-info",
+			// 		tittle: '',
+			// 		exportOptions: {
+			// 			columns: [1, 2, 3, 4, 5, 6, 7]
+			// 		}
+			// 	}, {
+			// 		text: "PDF",
+			// 		extend: "pdfHtml5",
+			// 		className: "<br>btn btn-round btn-danger",
+			// 		tittle: '',
+			// 		exportOptions: {
+			// 			columns: [1, 2, 3, 4, 5, 6, 7]
+			// 		}
+			// 	}
 
 
 
-			],
-			language: {
-				searchPlaceholder: "Cari Kelas",
 
-			},
+
+			// ],
+			// language: {
+			// 	searchPlaceholder: "Cari Kelas",
+
+			// },
 			// columnDefs: [{
 			// 	targets: -1,
 			// 	visible: false

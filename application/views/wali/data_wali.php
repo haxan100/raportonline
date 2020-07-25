@@ -395,7 +395,8 @@
 					text: "Excel",
 					extend: "excelHtml5",
 					className: "btn btn-round btn-info",
-					tittle: '',
+										title: 'Data Wali Kelas',
+
 					exportOptions: {
 						columns: [1, 2, 3]
 					}
@@ -403,7 +404,8 @@
 					text: "PDF",
 					extend: "pdfHtml5",
 					className: "<br>btn btn-round btn-danger",
-					tittle: '',
+									title: 'Data Wali Kelas',
+
 					exportOptions: {
 						columns: [1, 2, 3]
 					}

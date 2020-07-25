@@ -25,6 +25,9 @@ class Nilai extends CI_Controller {
 		if (!$this->isLoggedInAdmin()) {
 
 			echo 'Anda Harus Login!';
+			
+			redirect('login','refresh');
+			
 
 			exit();
 		}
@@ -226,6 +229,8 @@ class Nilai extends CI_Controller {
 
 			echo 'Anda Harus Login!';
 
+			redirect('login', 'refresh');
+
 			exit();
 		}
 		
@@ -275,12 +280,14 @@ class Nilai extends CI_Controller {
 
 	{
 
-		// if (!$this->isLoggedInAdmin()) {
+		if (!$this->isLoggedInAdmin()) {
 
-		// 	echo '403 Forbidden!';
+			echo '403 Forbidden!';
 
-		// 	exit();
-		// }
+			redirect('login', 'refresh');
+
+			exit();
+		}
 
 
 		$bu = base_url();
@@ -534,6 +541,8 @@ class Nilai extends CI_Controller {
 	{
 		if (!$this->isLoggedInAdmin()) {
 			echo '403 Forbidden!';
+
+			redirect('login', 'refresh');
 			exit();
 		}
 		$id_user = $this->input->post('id_user');
