@@ -33,6 +33,7 @@ class Nilai extends CI_Controller {
 		}
 		// var_dump($_SESSION);die;
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
+		$data['listMapel'] = $this->SiswaModel->getAllMapel();
 		$data['siswa']= $this->SiswaModel->siswa();
 		// var_dump($this->SiswaModel->siswa());die;
 		

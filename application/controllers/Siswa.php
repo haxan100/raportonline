@@ -26,6 +26,8 @@ class Siswa extends CI_Controller {
 
 			echo 'Anda Harus Login!';
 
+			redirect('login', 'refresh');
+
 			exit();
 		}
 		// var_dump($_SESSION);die;

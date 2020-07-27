@@ -2,6 +2,9 @@
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>Data Nilai Kelas</h2>
+
+
+
 			<?php $bu = base_url(); ?>
 			<style>
 				#image {
@@ -12,11 +15,49 @@
 
 			<div class="clearfix"></div>
 		</div>
+
 		<div class="x_content">
 			<div class="row">
 				<div class="col-sm-12">
 
+
+
+
 					<div class="card-box table-responsive">
+
+
+						<div class="form-group row">
+							<!-- <label class="control-label col-md-3 col-sm-3 ">Select</label> -->
+							<div class="col-md-3 col-sm-3 ">
+								<select class="form-control">
+									<option>Pilih Kelas</option>
+									<?php
+									foreach ($listKelas as $r) {
+										echo '
+												<option value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
+											';
+									}
+									?>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<!-- <label class="control-label col-md-3 col-sm-3 ">Select</label> -->
+							<div class="col-md-3 col-sm-3 ">
+								<select class="form-control">
+									<option>Pilih Kelas</option>
+									<?php
+									foreach ($listMapel as $r) {
+										echo '
+												<option value="' . $r->kode_mapel . '">' . $r->nama_mapel . '</option>
+											';
+									}
+									?>
+								</select>
+							</div>
+						</div>
+						<button class="btn btn-round btn-info btn_pilih"> Pilih</button>
+
 
 						<!-- <button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button> -->
 
