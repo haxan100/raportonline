@@ -200,5 +200,13 @@ class WaliModel extends CI_Model
 
 		# code...
 	}
+	public function getAllGuru()
+
+	{
+		$this->db->select('*');
+		$query = $this->db->get('wali_kelas s');
+
+		return $query->result();
+	}
 
 }

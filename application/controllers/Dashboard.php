@@ -9,6 +9,7 @@ class Dashboard extends CI_Controller {
 		parent::__construct();
 		$this->load->model('SiswaModel');
 		$this->load->model('SekolahModel');
+		$this->load->model('WaliModel');
 
 		$this->load->helper('url');
 	}
@@ -17,6 +18,8 @@ class Dashboard extends CI_Controller {
 	{	
 		$data['siswa']= $this->SiswaModel->siswa();
 		$data['kelas'] = $this->SiswaModel->getAllKelas();
+		$data['guru'] = $this->WaliModel->getAllGuru();
+		$data['mapel'] = $this->SiswaModel->getAllMapel();
 		// var_dump($this->SiswaModel->getAllKelas());die;
 		
 		$data['content']= 'dashboard';
