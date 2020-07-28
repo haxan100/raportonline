@@ -29,12 +29,12 @@
 						<div class="form-group row">
 							<!-- <label class="control-label col-md-3 col-sm-3 ">Select</label> -->
 							<div class="col-md-3 col-sm-3 ">
-								<select class="form-control">
+								<select class="form-control" id="kelas">
 									<option>Pilih Kelas</option>
 									<?php
 									foreach ($listKelas as $r) {
 										echo '
-												<option value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
+												<option data-id="' . $r->id_kelas . '" value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
 											';
 									}
 									?>
@@ -44,12 +44,12 @@
 						<div class="form-group row">
 							<!-- <label class="control-label col-md-3 col-sm-3 ">Select</label> -->
 							<div class="col-md-3 col-sm-3 ">
-								<select class="form-control">
-									<option>Pilih Kelas</option>
+								<select class="form-control" id="mapel">
+									<option>Pilih Mapel</option>
 									<?php
 									foreach ($listMapel as $r) {
 										echo '
-												<option value="' . $r->kode_mapel . '">' . $r->nama_mapel . '</option>
+												<option data-id= "' . $r->kode_mapel . ' " value="' . $r->kode_mapel . '">' . $r->nama_mapel . '</option>
 											';
 									}
 									?>
@@ -60,17 +60,22 @@
 
 
 						<!-- <button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button> -->
-
-						<table id="datatable_siswa" class="table table-striped table-bordered" style="width:100%">
+						<table id="datatable_siswa" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>No</th>
-									<th>ID Kelas</th>
-									<th>Nama Kelas</th>
-									<th>Wali Kelas</th>
-									<th>Aksi</th>
+									<th>#</th>
+									<th>Nama Mapel</th>
+									<th>Nama Siswa</th>
+									<td>Nilai Harian</td>
+									<td>Nilai UTS</td>
+									<td>Nilai UAS</td>
+									<td>Nilai Pengetahuan</td>
+									<td>Nilai Karakter</td>
+									<td>Keterangan</td>
+									<th>Opsi</th>
 								</tr>
 							</thead>
+
 							<tbody>
 							</tbody>
 						</table>
@@ -334,6 +339,9 @@
 		// 	lengthChange: false,
 		// 	buttons: ['copy', 'excel', 'pdf']
 		// });
+
+
+
 		$('body').on('click', '.hapus', function() {
 
 			var nisn = $(this).data('nisn');
@@ -494,7 +502,12 @@
 			}
 			// return false;
 		});
-
+		$('body').on('click', '.btn_pilih', function() {
+			var kelas = $('#kelas').find(':selected').data('id');
+			var mapel = $('#mapel').find(':selected').data('id')
+			console.log(mapel);
+			// return false;
+		});
 		var datatable = $('#datatable_siswa').DataTable({
 			// dom: "Bfrltip",
 			'pageLength': 10,
@@ -533,6 +546,10 @@
 				url: bu + 'Nilai/getKelas',
 				type: 'POST',
 				"data": function(d) {
+					d.kelas = $('#kelas').find(':selected').data('id');
+					d.mapel = $('#mapel').find(':selected').data('id');
+					console.log(d);
+					return false;
 
 					return d;
 				}
@@ -578,6 +595,13 @@
 				[10, 25, 50, 1000]
 			]
 
+		});
+
+		$('#kelas').on('change', function() {
+			datatable.ajax.reload();
+		});
+		$('#mapel').on('change', function() {
+			datatable.ajax.reload();
 		});
 
 

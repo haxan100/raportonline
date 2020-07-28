@@ -705,8 +705,9 @@ class SiswaModel extends CI_Model
 	public function data_AllKelasWali($post)
 
 	{
+		// var_dump($post);die;
 		$columns = array(
-			'nama_kelas',
+			'nama_mapel',
 			// 'p.created_at',
 
 			// 'p.stok',
@@ -722,8 +723,8 @@ class SiswaModel extends CI_Model
 		);
 		// untuk search
 		$columnsSearch = array(
-			'k.nama_kelas',
-			'w.nama_wali',
+			// 's.nama_kelas',
+			// 'w.nama_wali',
 		);
 
 
@@ -732,24 +733,26 @@ class SiswaModel extends CI_Model
 
 		$from = 'kelas k';
 				// custom SQL
-		$sql = "SELECT w.*,k.*, k.id_kelas as kid_kelas FROM {$from} left join wali_kelas w on k.id_kelas=w.id_kelas
+		$sql = "SELECT m.nama_mapel, n.*,s.* FROM `nilai` n
+					join mapel m on m.kode_mapel=n.kode_mapel
+					join siswa s on s.nisn=n.nisn
 		";
 		// var_dump($sql);
 		$where = "";
 
-		// if (isset($post['id_tipe_produk']) && $post['id_tipe_produk'] != 'default') {
+		if (isset($post['kelas']) && $post['kelas'] != 'default') {
 
-		// 	if ($where != "") $where .= "AND";
+			if ($where != "") $where .= "AND";
 
-		// 	$where .= " (p.id_tipe_produk='" . $post['id_tipe_produk'] . "')";
-		// }
+			$where .= " (s.id_kelas='" . $post['kelas'] . "')";
+		}
 
-		// if (isset($post['id_tipe_bid']) && $post['id_tipe_bid'] != 'default') {
+		if (isset($post['mapel']) && $post['mapel'] != 'default') {
 
-		// 	if ($where != "") $where .= "AND";
+			if ($where != "") $where .= "AND";
 
-		// 	$where .= " (p.id_tipe_bid='" . $post['id_tipe_bid'] . "')";
-		// }
+			$where .= " (n.kode_mapel='" . $post['mapel'] . "')";
+		}
 
 		// if (isset($post['status']) && $post['status'] != 'default') {
 

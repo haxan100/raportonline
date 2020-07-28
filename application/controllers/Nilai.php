@@ -335,6 +335,8 @@ class Nilai extends CI_Controller {
 	}
 	public function getKelas()
 	{
+		// $dt = $this->ProdukModel->dt_produk($_POST);
+		// var_dump($_POST);die;
 		$bu = base_url();
 		$dt = $this->SiswaModel->data_AllKelasWali($_POST);
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
@@ -348,26 +350,22 @@ class Nilai extends CI_Controller {
 
 		foreach ($dt['data']->result() as $row) {
 		
-			$wali ="";
-			if($row->nama_wali==''){
-				$wali = "<B> Belum ada wali kelas di kelas ini </B>";
-			}
-			else{
-				$wali =$row->nama_wali;
-			}
-			$nama = ' <a href="#" class="tomboldetail"  data-id_kelas="' . $row->kid_kelas . '"data-nama_kelas="' . $row->nama_kelas . '">
-      ' . $row->nama_kelas . '
-      		</a>';
+		
 			$fields = array($no++);
 
-			$fields[] = $row->kid_kelas . '<br>';
-			$fields[] = $nama. '<br>';
-			$fields[] = $wali. '<br>';
+			$fields[] = $row->nama_mapel . '<br>';
+			$fields[] = $row->nama_lengkap . '<br>';
+			$fields[] = $row->nilai_harian . '<br>';
+			$fields[] = $row->nilai_uts . '<br>';
+			$fields[] = $row->nilai_uas . '<br>';
+			$fields[] = $row->nilai_pengetahuan . '<br>';
+			$fields[] = $row->nilai_karakter . '<br>';
+			$fields[] = $row->keterangan . '<br>';
 			$fields[] = '
 
-       	 <button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-id_kelas="' . $row->id_kelas . ' " data-nama="' . $row->nama_kelas . '" ></i> Ubah</button>
+       	 <button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-id_kelas="' . $row->id_kelas . ' " data-nama="' . $row->nama_lengkap . '" ></i> Ubah</button>
 
-        <button class="btn btn-round btn-danger hapus" data-id_kelas="' . $row->id_kelas . '" data-nama="' . $row->nama_kelas . '"
+        <button class="btn btn-round btn-danger hapus" data-id_kelas="' . $row->id_kelas . '" data-nama="' . $row->nama_lengkap . '"
         >Hapus</button>               
 
         ';
