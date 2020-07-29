@@ -363,7 +363,19 @@ class Nilai extends CI_Controller {
 			$fields[] = $row->keterangan . '<br>';
 			$fields[] = '
 
-       	 <button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-id_kelas="' . $row->id_kelas . ' " data-nama="' . $row->nama_lengkap . '" ></i> Ubah</button>
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			
+			data-id_nilai="' . $row->id_nilai . ' " 
+			data-kode_mapel="' . $row->kode_mapel . '" 
+			data-nama_mapel="' . $row->nama_mapel . ' " 
+			data-nilai_harian="' . intVal($row->nilai_harian) . '" 
+			data-nilai_uts="' . $row->nilai_uts . '" 
+			data-nilai_uas="' . $row->nilai_uas . '" 
+			data-nilai_pengetahuan="' . $row->nilai_pengetahuan . '" 
+			data-nilai_karakter="' . $row->nilai_karakter . '" 
+			data-keterangan="' . $row->keterangan . '" 
+			
+			data-nama="' . $row->nama_lengkap . '" ></i> Ubah</button>
 
         <button class="btn btn-round btn-danger hapus" data-id_kelas="' . $row->id_kelas . '" data-nama="' . $row->nama_lengkap . '"
         >Hapus</button>               

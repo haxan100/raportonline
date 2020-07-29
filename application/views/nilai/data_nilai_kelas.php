@@ -96,7 +96,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<h4>Detail User</h4>
+					<h4>Detail Nillai </h4>
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
@@ -106,104 +106,66 @@
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> NISN <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama Siswa <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="nisn" name="nisn" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
+												<input id="nama_siswa" name="nama_siswa" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama Mapel <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="nama" name="nama" class="form-control " placeholder="Isikan Nama" type="text" class="form-control">
+												<input id="nama_mapel" name="nama_mapel" class="form-control " readonly placeholder="Isikan Nama Mapel" type="text" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Alamat <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nilai Harian <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="alamat" name="alamat" class="form-control " placeholder="Isikan Alamat" type="text" class="form-control">
+												<input id="nilai_harian" name="nilai_harian" class="form-control " placeholder="Isikan Nilai Harian" type="number" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Kelas <span class="required">*</span>
-											</label>
-											<div class="col-sm-9">
-												<select class="form-control select col-md-8 col-sm-8" name="kelas" id="kelas">
-													<option value="default" desable>Pilih Kelas</option>
-
-
-													<?php
-													foreach ($listKelas as $r) {
-
-														// die;
-														echo '
-							<option value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
-							';
-													}
-													?>
-												</select>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Jenis Kelamin <span class="required">*</span>
-											</label>
-											<div class="col-sm-9">
-												<select class="form-control select col-md-8 col-sm-8 " id="jk" name="jk">
-													<option value="Laki-laki">Laki-laki</option>
-													<option value="Perempuan">Perempuan</option>
-												</select>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Tanggal Lahir <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai UTS<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="tanggal_lahir" name="tanggal_lahir" class="form-control " placeholder="Isikan kelas" type="date" class="form-control">
+												<input id="nilai_uts" name="nilai_uts" class="form-control " placeholder="Isikan UTS" type="number" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Tempat Lahir <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Uas <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="tempat_lahir" name="tempat_lahir" class="form-control " placeholder="Isikan tempat lahir" type="text" class="form-control">
+												<input id="nilai_uas" name="nilai_uas" class="form-control " placeholder="Isikan UAS" type="number" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Pengetahuan <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="username" name="username" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
+												<input id="nilai_pengetahuan" name="nilai_pengetahuan" class="form-control " placeholder="Isikan Nilai Pengetahuan" type="number" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Password <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Karakter <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="password" name="password" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
+												<input id="nilai_karakter" name="nilai_karakter" class="form-control " placeholder="Isikan Nilai Karakter" type="number" class="form-control">
 
 											</div>
 										</div>
-
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Foto <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Keterangan<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<img style="width: 100px; display: block;" src="<?php echo base_url() . "upload/"; ?>images/" id="image" alt="image">
-												<div id="foto_wrappers" class="mb-2">
-
-													<div class="col-xs-12">
-														<label for="photo">Photo Profile</label>
-														<input type="file" accept="image/x-png,image/gif,image/jpeg,image/jpg;" name="foto" id="foto">
-													</div>
-												</div>
+												<input id="keterangan" name="keterangan" class="form-control " placeholder="Keterangan" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -282,33 +244,26 @@
 			$('#tambah_act').hide();
 
 			// return false;
-			var nisn = $(this).data('nisn');
 			var nama = $(this).data('nama');
-			var kelas = $(this).data('id_kelas');
-			var jenkel = $(this).data('jen');
-			var tanggal_lahir = $(this).data('tanggal_lahir');
-			var tempat_lahir = $(this).data('tempat_lahir');
-			var alamat = $(this).data('alamat');
-			var username = $(this).data('username');
-			var password = $(this).data('password');
-
-			var foto = $(this).data('foto');
+			var nama_mapel = $(this).data('nama_mapel');
+			var nilai_harian = $(this).data('nilai_harian');
+			var nilai_uts = $(this).data('nilai_uts');
+			var nilai_uas = $(this).data('nilai_uas');
+			var nilai_pengetahuan = $(this).data('nilai_pengetahuan');
+			var nilai_karakter = $(this).data('nilai_karakter');
+			var keterangan = $(this).data('keterangan');
 			// var foto = $(this).data('foto');
-			console.log(kelas)
+			// console.log(kelas)
 
-			$('#nisn').val(nisn);
-			$('#nama').val(nama);
-			$('#kelas').val(kelas);
-			$('#jenkel').val(jenkel);
-			$('#tempat_lahir').val(tempat_lahir);
-			$('#tanggal_lahir').val(tanggal_lahir);
-			$('#alamat').val(alamat);
-			$('#username').val(username);
-			$('#password').val(password);
-
-			$('#image').prop('src', 'upload/images/' + foto);
+			$('#nama_mapel').val(nama_mapel);
+			$('#nama_siswa').val(nama);
+			$('#nilai_harian').val(nilai_harian);
+			$('#nilai_uts').val(nilai_uts);
+			$('#nilai_uas').val(nilai_uas);
+			$('#nilai_pengetahuan').val(nilai_pengetahuan);
+			$('#nilai_karakter').val(nilai_karakter);
+			$('#keterangan').val(keterangan);
 			$('#Edit').show();
-			$("#kelas").val(parseInt(kelas));
 
 
 		});
