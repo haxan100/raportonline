@@ -206,6 +206,38 @@ class Wali extends CI_Controller {
 			'message' => $message,
 		));
 	}
+	public function Guru()
+	{
+		if (!$this->isLoggedInAdmin()) {
+
+			echo 'Anda Harus Login!';
+
+			exit();
+		}
+		$data['listKelas'] = $this->SiswaModel->getAllKelas();
+		$data['listWali'] = $this->WaliModel->index();
+
+
+		$data['content'] = 'guru/data_guru';
+
+
+		$this->load->view('templates/index', $data);
+	}
+	public function getMapelFromKelas()
+	{
+		$all = $this->WaliModel->getAllMapelFromKelas($_POST['kelas']);
+
+		$lists = "<option value=''>Pilih</option>";
+
+		foreach ($all as $data) {
+			$lists .= "<option value='" . $data->kode_mapel . "'>" . $data->nama_mapel . "</option>"; // Tambahkan tag option ke variabel $lists
+		}
+
+		$callback = array('list_kota' => $lists); // Masukan variabel lists tadi ke dalam array $callback dengan index array : list_kota
+		echo json_encode($callback);
+		// var_dump($all);die;
+		# code...
+	}
 
 
 

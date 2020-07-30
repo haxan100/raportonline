@@ -208,5 +208,18 @@ class WaliModel extends CI_Model
 
 		return $query->result();
 	}
+	public function getAllMapelFromKelas($kelas)
+	{
+		
+		$this->db->select('*');
+		
+		$this->db->where('id_kelas', $kelas);
+		$query = $this->db->get('mapel');
+		return $query->result() ;
+		
+		
+		
+		# code...
+	}
 
 }
