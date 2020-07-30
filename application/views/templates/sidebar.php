@@ -10,6 +10,7 @@
 										<li><a href="<?php echo site_url('siswa/Kelas') ?>">Kelas</a></li>
 										<li><a href="<?php echo site_url('siswa/Mapel') ?>">Mapel</a></li>
 										<li><a href="<?php echo site_url('Wali') ?>">Wali Kelas</a></li>
+										<li><a href="<?php echo site_url('Wali/Guru') ?>">Guru</a></li>
 										<li><a href="<?php echo site_url('Nilai') ?>">Isi Nilai</a></li>
 										<li><a href="index3.html">Dashboard3</a></li>
 									</ul>

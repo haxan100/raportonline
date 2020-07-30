@@ -102,6 +102,8 @@
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 
+								<input id="id_nilai" name="id_nilai" type="hidden">
+
 								<div class="x_content">
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
@@ -193,7 +195,7 @@
 	document.addEventListener("DOMContentLoaded", function(event) {
 
 		var bu = '<?= base_url(); ?>';
-		var url_form_ubah = bu + 'siswa/ubah_siswa_proses';
+		var url_form_ubah = bu + 'Nilai/ubah_nilai_siswa_proses';
 		var url_form_tambah = bu + 'siswa/tambah_siswa_proses';
 
 
@@ -244,6 +246,7 @@
 			$('#tambah_act').hide();
 
 			// return false;
+			var id_nilai = $(this).data('id_nilai');
 			var nama = $(this).data('nama');
 			var nama_mapel = $(this).data('nama_mapel');
 			var nilai_harian = $(this).data('nilai_harian');
@@ -255,6 +258,7 @@
 			// var foto = $(this).data('foto');
 			// console.log(kelas)
 
+			$('#id_nilai').val(id_nilai);
 			$('#nama_mapel').val(nama_mapel);
 			$('#nama_siswa').val(nama);
 			$('#nilai_harian').val(nilai_harian);
@@ -269,19 +273,20 @@
 		});
 		$('#Edit').on('click', function() {
 
-			var nisn = $('#nisn').val();
-			var nama = $('#nama').val();
-			var kelas = $('#kelas').val();
-			var jenis_kelamin = $('#jk').val();
-			var tanggal_lahir = $('#tanggal_lahir').val();
-			var tempat_lahir = $('#tempat_lahir').val();
+			var id_nilai = $('#id_nilai').val();
+			var nilai_harian = $('#nilai_harian').val();
+			var nilai_uts = $('#nilai_uts').val();
+			var nilai_uas = $('#nilai_uas').val();
+			var nilai_pengetahuan = $('#nilai_pengetahuan').val();
+			var nilai_karakter = $('#nilai_karakter').val();
+			var keterangan = $('#keterangan').val();
 			// var foto = cekDeskripsi();
 
 			// console.log(nama, kelas, jenis_kelamin, tanggal_lahir, tempat_lahir);
 			// return (false);
 			// _draft = 1;
 			if (
-				nama && kelas
+				id_nilai && nilai_uts
 			) {
 				$("#form").submit();
 				// console.log(_foto);
@@ -299,10 +304,10 @@
 
 		$('body').on('click', '.hapus', function() {
 
-			var nisn = $(this).data('nisn');
+			var id_nilai = $(this).data('id_nilai');
 			var nama = $(this).data('nama');
 			// var foto = $(this).data('foto');
-			console.log(nisn)
+			// console.log(nisn)
 			// return false;
 			// var c = confirm('Apakah anda yakin akan menghapus Siswa: "' + nama + '" ?');
 			// $('#Edit').hide();
@@ -318,11 +323,11 @@
 
 				if (result.value) {
 					$.ajax({
-						url: bu + 'siswa/hapusSiswa',
+						url: bu + 'Nilai/hapusNilai',
 						dataType: 'json',
 						method: 'POST',
 						data: {
-							nisn: nisn
+							id_nilai: id_nilai
 						}
 					}).done(function(e) {
 						console.log(e);
@@ -332,9 +337,11 @@
 							'success'
 						)
 						$('#modal-detail').modal('hide');
-						setTimeout(function() {
-							location.reload();
-						}, 4000);
+						datatable.ajax.reload();
+
+						// setTimeout(function() {
+						// 	// location.reload();
+						// }, 4000);
 
 
 					}).fail(function(e) {

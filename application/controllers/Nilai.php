@@ -48,9 +48,15 @@ class Nilai extends CI_Controller {
 
 		// var_dump($this->input->post());die;
 		$id_nilai = intVal($this->input->post('id_nilai', TRUE));
-		$nisn = $this->input->post('nisn', TRUE);
-		$nilai = intVal($this->input->post('nilai', TRUE));
-		$mapel = $this->input->post('kelas', TRUE);
+		// $nisn = $this->input->post('nisn', TRUE);
+		$nilai_harian = intVal($this->input->post('nilai_harian', TRUE));
+		$nilai_uts = intVal($this->input->post('nilai_uts', TRUE));
+		$nilai_uas = intVal($this->input->post('nilai_uas', TRUE));
+		$nilai_uas = intVal($this->input->post('nilai_uas', TRUE));
+		$nilai_pengetahuan = intVal($this->input->post('nilai_pengetahuan', TRUE));
+		$nilai_karakter = intVal($this->input->post('nilai_karakter', TRUE));
+		$keterangan = $this->input->post('keterangan', TRUE);
+
 		// var_dump($nilai);die;
 		$message = 'Gagal mengedit data nilai!<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
@@ -58,9 +64,12 @@ class Nilai extends CI_Controller {
 
 		$in = array(
 
-			'kode_mapel' => $mapel,
-			'nilai' => $nilai,
-			'nisn' => $nisn,
+			'nilai_harian' => $nilai_harian,
+			'nilai_uts' => $nilai_uts,
+			'nilai_uas' => $nilai_uas,
+			'nilai_pengetahuan' => $nilai_pengetahuan,
+			'nilai_karakter' => $nilai_karakter,
+			'keterangan' => $keterangan,
 		);
 		// var_dump($in);die();
 
@@ -72,13 +81,13 @@ class Nilai extends CI_Controller {
 			$message .= '<br>Nilai tersebut tidak ada di database!<br>Silahkan Muat ulang halaman ini!';
 		} else {
 		}
-		if (empty($nilai)) {
+		if (empty($nilai_harian)) {
 			$status = false;
-			$errorInputs[] = array('#nilai', 'Silahkan Isi nilai');
+			$errorInputs[] = array('#nilai_harian', 'Silahkan Isi nilai');
 		}
-		if (empty($mapel) ) {
+		if (empty($nilai_uts) ) {
 			$status = false;
-			$errorInputs[] = array('#mapel', 'Silahkan pilih mapel');
+			$errorInputs[] = array('#nilai_uts', 'Silahkan pilih mapel');
 		}
 
 		if ($status) {
@@ -124,6 +133,29 @@ class Nilai extends CI_Controller {
 			'message' => $message,
 		));
 
+	}
+	public function hapusNilai()
+	{
+
+		$id_nilai = $this->input->post('id_nilai', TRUE);
+		// var_dump($this->input->post());die;
+
+		$data = $this->SiswaModel->getNilaiSiswaByidMap($id_nilai);
+		$status = false;
+
+		$message = 'Gagal menghapus Nilai Siswa!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat  Nilai Siswa yang dimaksud.';
+		} else {
+			$this->SiswaModel->HapusNilaiSiswa($id_nilai);
+
+			$status = true;
+			$message = 'Berhasil menghapus Nilai Siswa: <b>' . $data[0]->nama_mapel . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+		));
 	}
 	public function tambah_siswa_proses()
 	{
@@ -377,7 +409,7 @@ class Nilai extends CI_Controller {
 			
 			data-nama="' . $row->nama_lengkap . '" ></i> Ubah</button>
 
-        <button class="btn btn-round btn-danger hapus" data-id_kelas="' . $row->id_kelas . '" data-nama="' . $row->nama_lengkap . '"
+        <button class="btn btn-round btn-danger hapus" data-id_nilai="' . $row->id_nilai . '" data-nama="' . $row->nama_lengkap . '"
         >Hapus</button>               
 
         ';
