@@ -238,6 +238,46 @@ class Wali extends CI_Controller {
 		// var_dump($all);die;
 		# code...
 	}
+	public function tambah_guru_proses()
+	{
+		var_dump($_POST);die;
+		$kode_wali = $this->input->post('kode_wali', TRUE);
+		$nama = $this->input->post('nama', TRUE);
+		$kelas = $this->input->post('kelas', TRUE);
+		$username = $this->input->post('username', TRUE);
+		$password = $this->input->post('password', TRUE);
+
+		$message = 'Gagal menambah data !<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+		$cek = $this->WaliModel->getWaliById($kode_wali);
+		if (count($cek) > 1) {
+			$message = 'Wali Kelas Sudah Ada!';
+			// die;
+			$status = false;
+		} else {
+
+			$in = array(
+
+				'id_kelas' => $kelas,
+				'kode_wali' => $kode_wali,
+				'nama_wali' => $nama,
+				'password' => $password,
+				'username' => $username,
+
+			);
+			$this->WaliModel->tambah_Wali($in);
+
+			$message = "Berhasil Menambah Wali Kelas #1";
+			$status = true;
+		}
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
 
 
 

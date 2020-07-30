@@ -26,6 +26,7 @@
 									<th>Kode Wali</th>
 									<th>Nama Lengkap</th>
 									<th>Kelas</th>
+									<th>Mapel</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -49,7 +50,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<h4>Detail Wali</h4>
+					<h4>Detail Guru</h4>
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
@@ -59,10 +60,10 @@
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Id Wali <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Id Guru <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="kode_wali" name="kode_wali" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
+												<input id="id_guru" name="id_guru" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
 
 											</div>
 										</div>
@@ -101,7 +102,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Mapel <span class="required">*</span>
 											</label>
 											<div class="col-sm-9">
-												<select class="form-control select col-md-8 col-sm-8"  name="kota" id="kota" >
+												<select class="form-control select col-md-8 col-sm-8" name="mapel" id="mapel">
 													<option value="">Pilih</option>
 												</select>
 											</div>
@@ -171,8 +172,8 @@
 					$("#loading").hide(); // Sembunyikan loadingnya
 					// set isi dari combobox kota
 					// lalu munculkan kembali combobox kotanya
+					// $("#mapel").html(res.list_kota).show();
 					$("#mapel").html(res.list_kota).show();
-					$("#kota").html(res.list_kota).show();
 				},
 				error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
 					alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
@@ -184,7 +185,7 @@
 
 		var bu = '<?= base_url(); ?>';
 		var url_form_ubah = bu + 'wali/ubah_wali_proses';
-		var url_form_tambah = bu + 'wali/tambah_wali_proses';
+		var url_form_tambah = bu + 'wali/tambah_guru_proses';
 
 		$('body').on('click', '.btn_edit', function() {
 			url_form = url_form_ubah;
@@ -374,9 +375,10 @@
 
 		$('#tambah_act').on('click', function() {
 
-			var kode_wali = $('#kode_wali').val();
+			var id_guru = $('#id_guru').val();
 			var nama = $('#nama').val();
 			var kelas = $('#kelas').val();
+			var mapel = $('#mapel').val();
 			var user_name = $('#username').val();
 			var password = $('#password').val();
 
