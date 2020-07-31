@@ -250,7 +250,7 @@ class Wali extends CI_Controller {
 		$message = 'Gagal menambah data !<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
-		$cek = $this->WaliModel->getWaliById($kode_wali);
+		$cek = $this->WaliModel->getGuruByNik($kode_wali);
 		if (count($cek) > 1) {
 			$message = 'Wali Kelas Sudah Ada!';
 			// die;

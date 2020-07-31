@@ -221,5 +221,12 @@ class WaliModel extends CI_Model
 		
 		# code...
 	}
+	public function getGuruByNik($kode_wali)
+	{
+		$this->db->select('*');
+		$this->db->where('kode_wali', $kode_wali);
+		$query = $this->db->get('wali_kelas');
+		return $query->result();
+	}
 
 }
