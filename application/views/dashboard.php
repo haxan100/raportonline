@@ -46,20 +46,20 @@
 													<div class="byline">
 														<span></span>
 													</div>
-													<?php 
+													<?php
 													// var_dump($visi);
 													$i = 0;
-													foreach ($visi as $ket ) {
+													foreach ($visi as $ket) {
 														$i++;
 
 														$keter = $ket->ket;
 														// var_dump( $keter);
 														// echo $keter;	
-													?>			
-													<h2><?= $i . "." .$keter ?><small></small></h2>
-											<?php 
+													?>
+														<h2><?= $i . "." . $keter ?><small></small></h2>
+													<?php
 													}
-																								
+
 													?>
 
 													</p>
@@ -70,12 +70,26 @@
 											<div class="block">
 												<div class="block_content">
 													<h2 class="title">
-														<a>Who Needs Sundance When You’ve Got&nbsp;Crowdfunding?</a>
+														<a><b>Misi</b></a>
 													</h2>
 													<div class="byline">
-														<span>13 hours ago</span> by <a>Jane Smith</a>
+														<span></span>
 													</div>
-													<p class="excerpt">Film festivals used to be do-or-die moments for movie makers. They were where you met the producers that could fund your project, and if the buyers liked your flick, they’d pay to Fast-forward and… <a>Read&nbsp;More</a>
+													<?php
+													// var_dump($visi);
+													$i = 0;
+													foreach ($misi as $ket) {
+														$i++;
+
+														$keter = $ket->ket;
+														// var_dump( $keter);
+														// echo $keter;	
+													?>
+														<h2><?= $i . "." . $keter ?><small></small></h2>
+													<?php
+													}
+
+													?>
 													</p>
 												</div>
 											</div>

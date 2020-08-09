@@ -27,6 +27,7 @@ class Dashboard extends CI_Controller {
 		= $this->SekolahModel->dataSekolah()->result();
 		$data['visi'] =    $this->
 		SekolahModel->visi()->result();
+		$data['misi'] =    $this->SekolahModel->misi()->result();
 	
 		// var_dump($data['visi']);die;
 

@@ -27,6 +27,17 @@ class SekolahModel extends CI_Model
 
 		return $query;
 	}
+	public function misi()
+
+	{
+		$this->db->select('id_misi,ket');
+		// $this->db->from('data_sekolah d');
+		$this->db->join('misi v', 'v.id = d.misi');
+		$query = $this->db->get('data_sekolah d');
+		// var_dump($this->db->last_query());		die;
+
+		return $query;
+	}
 
 
 
