@@ -543,9 +543,6 @@ class Siswa extends CI_Controller {
 		}
 		
 		$data['listKelas'] = $this->SiswaModel->getAllMapel();
-		// $data['siswa'] = $this->SiswaModel->siswa();
-		// var_dump($this->SiswaModel->siswa());die;
-
 		$data['content'] = 'siswa/data_mapel';
 
 

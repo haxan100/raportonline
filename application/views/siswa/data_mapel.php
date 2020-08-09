@@ -233,7 +233,7 @@
 									title: 'Data Mapel',
 
 					exportOptions: {
-						columns: [1, 2]
+						columns: [1, 2,3]
 					}
 				}, {
 					text: "PDF",
@@ -242,7 +242,7 @@
 										title: 'Data Mapel',
 
 					exportOptions: {
-						columns: [1, 2]
+						columns: [1, 2,3]
 					}
 				}
 
