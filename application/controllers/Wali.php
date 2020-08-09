@@ -39,33 +39,18 @@ class Wali extends CI_Controller {
 
 	}
 	public function getAllWali()
-
 	{
-
-
 		$bu = base_url();
-
 		$dt = $this->WaliModel->data_AllWali($_POST);
-
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
-
 		$datatable['recordsTotal']    = $dt['totalData'];
-
 		$datatable['recordsFiltered'] = $dt['totalData'];
-
 		$datatable['data']            = array();
-
 		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
-
 		// var_dump($dt['data']->result());die();
-
 		$no = $start + 1;
-
 		foreach ($dt['data']->result() as $row) {
-
-
 			$fields = array($no++);
-
 			$fields[] = $row->kode_wali . '<br>';
 			$fields[] = $row->nama_wali . '<br>';
 			$fields[] = $row->nama_kelas . '<br>';
@@ -240,35 +225,43 @@ class Wali extends CI_Controller {
 	}
 	public function tambah_guru_proses()
 	{
-		var_dump($_POST);die;
-		$kode_wali = $this->input->post('kode_wali', TRUE);
+		// var_dump($_POST);die;
+		$nik = $this->input->post('nik', TRUE);
 		$nama = $this->input->post('nama', TRUE);
-		$kelas = $this->input->post('kelas', TRUE);
+		$mapel = $this->input->post('mapel', TRUE);
 		$username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
-
+		$alamat = $this->input->post('alamat', TRUE);
+		$tempat_lahir = $this->input->post('tempat_lahir', TRUE);
+		$tanggal_lahir = $this->input->post('tanggal_lahir', TRUE);
+		$pass = md5($password);
 		$message = 'Gagal menambah data !<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
-		$cek = $this->WaliModel->getGuruByNik($kode_wali);
+		$cek = $this->WaliModel->getGuruMapel($mapel);
 		if (count($cek) > 1) {
-			$message = 'Wali Kelas Sudah Ada!';
-			// die;
+			$message = 'Mapel di Kelas Sudah Ada Yang Mengisi!';
 			$status = false;
 		} else {
-
 			$in = array(
-
-				'id_kelas' => $kelas,
-				'kode_wali' => $kode_wali,
-				'nama_wali' => $nama,
+				// 'id_kelas' => $kelas,
+				'nik' => $nik,
+				'nama_guru' => $nama,
+				'tempat_lahir' => $nama,
+				'tanggal_lahir' => $nama,
+				'alamat' => $nama,
+				'id_mapel' => $mapel,
+				// 'id_mapel' => $mapel,
 				'password' => $password,
+				'tempat_lahir' => $tempat_lahir,
+				'tanggal_lahir' => $tanggal_lahir,
+				'alamat' => $alamat,
 				'username' => $username,
 
 			);
-			$this->WaliModel->tambah_Wali($in);
+			$this->WaliModel->tambah_Guru($in);
 
-			$message = "Berhasil Menambah Wali Kelas #1";
+			$message = "Berhasil Menambah Guru Mapel #1";
 			$status = true;
 		}
 
@@ -278,6 +271,45 @@ class Wali extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+	public function getAllGuru()
+	{
+		$bu = base_url();
+		$dt = $this->WaliModel->data_AllGuru($_POST);
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;
+		foreach ($dt['data']->result() as $row) {
+			$fields = array($no++);
+			$fields[] = $row->nik . '<br>';
+			$fields[] = $row->nama_guru . '<br>';
+			$fields[] = $row->nama_kelas . '<br>';
+			$fields[] = $row->nama_mapel . '<br>';
+			$fields[] = '
+
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_wali="' . $row->nik . '" data-nama="' . $row->nama_guru . '" 
+			data-id_kelas="' . $row->id_kelas . '" 
+			data-username="' . $row->username . '" 
+			data-password="' . $row->password . '" 
+			></i> Ubah</button>
+
+        <button class="btn btn-round btn-danger hapus" data-kode_wali="' . $row->nik . '" data-nama="' . $row->nama_guru . '"
+        >Hapus</button>               
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+	}
 
 
 
@@ -286,4 +318,3 @@ class Wali extends CI_Controller {
 
 
 
-}

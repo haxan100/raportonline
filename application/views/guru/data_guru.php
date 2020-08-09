@@ -23,7 +23,7 @@
 							<thead>
 								<tr>
 									<th>No</th>
-									<th>Kode Wali</th>
+									<th>NIK</th>
 									<th>Nama Lengkap</th>
 									<th>Kelas</th>
 									<th>Mapel</th>
@@ -64,6 +64,14 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<input id="id_guru" name="id_guru" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> NIK<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="nik" name="nik" class="form-control " placeholder="Isikan NIK" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -121,6 +129,30 @@
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<input id="password" name="password" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Tempat Lahir <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="tempat_lahir" name="tempat_lahir" class="form-control " placeholder="Isikan Tempat Lahir" type="text" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Tanggal Lahir <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="tanggal_lahir" name="tanggal_lahir" class="form-control " placeholder="Isikan Tempat Lahir" type="date" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Alamat<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="alamat" name="alamat" class="form-control " placeholder="Isikan Tempat Alamat" type="Alamat" class="form-control">
 
 											</div>
 										</div>
@@ -428,7 +460,7 @@
 				[1, "desc"]
 			],
 			'ajax': {
-				url: bu + 'wali/getAllWali',
+				url: bu + 'wali/getAllGuru',
 				type: 'POST',
 				"data": function(d) {
 
