@@ -12,7 +12,7 @@
 										<li><a href="<?php echo site_url('Wali') ?>">Wali Kelas</a></li>
 										<li><a href="<?php echo site_url('Wali/Guru') ?>">Guru</a></li>
 										<li><a href="<?php echo site_url('Nilai') ?>">Isi Nilai</a></li>
-										<li><a href="index3.html">Dashboard3</a></li>
+										<li><a href="<?php echo site_url('Konfig') ?>">Konfig</a></li>
 									</ul>
 								</li>
 								<li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>

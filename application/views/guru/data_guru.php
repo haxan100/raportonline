@@ -216,30 +216,74 @@
 
 
 		var bu = '<?= base_url(); ?>';
-		var url_form_ubah = bu + 'wali/ubah_wali_proses';
+		var url_form_ubah = bu + 'wali/ubah_guru_proses';
 		var url_form_tambah = bu + 'wali/tambah_guru_proses';
+
+		function mapels(kelas, mapel) {
+
+			// var kelas = $(this).data('id_kelas');
+			// console.log(kelas);
+			// console.log(mapel);
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: "<?php echo base_url("Wali/getMapelFromKelasAndMapel"); ?>",
+
+				data: {
+					kelas: kelas,
+					mapel: mapel,
+				},
+				dataType: "json",
+				beforeSend: function(e) {
+					if (e && e.overrideMimeType) {
+						e.overrideMimeType("application/json;charset=UTF-8");
+					}
+				},
+				success: function(res) { // Ketika proses pengiriman berhasil
+					console.log(res);
+					// return false;
+					$("#loading").hide(); // Sembunyikan loadingnya
+					// set isi dari combobox kota
+					// lalu munculkan kembali combobox kotanya
+					// $("#mapel").html(res.list_kota).show();
+					$("#mapel").html(res.list_kota).show();
+				},
+				error: function(xhr, ajaxOptions, thrownError) { // Ketika ada error
+					alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+				}
+			});
+		}
 
 		$('body').on('click', '.btn_edit', function() {
 			url_form = url_form_ubah;
-			console.log(url_form);
+			// console.log(url_form);
 			$('#tambah_act').hide();
 			// $("#kode_wali").removeAttr('readonly');
 			$("#kode_wali").prop("readonly", true);
-
-
-			// return false;
-			var kode_wali = $(this).data('kode_wali');
+			var nik = $(this).data('kode_wali');
+			var id_guru = $(this).data('id_guru');
 			var nama = $(this).data('nama');
 			var kelas = $(this).data('id_kelas');
+			var mapel = $(this).data('id_mapel');
 			var username = $(this).data('username');
 			var password = $(this).data('password');
-			console.log(kelas)
+			var tempat_lahir = $(this).data('tempat_lahir');
+			var tanggal_lahir = $(this).data('tanggal_lahir');
+			var alamat = $(this).data('alamat');
+			// console.log(mapel);
 
-			$('#kode_wali').val(kode_wali);
+			$('#nik').val(nik);
+			$('#id_guru').val(id_guru);
 			$('#nama').val(nama);
 			$('#kelas').val(kelas);
+			$('#mapel').val(mapel);
+			mapels(kelas, mapel);
 			$('#username').val(username);
 			$('#password').val(password);
+
+			$('#tempat_lahir').val(tempat_lahir);
+			$('#tanggal_lahir').val(tanggal_lahir);
+			$('#alamat').val(alamat);
 
 			$('#Edit').show();
 			$("#kelas").val(parseInt(kelas));
@@ -248,16 +292,16 @@
 		});
 		$('#Edit').on('click', function() {
 
-			var id_wali = $('#id_wali').val();
+			var id_guru = $('#id_guru').val();
+			var nik = $('#nik').val();
 			var nama = $('#nama').val();
 			var kelas = $('#kelas').val();
+			var mapel = $('#mapel').val();
 			var username = $('#username').val();
 			var password = $('#password').val();
-			// var foto = cekDeskripsi();
-
-			// console.log(nama, kelas, jenis_kelamin, tanggal_lahir, tempat_lahir);
-			// return (false);
-			// _draft = 1;
+			var tempat_lahir = $('#tempat_lahir').val();
+			var tanggal_lahir = $('#tanggal_lahir').val();
+			var alamat = $('#alamat').val();
 			if (
 				nama && kelas
 			) {
@@ -476,19 +520,19 @@
 					text: "Excel",
 					extend: "excelHtml5",
 					className: "btn btn-round btn-info",
-					title: 'Data Wali Kelas',
+					title: 'Data Guru Kelas',
 
 					exportOptions: {
-						columns: [1, 2, 3]
+						columns: [1, 2, 3,4]
 					}
 				}, {
 					text: "PDF",
 					extend: "pdfHtml5",
 					className: "<br>btn btn-round btn-danger",
-					title: 'Data Wali Kelas',
+					title: 'Data Guru Kelas',
 
 					exportOptions: {
-						columns: [1, 2, 3]
+						columns: [1, 2, 3,4]
 					}
 				}
 
@@ -498,7 +542,7 @@
 
 			],
 			language: {
-				searchPlaceholder: "Cari Kelas",
+				searchPlaceholder: "Cari",
 
 			},
 			// columnDefs: [{

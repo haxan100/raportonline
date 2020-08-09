@@ -293,8 +293,12 @@ class Wali extends CI_Controller {
 			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_wali="' . $row->nik . '" 
 			data-id_guru="' . $row->id_guru . '" data-nama="' . $row->nama_guru . '" 
 			data-id_kelas="' . $row->id_kelas . '" 
+			data-id_mapel="' . $row->id_mapel . '" 
 			data-username="' . $row->username . '" 
 			data-password="' . $row->password . '" 
+			data-tempat_lahir="' . $row->tempat_lahir . '" 
+			data-tanggal_lahir="' . $row->tanggal_lahir . '" 
+			data-alamat="' . $row->alamat . '" 
 			></i> Ubah</button>
 
 		<button class="btn btn-round btn-danger hapus" data-kode_wali="' . $row->nik . '" 	
@@ -334,6 +338,89 @@ class Wali extends CI_Controller {
 			'message' => $message,
 		));
 	}
+	public function getMapelFromKelasAndMapel()
+	{
+		// var_dump($_POST);die;
+		$all = $this->WaliModel->getAllMapelFromKelasAdnMapel($_POST['kelas'], $_POST['mapel']);
+
+		// $lists = "<option value=''>Pilih</option>";
+
+		foreach ($all as $data) {
+			$lists = "<option value='" . $data->kode_mapel . "'>" . $data->nama_mapel . "</option>"; // Tambahkan tag option ke variabel $lists
+		}
+
+		$callback = array('list_kota' => $lists); // Masukan variabel lists tadi ke dalam array $callback dengan index array : list_kota
+		echo json_encode($callback);
+		// var_dump($all);die;
+		# code...
+	}
+	public function ubah_guru_proses()
+	{
+
+		// var_dump($this->input->post());die;
+
+		$nama = $this->input->post('nama', TRUE);
+		$kelas = $this->input->post('kelas', TRUE);
+		$mapel = $this->input->post('mapel', TRUE);
+		$id_guru = $this->input->post('id_guru', TRUE);
+		$nik = $this->input->post('nik', TRUE);
+		$username = $this->input->post('username', TRUE);
+		$password = $this->input->post('password', TRUE);
+		$tempat_lahir = $this->input->post('tempat_lahir', TRUE);
+		$tanggal_lahir = $this->input->post('tanggal_lahir', TRUE);
+		$alamat = $this->input->post('alamat', TRUE);
+		$message = 'Gagal mengedit data Guru!<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+
+		$in = array(
+
+			'nik' => $nik,
+			'nama_guru' => $nama,
+			'tempat_lahir' => $tempat_lahir,
+			'tanggal_lahir' => $tanggal_lahir,
+			'alamat' => $alamat,
+			'id_kelas' => $kelas,
+			'id_mapel' => $mapel,
+			'username' => $username,
+			'password' => $password,
+		);
+
+		if (empty($nama)) {
+			$status = false;
+			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+		}
+		if (empty($kelas)) {
+			$status = false;
+			$errorInputs[] = array('#kelas', 'Silahkan Isi Kelas');
+		}
+		if (empty($username)) {
+			$status = false;
+			$errorInputs[] = array('#username', 'Silahkan Isi Username');
+		}
+		if (empty($password)) {
+			$status = false;
+			$errorInputs[] = array('#password', 'Silahkan Isi Password');
+		}
+
+		if ($status) {
+
+			if ($this->WaliModel->edit_guru($in, $id_guru)) {
+
+				$message = "Berhasil Mengubah Guru Kelas #1";
+			}
+		} else {
+			$message = "Gagal Mengubah Guru Kelas #1";
+		}
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+
+
 	}
 
 

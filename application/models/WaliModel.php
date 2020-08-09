@@ -395,5 +395,27 @@ class WaliModel extends CI_Model
 		$query = $this->db->get('guru');
 		return $query->result();
 	}
+	public function getAllMapelFromKelasAdnMapel($kelas,$mapel)
+	{
+
+		$this->db->select('*');
+
+		$this->db->where('id_kelas', $kelas);
+		$this->db->where('kode_mapel', $mapel);
+		$query = $this->db->get('mapel');
+		return $query->result();
+
+
+
+		# code...
+	}
+	public function edit_guru($in, $id_guru)
+
+	{
+
+		$this->db->where('id_guru', $id_guru);
+		return $this->db->update('guru', $in);
+
+	}
 
 }
