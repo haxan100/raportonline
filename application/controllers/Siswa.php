@@ -705,6 +705,16 @@ class Siswa extends CI_Controller {
 			'message' => $message,
 		));
 	}
+	public function downloadTemplateHarga()
+
+	{$this->load->helper('download');
+
+
+		// Use it when necessary
+
+		$sFileName = 'assets/template/kelas.xlsx'; 
+		force_download($sFileName, NULL);
+	}
 
 
 

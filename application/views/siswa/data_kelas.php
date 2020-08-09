@@ -156,7 +156,7 @@
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Import Harga </h4>
+				<h4 class="modal-title">Import </h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
@@ -170,6 +170,9 @@
 								<input type="file" class="custom-file-input" id="validatedCustomFile" name="fileURL" required="required" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
 
 								<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+								<span class="btn btn-info"><a href="../Siswa/downloadTemplateHarga" title="Download Template Excel" class="download" style="color: #fff">
+										<i class="fas fa-cloud-download-alt"></i>Download Template </a>
+								</span>
 							</div>
 						</div>
 				</div>
