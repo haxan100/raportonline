@@ -376,5 +376,24 @@ class WaliModel extends CI_Model
 
 		return $this->db->insert('guru', $in);
 	}
+	public function HapusGuru($id_guru)
+	{
+		$this->db->where('id_guru', $id_guru);
+
+		$this->db->delete('guru');
+		$query = $this->db->get('wali_kelas s');
+
+		return $query->result();
+
+
+		# code...
+	}
+	public function getGuruById($id_guru)
+	{
+		$this->db->select('*');
+		$this->db->where('id_guru', $id_guru);
+		$query = $this->db->get('guru');
+		return $query->result();
+	}
 
 }

@@ -274,16 +274,16 @@
 		// });
 		$('body').on('click', '.hapus', function() {
 
-			var kode_wali = $(this).data('kode_wali');
+			var id_guru = $(this).data('id_guru');
 			var nama = $(this).data('nama');
 			// var foto = $(this).data('foto');
-			// console.log(nisn)
+			// console.log(kode_wali)
 			// return false;
 			// var c = confirm('Apakah anda yakin akan menghapus Siswa: "' + nama + '" ?');
 			// $('#Edit').hide();
 			Swal.fire({
 				title: 'Apakah Anda Yakin ?',
-				text: "Anda akan Menghapus Siswa: " + nama,
+				text: "Anda akan Menghapus Guru: " + nama,
 				icon: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
@@ -293,11 +293,11 @@
 
 				if (result.value) {
 					$.ajax({
-						url: bu + 'wali/hapusWali',
+						url: bu + 'wali/hapusGuru',
 						dataType: 'json',
 						method: 'POST',
 						data: {
-							kode_wali: kode_wali
+							id_guru: id_guru
 						}
 					}).done(function(e) {
 						console.log(e);

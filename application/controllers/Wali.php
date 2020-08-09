@@ -290,13 +290,16 @@ class Wali extends CI_Controller {
 			$fields[] = $row->nama_mapel . '<br>';
 			$fields[] = '
 
-			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_wali="' . $row->nik . '" data-nama="' . $row->nama_guru . '" 
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_wali="' . $row->nik . '" 
+			data-id_guru="' . $row->id_guru . '" data-nama="' . $row->nama_guru . '" 
 			data-id_kelas="' . $row->id_kelas . '" 
 			data-username="' . $row->username . '" 
 			data-password="' . $row->password . '" 
 			></i> Ubah</button>
 
-        <button class="btn btn-round btn-danger hapus" data-kode_wali="' . $row->nik . '" data-nama="' . $row->nama_guru . '"
+		<button class="btn btn-round btn-danger hapus" data-kode_wali="' . $row->nik . '" 	
+			data-id_guru="' . $row->id_guru . '" 
+			data-nama="' . $row->nama_guru . '"
         >Hapus</button>               
 
         ';
@@ -308,6 +311,28 @@ class Wali extends CI_Controller {
 		echo json_encode($datatable);
 
 		exit();
+	}
+	public function hapusGuru()
+	{
+		// var_dump($this->input->post());die;
+
+		$id_guru = $this->input->post('id_guru', TRUE);
+		$data = $this->WaliModel->getGuruById($id_guru);
+		$status = false;
+
+		$message = 'Gagal menghapus Wali Kelas!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat Wali Kelas yang dimaksud.';
+		} else {
+			$this->WaliModel->HapusGuru($id_guru);
+
+			$status = true;
+			$message = 'Berhasil menghapus Guru Kelas: <b>' . $data[0]->nama_guru . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+		));
 	}
 	}
 
