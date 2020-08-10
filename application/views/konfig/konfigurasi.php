@@ -331,7 +331,60 @@
 			// EditVisi
 			$('#EditVisi').hide()
 			$("#formVisi").submit();
-		})
+		});
+
+		$('body').on('click', '.btn_hapus_visi', function() {
+
+			var id_visi = $(this).data('id_visi');
+			var ket = $(this).data('ket');
+
+			Swal.fire({
+				title: 'Apakah Anda Yakin ?',
+				text: "Anda akan Menghapus Visi : " + ket,
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+
+				if (result.value) {
+					$.ajax({
+						url: bu + 'Konfig/hapusVisi',
+						dataType: 'json',
+						method: 'POST',
+						data: {
+							id_visi: id_visi
+						}
+					}).done(function(e) {
+						console.log(e);
+						Swal.fire(
+							'Deleted!',
+							e.message,
+							'success'
+						)
+						$('#modal-visi').modal('hide');
+						datatable2.ajax.reload();
+
+
+
+					}).fail(function(e) {
+						console.log('gagal');
+						console.log(e);
+						var message = 'Terjadi Kesalahan. #JSMP01';
+						// notifikasi('#alertNotif', message, true);
+					});
+
+
+
+
+				}
+			})
+
+
+
+
+		});
 
 
 

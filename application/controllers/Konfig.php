@@ -200,7 +200,8 @@ class Konfig extends CI_Controller {
 			<button class="btn btn-round btn-info btn_edit_visi"  data-toggle="modal" data-target=".modal_visi" 
 			data-ket="' . $row->ket . '" data-id_visi="' . $row->id_visi . '" 
 			></i> Ubah</button>    
-			<button class="btn btn-round btn-info btn_edit_visi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+
+			<button class="btn btn-round btn-danger btn_hapus_visi"  
 			data-ket="' . $row->ket . '" data-id_visi="' . $row->id_visi . '" 
 			></i> Hapus</button>           
 
@@ -274,6 +275,29 @@ class Konfig extends CI_Controller {
 			'status' => $status,
 			'message' => $message,
 			'errorInputs' => $errorInputs
+		));
+	}
+	public function hapusVisi()
+	{
+		// var_dump($this->input->post());die;
+
+		$id_visi = $this->input->post('id_visi', TRUE);
+
+		$data = $this->KonfigModel->getVisiById($id_visi);
+		$status = false;
+
+		$message = 'Gagal menghapus Visi!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat Visi yang dimaksud.';
+		} else {
+			$this->KonfigModel->HapusVisi($id_visi);
+
+			$status = true;
+			$message = 'Berhasil menghapus Visi: <b>' . $data[0]->ket . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
 		));
 	}
 

@@ -212,5 +212,24 @@ class KonfigModel extends CI_Model
 		$this->db->where('id_visi', $id);
 		return $this->db->update('visi', $in);
 	}
+	public function getVisiById($kode_wali)
+	{
+		$this->db->select('*');
+		$this->db->where('id_visi', $kode_wali);
+		$query = $this->db->get('visi');
+		return $query->result();
+	}
+	public function HapusVisi($id_visi)
+	{
+		$this->db->where('id_visi', $id_visi);
+
+		$this->db->delete('visi');
+		$query = $this->db->get('visi');
+
+		return $query->result();
+
+
+		# code...
+	}
 
 }
