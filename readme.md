@@ -14,6 +14,7 @@ Untuk donasi bisa menggunakan pulsa/gopay/dana/ovo seikhlasnya : <b>089602350857
 
 
 <p align="center">
+![](screenshots/1 (1).png "Admin Panel Home")
   <img src="screenshoot/1 (1).png" width="350" title="hover text">
   <img src="screenshoot/1 (2).png" width="350" alt="accessibility text">
     <img src="screenshoot/1 (3).png" width="350" alt="accessibility text">
