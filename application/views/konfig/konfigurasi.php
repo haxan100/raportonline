@@ -63,12 +63,14 @@
 
 					<div class="card-box table-responsive">
 
-						<table id="datatable_dconfig" class="table table-striped table-bordered" style="width:100%">
+						<button type="button" class="btn btn-primary btn_tambah_visi" data-toggle="modal" data-target=".modal_visi">Tambah</button>
+
+						<table id="datatable_visi_config" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
 									<th>No</th>
 									<th>Visi</th>
-									<th>Edit</th>
+									<th>Aksi</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -201,11 +203,66 @@
 
 	</div>
 </div>
+
+<div class="modal fade modal_visi" id="modal-visi" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<form id="formVisi">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h4>Visi Sekolah</h4>
+
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+
+								<div class="x_content">
+									<br />
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+										<input type="text" name="id_visi" id="id_visi" hidden>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Visi<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<textarea name="visi" id="visi" cols="15" rows="10" class="form-control"></textarea>
+
+
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="EditVisi">Save changes</button>
+
+					<button type="button" class="btn btn-success" id="tambah_Visi">Tambah</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>
+
+
+
+
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function(event) {
 		var bu = '<?= base_url(); ?>';
 		var url_form_ubah = bu + 'konfig/ubah_konfig_proses';
+		var url_form_ubah_visi = bu + 'konfig/ubah_konfig_visi_proses';
+
+		var url_form_visi_tambah = bu + 'konfig/tambah_visi_proses';
 		var url_form_tambah = bu + 'wali/tambah_guru_proses';
+
+
 
 		$('body').on('click', '.btn_edit_det', function() {
 			url_form = url_form_ubah;
@@ -231,6 +288,53 @@
 
 
 		});
+
+		$('body').on('click', '.btn_edit_visi', function() {
+			url_form = url_form_ubah_visi;
+			// console.log(url_form);
+			$('#tambah_Visi').hide();
+			var visi = $(this).data('ket');
+			var id_visi = $(this).data('id_visi');
+			// console.log(id_visi);
+			$('#visi').val(visi);
+			$('#id_visi').val(id_visi);
+
+			$('#Edit').show();
+			// $("#kelas").val(parseInt(kelas));
+
+
+		});
+		$('#EditVisi').on('click', function() {
+
+			var visi = $('#visi').val();
+			// console.log(visi);
+			// return false;
+			$("#formVisi").submit();
+		});
+
+		// btn_tambah_visi
+		$('.btn_tambah_visi').on('click', function() {
+			var visi = $('#visi').val();
+			url_form = url_form_visi_tambah;
+			// console.log(visi);
+			// return false;
+			// EditVisi
+			$('#EditVisi').hide()
+
+		})
+		$('#tambah_Visi').on('click', function() {
+			var visi = $('#visi').val();
+			// url_form = url_form_visi_tambah;
+
+			console.log(visi);
+			// return false;
+			// EditVisi
+			$('#EditVisi').hide()
+			$("#formVisi").submit();
+		})
+
+
+
 		$('#Edit').on('click', function() {
 
 			var nama = $('#nama_sekolah').val();
@@ -249,9 +353,24 @@
 			}
 			// return false;
 		});
-		// var table = $('#datatable-buttons').DataTable({
-		// 	lengthChange: false,
-		// 	buttons: ['copy', 'excel', 'pdf']
+
+		// $('#Edit').on('click', function() {
+
+		// 	var nama = $('#nama_sekolah').val();
+		// 	var alamat = $('#alamat').val();
+		// 	var no_telp = $('#no_telp').val();
+		// 	var kepala_sekolah = $('#kepala_sekolah').val();
+		// 	var madeskripsipel = $('#deskripsi').val();
+
+		// 	if (
+		// 		nama && alamat
+		// 	) {
+		// 		$("#form").submit();
+		// 		// console.log(_foto);
+		// 		// return;
+		// 		// console.log("draft");
+		// 	}
+		// 	// return false;
 		// });
 
 
@@ -316,6 +435,58 @@
 			});
 			return false;
 		});
+		$("#formVisi").submit(function(e) {
+			// console.log('form submitted');
+			// return false;
+
+			$.ajax({
+				url: url_form,
+				method: 'post',
+				dataType: 'json',
+				data: new FormData(this),
+				processData: false,
+				contentType: false,
+				cache: false,
+				async: false,
+			}).done(function(e) {
+				// console.log(e);
+				if (e.status) {
+					notifikasi('#alertNotif', e.message, false);
+					// Swal.fire(e.message)
+					Swal.fire(
+						':)',
+						e.message,
+						'success'
+					)
+
+					$('#modal-visi').modal('hide');
+					// setTimeout(function() {
+					// 	location.reload();
+					// }, 4000);
+					datatable2.ajax.reload();
+					// window.location.reload();
+					// resetForm();
+				} else {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'terjadi kesalahan!',
+
+					})
+				}
+			}).fail(function(e) {
+				// console.log(e);
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'terjadi kesalahan!',
+
+				})
+				notifikasi('#alertNotif', 'Terjadi kesalahan!', true);
+			});
+			return false;
+		});
+
 
 		function notifikasiModal(modal, sel, msg, err) {
 			var alert_type = 'alert-success ';
@@ -327,9 +498,58 @@
 			}, 500);
 		}
 
+		var datatable2 = $('#datatable_visi_config').DataTable({
+			// dom: "Bfrltip",
+			// 'pageLength': 10,
+			"bLengthChange": false,
+			"dom": "lfrti",
+			"searching": false,
+			"responsive": true,
+			"processing": true,
+			"bProcessing": true,
+			"autoWidth": false,
+			"serverSide": true,
+
+
+			"columnDefs": [{
+					"targets": 0,
+					"className": "dt-body-center dt-head-center",
+					"width": "20px",
+					"orderable": false
+				},
+				{
+					"targets": 1,
+					"className": "dt-head-center"
+				},
+				{
+					"targets": 2,
+					"className": "dt-head-center"
+				},
+			],
+			"order": [
+				[1, "desc"]
+			],
+			'ajax': {
+				url: bu + 'Konfig/getAllVisi',
+				type: 'POST',
+				"data": function(d) {
+
+					return d;
+				}
+			},
+			language: {
+				searchPlaceholder: "Cari",
+
+			},
+
+		});
+
 		var datatable = $('#datatable_config').DataTable({
 			// dom: "Bfrltip",
 			// 'pageLength': 10,
+			"bLengthChange": false,
+			"dom": "lfrti",
+			"searching": false,
 			"responsive": true,
 			"processing": true,
 			"bProcessing": true,

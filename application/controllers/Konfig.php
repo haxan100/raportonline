@@ -181,6 +181,101 @@ class Konfig extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+	public function getAllVisi()
+	{
+		$bu = base_url();
+		$dt = $this->KonfigModel->visi_Sekolah($_POST);
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;
+		foreach ($dt['data']->result() as $row) {
+			$fields = array($no++);
+			$fields[] = $row->ket . '<br>';
+			$fields[] = '
+
+			<button class="btn btn-round btn-info btn_edit_visi"  data-toggle="modal" data-target=".modal_visi" 
+			data-ket="' . $row->ket . '" data-id_visi="' . $row->id_visi . '" 
+			></i> Ubah</button>    
+			<button class="btn btn-round btn-info btn_edit_visi"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			data-ket="' . $row->ket . '" data-id_visi="' . $row->id_visi . '" 
+			></i> Hapus</button>           
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+	public function tambah_visi_proses()
+	{
+
+		// var_dump($_POST);die;
+		$visi = $this->input->post('visi', TRUE);
+
+		$message = 'Gagal menambah data !<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+
+			$in = array(
+
+				'ket' => $visi,
+			'id' => 1,
+			);
+			$this->KonfigModel->tambah_Visi($in);
+
+			$message = "Berhasil Menambah Visi Sekolah ";
+			$status = true;
+		
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+
+	public function ubah_konfig_visi_proses()
+	{
+
+		// var_dump($this->input->post());die;
+		// var_dump($_FILES);die;
+		$visi = $this->input->post('visi', TRUE);
+		$id_visi = $this->input->post('id_visi', TRUE);
+		$status = true;
+		$errorInputs[] = array('#visi', 'Berhasil Mengubah Visi Sekolah');
+
+			$in = array(
+			'ket' => $visi,
+		);
+
+		if (empty($visi)) {
+			$status = false;
+			$errorInputs[] = array('#visi', 'Silahkan Isi Nama Sekolah');
+		}
+		if ($status) {
+
+			if ($this->KonfigModel->edit_visi($in,$id_visi)) {
+
+				$message = "Berhasil Mengubah Visi Sekolah";
+			}
+		} else {
+			$message = "Gagal Mengubah Visi sekolah #1";
+		}
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
 
 	
 
