@@ -107,6 +107,12 @@ class KonfigModel extends CI_Model
 
 		);
 	}
+	public function edit_konfig($in)
 
+	{
+
+		$this->db->where('id',1);
+		return $this->db->update('data_sekolah', $in);
+	}
 
 }

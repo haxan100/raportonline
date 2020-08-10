@@ -1,5 +1,11 @@
 <div class="col-md-12 col-sm-12 ">
 	<div class="x_panel">
+		<style>
+			.dropzone {
+				min-height: 30px;
+				border: 1px solid #e5e5e5;
+			}
+		</style>
 		<div class="x_title">
 			<h2>Data Sekolah</h2>
 			<style>
@@ -26,6 +32,7 @@
 									<th>No Telp</th>
 									<th>Kepala Sekolah</th>
 									<th>Deskripsi</th>
+									<th>Logo</th>
 									<th>Edit</th>
 								</tr>
 							</thead>
@@ -169,6 +176,14 @@
 												<input id="Deskripsi" name="Deskripsi" class="form-control " placeholder="Isikan Deskripsi" type="text" class="form-control">
 											</div>
 										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Logo <span class="required">*</span>
+											</label>
+											<div class="col-sm-9">
+												<input type="file" accept="image/x-png,image/gif,image/jpeg,image/jpg;" name="foto" id="foto" class="dropzone biz-dropzone">
+
+											</div>
+										</div>
 									</form>
 								</div>
 							</div>
@@ -189,7 +204,7 @@
 <script type="text/javascript">
 	document.addEventListener("DOMContentLoaded", function(event) {
 		var bu = '<?= base_url(); ?>';
-		var url_form_ubah = bu + 'wali/ubah_guru_proses';
+		var url_form_ubah = bu + 'konfig/ubah_konfig_proses';
 		var url_form_tambah = bu + 'wali/tambah_guru_proses';
 
 		$('body').on('click', '.btn_edit_det', function() {
@@ -203,7 +218,7 @@
 			var no_telp = $(this).data('no_telp');
 			var kepala_sekolah = $(this).data('kepala_sekolah');
 			var deskripsi = $(this).data('deskripsi');
-			console.log(deskripsi);
+			// console.log(deskripsi);
 
 			$('#nama_sekolah').val(nama);
 			$('#alamat').val(alamat);
@@ -218,18 +233,14 @@
 		});
 		$('#Edit').on('click', function() {
 
-			var id_guru = $('#id_guru').val();
-			var nik = $('#nik').val();
-			var nama = $('#nama').val();
-			var kelas = $('#kelas').val();
-			var mapel = $('#mapel').val();
-			var username = $('#username').val();
-			var password = $('#password').val();
-			var tempat_lahir = $('#tempat_lahir').val();
-			var tanggal_lahir = $('#tanggal_lahir').val();
+			var nama = $('#nama_sekolah').val();
 			var alamat = $('#alamat').val();
+			var no_telp = $('#no_telp').val();
+			var kepala_sekolah = $('#kepala_sekolah').val();
+			var madeskripsipel = $('#deskripsi').val();
+
 			if (
-				nama && kelas
+				nama && alamat
 			) {
 				$("#form").submit();
 				// console.log(_foto);
@@ -268,7 +279,7 @@
 				cache: false,
 				async: false,
 			}).done(function(e) {
-				console.log(e);
+				// console.log(e);
 				if (e.status) {
 					notifikasi('#alertNotif', e.message, false);
 					// Swal.fire(e.message)
@@ -294,7 +305,13 @@
 					})
 				}
 			}).fail(function(e) {
-				console.log(e);
+				// console.log(e);
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'terjadi kesalahan!',
+
+				})
 				notifikasi('#alertNotif', 'Terjadi kesalahan!', true);
 			});
 			return false;
