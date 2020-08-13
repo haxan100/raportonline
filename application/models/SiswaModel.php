@@ -493,7 +493,7 @@ class SiswaModel extends CI_Model
 
 	{
 		$columns = array(
-			'nama_mapel',
+			'm.nama_mapel',
 			// 'p.created_at',
 
 			// 'p.stok',
@@ -509,7 +509,7 @@ class SiswaModel extends CI_Model
 		);
 		// untuk search
 		$columnsSearch = array(
-			'nama_mapel',
+			'm.nama_mapel',
 
 
 			// 'p.judul',
@@ -526,13 +526,13 @@ class SiswaModel extends CI_Model
 
 		// gunakan join disini
 
-		$from = 'mapel k';
+		$from = 'mapel m';
 
 
 
 		// custom SQL
 
-		$sql = "SELECT* FROM {$from} 
+		$sql = "SELECT * FROM {$from}  join kelas k on k.id_kelas = m.id_kelas
 		";
 
 
@@ -669,10 +669,11 @@ class SiswaModel extends CI_Model
 		$this->db->where('kode_mapel', $id_mapel);
 		return $this->db->update('mapel', $in);
 	}
-	public function getMapelByNama($nama)
+	public function getMapelByNama($nama,$kelas)
 	{
 		$this->db->select('*');
 		$this->db->where('nama_mapel', $nama);
+		$this->db->where('id_kelas', $kelas);
 		$query = $this->db->get('mapel');
 		return $query->result();
 		# code...

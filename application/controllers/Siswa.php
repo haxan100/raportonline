@@ -542,7 +542,10 @@ class Siswa extends CI_Controller {
 			exit();
 		}
 		
-		$data['listKelas'] = $this->SiswaModel->getAllMapel();
+		$data['listMapel'] = $this->SiswaModel->getAllMapel();
+
+		$data['listKelas'] = $this->SiswaModel->getAllKelas();
+		// var_dump($data['listKelas']);die;
 		$data['content'] = 'siswa/data_mapel';
 
 
@@ -576,9 +579,10 @@ class Siswa extends CI_Controller {
 			$fields[] = $row->kode_mapel . '<br>';
 			$fields[] = $row->nama_mapel . '<br>';
 			$fields[] = $row->kkm . '<br>';
+			$fields[] = $row->nama_kelas . '<br>';
 			$fields[] = '
 
-       	 <button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_mapel="' . $row->kode_mapel . ' " data-nama="' . $row->nama_mapel . '" data-kkm="' . $row->kkm . '" ></i> Ubah</button>
+       	 <button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_mapel="' . $row->kode_mapel . ' " data-nama="' . $row->nama_mapel . '" data-kkm="' . $row->kkm . '" data-id_kelas="' . $row->id_kelas . '" ></i> Ubah</button>
 
         <button class="btn btn-round btn-danger hapus" data-kode_mapel="' . $row->kode_mapel . '" data-nama="' . $row->nama_mapel . '"
         >Hapus</button>               
@@ -600,6 +604,7 @@ class Siswa extends CI_Controller {
 		$nama = $this->input->post('nama', TRUE);
 		$kode_mapel = $this->input->post('kode_mapel', TRUE);
 		$kkm = $this->input->post('kkm', TRUE);
+		$id_kelas = $this->input->post('kelas', TRUE);
 
 		$message = 'Gagal mengedit data Mapel!<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
@@ -609,6 +614,7 @@ class Siswa extends CI_Controller {
 
 			'nama_mapel' => $nama,
 			'kkm' => $kkm,
+			'id_kelas' => $id_kelas,
 		);
 		// var_dump($in);die();
 
@@ -648,16 +654,17 @@ class Siswa extends CI_Controller {
 		));
 	}
 	public function tambah_mapel_proses()
-	{
+		{
 		$nama = $this->input->post('nama', TRUE);
 		$kkm = $this->input->post('kkm', TRUE);
+		$kelas = $this->input->post('kelas', TRUE);
 
 		$message = 'Gagal menambah data Mapel!<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
-		$cek_kelas = $this->SiswaModel->getMapelByNama($nama);
-		// var_dump(count($cek_kelas) > 1);die;
-		if (count($cek_kelas) > 1) {
+		$cek_kelas = $this->SiswaModel->getMapelByNama($nama,$kelas);
+		// var_dump(count($cek_kelas));die;
+		if (count($cek_kelas) >= 1) {
 			$message = 'Mapel Sudah Ada!';
 			// die;
 			$status = false;
@@ -667,6 +674,7 @@ class Siswa extends CI_Controller {
 
 				'nama_mapel' => $nama,
 				'kkm' => $kkm,
+				'id_kelas' => $kelas,
 
 			);
 			$this->SiswaModel->tambah_mapel($in);

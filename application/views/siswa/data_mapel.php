@@ -58,6 +58,7 @@
 									<th>Kode Mapel</th>
 									<th>Nama Mapel</th>
 									<th>KKM</th>
+									<th>Kelas</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
@@ -102,8 +103,26 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama Mapel <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="nama" name="nama" class="form-control " placeholder="Isikan Nama Kelas" type="text" class="form-control">
+												<input id="nama" name="nama" class="form-control " placeholder="Isikan Nama Mapel" type="text" class="form-control">
 
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama Kelas <span class="required">*</span>
+											</label>
+											<div class="col-sm-9">
+												<select class="form-control select col-md-8 col-sm-8" name="kelas" id="kelas">
+													<option value="default" desable>Pilih Kelas</option>
+													<?php
+													foreach ($listKelas as $r) {
+
+														// die;
+														echo '
+							<option value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
+							';
+													}
+													?>
+												</select>
 											</div>
 										</div>
 										<div class="item form-group">
@@ -230,19 +249,19 @@
 					text: "Excel",
 					extend: "excelHtml5",
 					className: "btn btn-round btn-info",
-									title: 'Data Mapel',
+					title: 'Data Mapel',
 
 					exportOptions: {
-						columns: [1, 2,3]
+						columns: [1, 2, 3,4]
 					}
 				}, {
 					text: "PDF",
 					extend: "pdfHtml5",
 					className: "<br>btn btn-round btn-danger",
-										title: 'Data Mapel',
+					title: 'Data Mapel',
 
 					exportOptions: {
-						columns: [1, 2,3]
+						columns: [1, 2, 3,4]
 					}
 				}
 
@@ -279,13 +298,15 @@
 			var nama = $(this).data('nama');
 			var kode_mapel = $(this).data('kode_mapel');
 			var kkm = $(this).data('kkm');
-			console.log(nama, kode_mapel, kkm)
+			var id_kelas = $(this).data('id_kelas');
+			// console.log(id_kelas)
 
 			$('#nama').val(nama);
 			$('#kode_mapel').val(kode_mapel);
 			$('#Edit').show();
 			$("#kode_mapel").val(parseInt(kode_mapel));
 			$("#kkm").val(parseInt(kkm));
+			$("#kelas").val(parseInt(id_kelas));
 
 
 		});
@@ -294,6 +315,7 @@
 			var nama = $('#nama').val();
 			var kode_mapel = $('#kode_mapel').val();
 			var kkm = $('#kkm').val();
+			var kelas = $('#kelas').val();
 
 			if (
 				nama
@@ -439,6 +461,7 @@
 
 			var nama = $('#nama').val();
 			var kkm = $('#kkm').val();
+			var kkm = $('#kelas').val();
 
 			if (
 				nama
