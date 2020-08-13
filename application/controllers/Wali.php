@@ -196,6 +196,7 @@ class Wali extends CI_Controller {
 		if (!$this->isLoggedInAdmin()) {
 
 			echo 'Anda Harus Login!';
+			 redirect('login'); 
 
 			exit();
 		}

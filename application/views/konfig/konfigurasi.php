@@ -98,6 +98,7 @@
 				<div class="col-sm-12">
 
 					<div class="card-box table-responsive">
+						<button type="button" class="btn btn-primary btn_tambah_misi" data-toggle="modal" data-target=".modal_misi">Tambah</button>
 
 						<table id="datatable_misi" class="table table-striped table-bordered" style="width:100%">
 							<thead>
@@ -250,6 +251,53 @@
 	</div>
 </div>
 
+<div class="modal fade modal_misi" id="modal-misi" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<form id="formMisi">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<h4>Misi Sekolah</h4>
+
+					<div class="row">
+						<div class="col-md-12 col-sm-12 ">
+							<div class="x_panel">
+
+								<div class="x_content">
+									<br />
+									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+										<input type="text" name="id_misi" id="id_misi" hidden>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name">Misi<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<textarea name="misi" id="misi" cols="15" rows="10" class="form-control"></textarea>
+
+
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="EditMisi">Save changes</button>
+
+					<button type="button" class="btn btn-success" id="tambah_Misi">Tambah</button>
+				</div>
+			</div>
+		</form>
+
+	</div>
+</div>
+
+
 
 
 
@@ -258,10 +306,12 @@
 		var bu = '<?= base_url(); ?>';
 		var url_form_ubah = bu + 'konfig/ubah_konfig_proses';
 		var url_form_ubah_visi = bu + 'konfig/ubah_konfig_visi_proses';
-
 		var url_form_visi_tambah = bu + 'konfig/tambah_visi_proses';
 		var url_form_tambah = bu + 'wali/tambah_guru_proses';
 
+		var url_form_misi_tambah = bu + 'konfig/tambah_misi_proses';
+
+		var url_form_ubah_misi = bu + 'konfig/ubah_konfig_misi_proses';
 
 
 		$('body').on('click', '.btn_edit_det', function() {
@@ -312,7 +362,6 @@
 			$("#formVisi").submit();
 		});
 
-		// btn_tambah_visi
 		$('.btn_tambah_visi').on('click', function() {
 			var visi = $('#visi').val();
 			url_form = url_form_visi_tambah;
@@ -539,6 +588,57 @@
 			});
 			return false;
 		});
+		$("#formMisi").submit(function(e) {
+			// console.log('form submitted');
+			// return false;
+
+			$.ajax({
+				url: url_form,
+				method: 'post',
+				dataType: 'json',
+				data: new FormData(this),
+				processData: false,
+				contentType: false,
+				cache: false,
+				async: false,
+			}).done(function(e) {
+				// console.log(e);
+				if (e.status) {
+					notifikasi('#alertNotif', e.message, false);
+					// Swal.fire(e.message)
+					Swal.fire(
+						':)',
+						e.message,
+						'success'
+					)
+
+					$('#modal-misi').modal('hide');
+					// setTimeout(function() {
+					// 	location.reload();
+					// }, 4000);
+					datatableMisi.ajax.reload();
+					// window.location.reload();
+					// resetForm();
+				} else {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'terjadi kesalahan!',
+
+					})
+				}
+			}).fail(function(e) {
+				// console.log(e);
+				Swal.fire({
+					icon: 'error',
+					title: 'Oops...',
+					text: 'terjadi kesalahan!',
+
+				})
+				notifikasi('#alertNotif', 'Terjadi kesalahan!', true);
+			});
+			return false;
+		});
 
 
 		function notifikasiModal(modal, sel, msg, err) {
@@ -646,6 +746,142 @@
 				searchPlaceholder: "Cari",
 
 			},
+
+		});
+		var datatableMisi = $('#datatable_misi').DataTable({
+			// dom: "Bfrltip",
+			// 'pageLength': 10,
+			"bLengthChange": false,
+			"dom": "lfrti",
+			"searching": false,
+			"responsive": true,
+			"processing": true,
+			"bProcessing": true,
+			"autoWidth": false,
+			"serverSide": true,
+
+
+			"columnDefs": [{
+					"targets": 0,
+					"className": "dt-body-center dt-head-center",
+					"width": "20px",
+					"orderable": false
+				},
+				{
+					"targets": 1,
+					"className": "dt-head-center"
+				},
+				{
+					"targets": 2,
+					"className": "dt-head-center"
+				},
+			],
+			"order": [
+				[1, "desc"]
+			],
+			'ajax': {
+				url: bu + 'Konfig/getAllMisi',
+				type: 'POST',
+				"data": function(d) {
+
+					return d;
+				}
+			},
+			language: {
+				searchPlaceholder: "Cari",
+
+			},
+
+		});
+		$('body').on('click', '.btn_edit_misi', function() {
+			url_form = url_form_ubah_misi;
+			// console.log(url_form);
+			$('#tambah_Misi').hide();
+			var misi = $(this).data('ket');
+			var id_misi = $(this).data('id_misi');
+			// console.log(id_visi);
+			$('#misi').val(misi);
+			$('#id_misi').val(id_misi);
+
+			$('#Edit').show();
+			// $("#kelas").val(parseInt(kelas));
+
+
+		});
+		$('#EditMisi').on('click', function() {
+
+			var misi = $('#misi').val();
+			// console.log(visi);
+			// return false;
+			$("#formMisi").submit();
+		});
+		$('.btn_tambah_misi').on('click', function() {
+			var misi = $('#misi').val();
+			url_form = url_form_misi_tambah;
+			// console.log(visi);
+			// return false;
+			// EditVisi
+			$('#EditMisi').hide()
+
+		})
+		$('#tambah_Misi').on('click', function() {
+			var misi = $('#misi').val();
+
+			// return false;
+			// EditVisi
+			$('#EditMisi').hide()
+			$("#formMisi").submit();
+		});
+		$('body').on('click', '.btn_hapus_misi', function() {
+
+			var id_misi = $(this).data('id_misi');
+			var ket = $(this).data('ket');
+
+			Swal.fire({
+				title: 'Apakah Anda Yakin ?',
+				text: "Anda akan Menghapus Misi : " + ket,
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+
+				if (result.value) {
+					$.ajax({
+						url: bu + 'Konfig/hapusMisi',
+						dataType: 'json',
+						method: 'POST',
+						data: {
+							id_misi: id_misi
+						}
+					}).done(function(e) {
+						console.log(e);
+						Swal.fire(
+							'Deleted!',
+							e.message,
+							'success'
+						)
+						$('#modal-visi').modal('hide');
+						datatableMisi.ajax.reload();
+
+
+
+					}).fail(function(e) {
+						console.log('gagal');
+						console.log(e);
+						var message = 'Terjadi Kesalahan. #JSMP01';
+						// notifikasi('#alertNotif', message, true);
+					});
+
+
+
+
+				}
+			})
+
+
+
 
 		});
 

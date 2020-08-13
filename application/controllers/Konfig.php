@@ -300,6 +300,124 @@ class Konfig extends CI_Controller {
 			'message' => $message,
 		));
 	}
+	public function getAllMisi()
+	{
+		$bu = base_url();
+		$dt = $this->KonfigModel->misi_Sekolah($_POST);
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+		$no = $start + 1;
+		foreach ($dt['data']->result() as $row) {
+			$fields = array($no++);
+			$fields[] = $row->ket . '<br>';
+			$fields[] = '
+
+			<button class="btn btn-round btn-info btn_edit_misi"  data-toggle="modal" data-target=".modal_misi" 
+			data-ket="' . $row->ket . '" data-id_misi="' . $row->id_misi . '" 
+			></i> Ubah</button>    
+
+			<button class="btn btn-round btn-danger btn_hapus_misi"  
+			data-ket="' . $row->ket . '" data-id_misi="' . $row->id_misi . '" 
+			></i> Hapus</button>           
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+	public function ubah_konfig_misi_proses()
+	{
+
+		// var_dump($this->input->post());die;
+		// var_dump($_FILES);die;
+		$misi = $this->input->post('misi', TRUE);
+		$id_misi = $this->input->post('id_misi', TRUE);
+		$status = true;
+		$errorInputs[] = array('#misi', 'Berhasil Mengubah misi Sekolah');
+
+		$in = array(
+			'ket' => $misi,
+		);
+
+		if (empty($misi)) {
+			$status = false;
+			$errorInputs[] = array('#misi', 'Silahkan Isi Misi Sekolah');
+		}
+		if ($status) {
+
+			if ($this->KonfigModel->edit_misi($in, $id_misi)) {
+
+				$message = "Berhasil Mengubah Misi Sekolah";
+			}
+		} else {
+			$message = "Gagal Mengubah Misi sekolah #1";
+		}
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+	public function tambah_misi_proses()
+	{
+
+		// var_dump($_POST);die;
+		$misi = $this->input->post('misi', TRUE);
+
+		$message = 'Gagal menambah data !<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+
+		$in = array(
+
+			'ket' => $misi,
+			'id' => 1,
+		);
+		$this->KonfigModel->tambah_Misi($in);
+
+		$message = "Berhasil Menambah Misi Sekolah ";
+		$status = true;
+
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
+	public function hapusMisi()
+	{
+		// var_dump($this->input->post());die;
+
+		$id_misi = $this->input->post('id_misi', TRUE);
+
+		$data = $this->KonfigModel->getMisiById($id_misi);
+		$status = false;
+
+		$message = 'Gagal menghapus Misi!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat Misi yang dimaksud.';
+		} else {
+			$this->KonfigModel->HapusMisi($id_misi);
+
+			$status = true;
+			$message = 'Berhasil menghapus misi: <b>' . $data[0]->ket . '</b>';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+		));
+	}
 
 	
 
