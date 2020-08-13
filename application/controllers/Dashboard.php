@@ -16,6 +16,8 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{	
+
+		// var_dump($_SESSION);die;
 		$data['siswa']= $this->SiswaModel->siswa();
 		$data['kelas'] = $this->SiswaModel->getAllKelas();
 		$data['guru'] = $this->WaliModel->getAllGuru();
