@@ -65,45 +65,53 @@ class login extends CI_Controller {
 		// var_dump($_POST);die;
 		$this->load->library('form_validation');
 		$username = $this->input->post('username', true);
-
 		$password = $this->input->post('password', true);
-
 		$where = array(
 			'username' => $username,
-			'password' => md5($password)
+			'password' => $password
 		);
+		$cek = $this->AdminModel->cek_login("admin", $where)->num_rows(); // cek admin
+		$cekWali = $this->AdminModel->cek_login("wali_kelas", $where)->num_rows(); // cek walikelas
 
-		$cek = $this->AdminModel->cek_login("admin", $where)->num_rows();
-		if ($cek > 0) {
+		if($cek>0){
+			// echo "admin";/
+			$r = $this->AdminModel->cek_login("admin", $where)->row();   
+			$data_session = array(
+				'nama' => $username,
+				'status' => "login",
+				'user' => "admin",
+				'admin_session' => true, // Buat session authenticated dengan value true
+				'id_user' => $r->id_user, // Buat session authenticated
+				'nama' => $r->nama,
+
+			);
+			$this->session->set_userdata($data_session);
+			$status = true;
+			$message = 'Selamat datang <span class="font-weight-bold">' . $r->nama . '</span>, sedang mengalihkan..';
+		}else if($cekWali>0){
+			// echo "guru";
+			$r = $this->AdminModel->cek_login("wali_kelas", $where)->row();
 
 			$data_session = array(
 				'nama' => $username,
 				'status' => "login",
 				'user' => "admin",
+				'admin_session' => true, // Buat session authenticated dengan value true
+				'id_user' => $r->kode_wali, // Buat session authenticated
+				'nama' => $r->nama_wali,
+				'id_kelas' => $r->id_kelas,
+
 			);
 			$this->session->set_userdata($data_session);
-		} else {
+			$status = true;
+			$message = 'Selamat datang Wali Kelas <span class="font-weight-bold"> ' . $r->nama_wali . '</span>, sedang mengalihkan..';
+		}
+
+		 else {
 			$status = false;
 			$message = 'Username Dan Password  Salah!';
 		}
-			$data = $this->AdminModel->login($username);
-			$status = false;
-			$message = 'Username tidak ditemukan!';
-			// var_dump($data->num_rows());die;
-		if ($data->num_rows() == 1) {
 
-        $r = $data->row();   
-          $session = array(
-            'admin_session' => true, // Buat session authenticated dengan value true
-            'id_user' => $r->id_user, // Buat session authenticated
-            'nama' => $r->nama, // Buat session authenticated
-          );
-		  $this->session->set_userdata($session);
-		   $status = true;
-          $message = 'Selamat datang <span class="font-weight-bold">' . $r->nama . '</span>, sedang mengalihkan..';
-      } else {
-        $message = 'Username & password tidak cocok!';
-      }
 		echo json_encode(array(
 			'status' => $status,
 			'message' => $message,
