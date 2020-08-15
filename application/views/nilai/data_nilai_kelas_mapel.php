@@ -57,6 +57,7 @@
 							<thead>
 								<tr>
 									<th>#</th>
+									<th>Nama Kelas</th>
 									<th>Nama Mapel</th>
 									<th>Nama Siswa</th>
 									<td>Nilai Harian</td>
@@ -429,6 +430,15 @@
 
 
 					})
+					notifikasiModal('#modalProduk', '#alertNotifModal', e.message, true);
+					$.each(e.errorInputs, function(key, val) {
+						// console.log(val[0], val[1]);
+						validasi(val[0], false, val[1]);
+						$(val[0])
+							.parent()
+							.find('.input-group-text')
+							.addClass('form-control is-invalid');
+					});
 				}
 			}).fail(function(e) {
 				console.log(e);
@@ -437,6 +447,27 @@
 			return false;
 		});
 
+		function validasi(id, valid, message = '') {
+			if (valid) {
+				$(id)
+					// .addClass('is-valid')
+					.removeClass('is-invalid')
+					.parent()
+					.find('small')
+					// .addClass('valid-feedback')
+					.removeClass('invalid-feedback')
+					.html(message);
+			} else {
+				$(id)
+					// .removeClass('is-valid')
+					.addClass('is-invalid')
+					.parent()
+					.find('small')
+					// .removeClass('valid-feedback')
+					.addClass('invalid-feedback')
+					.html(message);
+			}
+		}
 
 		function notifikasiModal(modal, sel, msg, err) {
 			var alert_type = 'alert-success ';
@@ -481,9 +512,16 @@
 			var user_name = $('#username').val();
 			var password = $('#password').val();
 			var mapel = $('#mapel').val();
-			// console.log(nama_siswa,nisn)
+			// console.log(nilai_uts)
 			// return false;
-
+			if (keterangan = "") {
+				alert("kkk");
+				Swal.fire(
+					':(',
+					'silahkan isi nilai',
+					'eror'
+				)
+			}
 			if (
 				nilai_harian
 			) {

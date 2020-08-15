@@ -1137,6 +1137,20 @@ class Nilai extends CI_Controller {
 		if (empty($nilai_uas)) {
 			$status = false;
 			$errorInputs[] = array('#nilai_uas', 'Silahkan isi');
+		}		if (empty($nilai_pengetahuan)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_pengetahuan', 'Silahkan isi');
+		}		if (empty($nilai_karakter)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_karakter', 'Silahkan isi');
+		}
+		if (empty($keterangan)) {
+			$status = false;
+			$errorInputs[] = array('#keterangan', 'Silahkan isi');
+		}
+		if (empty($nilai_harian)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_harian', 'Silahkan isi');
 		}
 
 
@@ -1162,7 +1176,7 @@ class Nilai extends CI_Controller {
 			// $status: true;
 		}
 	 else {
-			$message = "Gagal menambah Nilai Siswa #1";
+			$message = "Gagal menambah Nilai Siswa , silahkan isi semua form";
 			// $status: false;
 		}
 		echo json_encode(array(
