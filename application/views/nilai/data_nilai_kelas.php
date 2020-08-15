@@ -467,13 +467,28 @@
 		$('body').on('click', '.btn_pilih', function() {
 			var kelas = $('#kelas').find(':selected').data('id');
 			var mapel = $('#mapel').find(':selected').val()
+			if (kelas == "") {
+				alert("Pilih Kelas");
+			} else if (mapel == "Pilih Mapel") {
+
+				Swal.fire(
+					'Error!',
+					"Pilih Mapel",
+					'error'
+				)
+				// alert("Pilih Mapel");
+
+				return false
+			}
+			// console.log(kelas, mapel);
+			// return false;
 			var url = bu + 'Nilai/nilaiKelas/';
 			// url += '&tipe_bid='+tipe_bid;
 			// url += '&status=' + status;
 			// url += '&selectDate=' + selectDate;
 			// url += '&date=' + date;
 			// url += '&id_user=' + id_user;
-			url +=  + mapel;
+			url += +mapel;
 
 			window.location = url;
 			console.log(url);

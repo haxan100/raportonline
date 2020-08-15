@@ -112,7 +112,7 @@
 													foreach ($listSiswa as $r) {
 														// die;
 														echo '
-														<option value="' . $r->nisn . '">' . $r->nama_lengkap . '</option>
+														<option value="' . $r->nisn . '"  data-nilai="' . $r->nama_lengkap . '">' . $r->nama_lengkap . '</option>
 														';
 													}
 													?>
@@ -378,7 +378,7 @@
 		}
 
 		$("#form").submit(function(e) {
-			console.log('form submitted');
+			// console.log('form submitted');
 			// return false;
 
 			$.ajax({
@@ -411,8 +411,9 @@
 				} else {
 					Swal.fire({
 						icon: 'error',
-						title: 'Oops...',
-						text: 'terjadi kesalahan!',
+						title: 'Maaf...',
+						text: e.message,
+						
 
 					})
 				}
@@ -450,6 +451,7 @@
 		$('#tambah_act').on('click', function() {
 
 			var nisn = $('#siswa').val();
+			var nama_siswa = $('#siswa').data('nilai');
 			var nilai_harian = $('#nilai_harian').val();
 			var nilai_uts = $('#nilai_uts').val();
 			var nilai_uas = $('#nilai_uas').val();
@@ -459,7 +461,7 @@
 			var user_name = $('#username').val();
 			var password = $('#password').val();
 			var mapel = $('#mapel').val();
-			// console.log(nisn, mapel, nilai_harian, nilai_uts, nilai_uas, nilai_pengetahuan, nilai_karakter, keterangan)
+			// console.log(nama_siswa)
 			// return false;
 
 			if (
@@ -475,6 +477,8 @@
 		$('body').on('click', '.btn_pilih', function() {
 			var kelas = $('#kelas').find(':selected').data('id');
 			var mapel = $('#mapel').find(':selected').val()
+			console.log(kelas, mapel);
+			return false;
 			var url = bu + 'Nilai/nilaiKelas/?';
 			// url += '&tipe_bid='+tipe_bid;
 			// url += '&status=' + status;
@@ -483,7 +487,7 @@
 			// url += '&id_user=' + id_user;
 			url += '&idMapel=' + mapel;
 
-			window.location = url;
+			// window.location = url;
 			console.log(url);
 			return false;
 		});
@@ -517,6 +521,7 @@
 				type: 'POST',
 				"data": function(d) {
 					d.kelas = $('#kelas').val();
+					d.mapel = $('#mapel').val();
 					// d.mapel = $('#mapel').find(':selected').data('id');
 					// console.log(d);
 					return false;
@@ -571,8 +576,8 @@
 				url: bu + 'Nilai/getKelas',
 				type: 'POST',
 				"data": function(d) {
-					d.kelas = $('#kelas').find(':selected').data('id');
-					d.mapel = $('#mapel').find(':selected').data('id');
+					d.kelas = $('#kelas').val();
+					d.mapel = $('#mapel').val();
 					// console.log(d);
 					return false;
 

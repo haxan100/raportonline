@@ -721,7 +721,7 @@ class SiswaModel extends CI_Model
 				// custom SQL
 		$sql = "SELECT m.nama_mapel, n.*,s.* FROM `nilai` n
 					join mapel m on m.kode_mapel=n.kode_mapel
-					join siswa s on s.nisn=n.nisn
+					join siswa s on s.nisn=n.nisn 
 		";
 		// var_dump($sql);
 		$where = "";
@@ -789,6 +789,7 @@ class SiswaModel extends CI_Model
 		$length = isset($post['length']) ? $post['length'] : 10;
 		$sql .= " LIMIT {$start}, {$length}";
 		$data  = $this->db->query($sql);
+		// var_dump($sql);die;
 		return array(
 
 			'totalData' => $totaldata,
@@ -1188,12 +1189,16 @@ class SiswaModel extends CI_Model
 		// gunakan join disini
 		$from = 'siswa s';
 		// custom SQL
-		$sql = "SELECT* FROM $from ";
+		$sql = "SELECT* FROM $from inner join mapel m on m.id_kelas=s.id_kelas ";
 		// var_dump($sql);
 		$where = "";
 		if (isset($post['kelas']) && $post['kelas'] != 'default') {
 			if ($where != "") $where .= "AND";
 			$where .= " (s.id_kelas='" . $post['kelas'] . "')";
+		}
+		if (isset($post['mapel']) && $post['mapel'] != 'default') {
+			if ($where != "") $where .= "AND";
+			$where .= " (m.kode_mapel='" . $post['mapel'] . "')";
 		}
 		// if (isset($post['mapel']) && $post['mapel'] != 'default') {
 		// 	if ($where != "") $where .= "AND";
@@ -1276,6 +1281,17 @@ class SiswaModel extends CI_Model
 	{
 
 		return $this->db->insert('nilai', $in);
+	}
+	public function CekNilaiSiswa($nisn, $mapel)
+	{
+		$this->db->select('*');
+		$this->db->where('kode_mapel', $mapel);
+		$this->db->where('nisn', $nisn);
+		$query = $this->db->get('nilai');
+		// var_dump($this->db->last_query());
+
+		return $query->result();
+		# code...
 	}
 
 

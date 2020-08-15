@@ -368,7 +368,7 @@ class Nilai extends CI_Controller {
 	public function getKelas()
 	{
 		// $dt = $this->ProdukModel->dt_produk($_POST);
-		// var_dump($_POST);die;
+		// var_dump($_POST['mapel']);die;
 		$bu = base_url();
 		$dt = $this->SiswaModel->data_AllKelasWali($_POST);
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
@@ -1111,9 +1111,13 @@ class Nilai extends CI_Controller {
 		$nilai_pengetahuan = $this->input->post('nilai_pengetahuan', TRUE);
 		$nilai_karakter = $this->input->post('nilai_karakter', TRUE);
 		$keterangan = $this->input->post('keterangan', TRUE);
+		$cekNilaiSiswa = $this->SiswaModel->CekNilaiSiswa($nisn,$mapel);
+		$namaSiswa = $this->SiswaModel->getSiswaByNisn($nisn)[0]->nama_lengkap;
 
+		// var_dump($namaSiswa);die;
+		
 
-		$message = 'Gagal menambah data Niali !<br>Silahkan lengkapi data yang diperlukan.';
+		$message = 'Gagal menambah data Nilai !<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
 
@@ -1131,6 +1135,7 @@ class Nilai extends CI_Controller {
 			$errorInputs[] = array('#nilai_uas', 'Silahkan isi');
 		}
 
+
 		$in = array(
 			'kode_mapel' => $mapel,
 			'nisn' => $nisn,
@@ -1141,15 +1146,20 @@ class Nilai extends CI_Controller {
 			'nilai_karakter' => $nilai_karakter,
 			'keterangan' => $keterangan,
 		);
-
-		if($this->SiswaModel->tambah_nama_tabel($in)){
-
-			$message = "Berhasil Menambah Siswa #1";
+		if (count($cekNilaiSiswa) > 0
+		) {
+			$message = 'Siswa:  '. $namaSiswa.' Sudah Di nilai!';
+			$errorInputs = array();
+			$status = false;
+			// die;
+		}else if($status){
+			$this->SiswaModel->tambah_nama_tabel($in);
+			$message = "Berhasil Menambah Nilai Siswa #1";
+			// $status: true;
 		}
-
-
 	 else {
-			$message = "Gagal menambah Siswa #1";
+			$message = "Gagal menambah Nilai Siswa #1";
+			// $status: false;
 		}
 		echo json_encode(array(
 			'status' => $status,
