@@ -1037,6 +1037,126 @@ class Nilai extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+	public function getMapelByKelas()
+	{
+		$id = $_POST['id'];
+		// var_dump($id);die;
+		$data = $this->SiswaModel->getMapelByidKelas($id);
+		echo json_encode($data);
+
+		# code...
+	}
+	public function nilaiKelas()
+	{
+		$u = $this->uri->segment(3);
+				
+			// var_dump($u);
+		// var_dump($_SESSION);die;
+		$id_kelas = $this->SiswaModel->getMapelByid($u)[0]->id_kelas;
+		// var_dump($this->SiswaModel->getMapelByid($u));die;
+		// var_dump($id_kelas);die;
+		$data['mapel'] = $this->SiswaModel->getMapelByid($u);
+		$data['kelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelas);
+
+		$data['listKelas'] = $this->SiswaModel->getAllKelas();
+		$data['listSiswa'] = $this->SiswaModel->getAllSiswaByIDKelas($id_kelas);
+		$data['listMapel'] = $this->SiswaModel->getAllMapel();
+		$data['siswa'] = $this->SiswaModel->siswa();
+
+		$data['content'] = 'nilai/data_nilai_kelas_mapel';
+
+
+		$this->load->view('templates/index', $data);
+	}
+	public function getSiswaKelas()
+	{
+		$kelas = $_POST['kelas'];
+		// $dt = $this->ProdukModel->dt_produk($_POST);
+		// var_dump($_POST);die;
+		$bu = base_url();
+		$dt = $this->SiswaModel->data_AllSiswaKelas($_POST, $kelas);
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+
+		$no = $start + 1;
+
+		foreach ($dt['data']->result() as $row) {
+
+
+			$fields = array($no++);
+
+			$fields[] = $row->nama_lengkap . '<br>';
+			$fields[] = '<img src="'.base_url().'upload/images/' . $row->foto.'" id="image" alt="image"><br>';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+	public function tambah_nilai_proses()
+	{
+		// var_dump($_POST);die;
+		$nisn = $this->input->post('siswa', TRUE);
+		$mapel = $this->input->post('mapel', TRUE);
+		$nilai_harian = $this->input->post('nilai_harian', TRUE);
+		$nilai_uts = $this->input->post('nilai_uts', TRUE);
+		$nilai_uas = $this->input->post('nilai_uas', TRUE);
+		$nilai_pengetahuan = $this->input->post('nilai_pengetahuan', TRUE);
+		$nilai_karakter = $this->input->post('nilai_karakter', TRUE);
+		$keterangan = $this->input->post('keterangan', TRUE);
+
+
+		$message = 'Gagal menambah data Niali !<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+
+		// var_dump($in);die();
+		if (empty($nilai_harian)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_harian', 'Silahkan Isi');
+		}
+		if (empty($nilai_uts)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_uts', 'Silahkan pilih ');
+		}
+		if (empty($nilai_uas)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_uas', 'Silahkan isi');
+		}
+
+		$in = array(
+			'kode_mapel' => $mapel,
+			'nisn' => $nisn,
+			'nilai_harian' => $nilai_harian,
+			'nilai_uts' => $nilai_uts,
+			'nilai_uas' => $nilai_uas,
+			'nilai_pengetahuan' => $nilai_pengetahuan,
+			'nilai_karakter' => $nilai_karakter,
+			'keterangan' => $keterangan,
+		);
+
+		if($this->SiswaModel->tambah_nama_tabel($in)){
+
+			$message = "Berhasil Menambah Siswa #1";
+		}
+
+
+	 else {
+			$message = "Gagal menambah Siswa #1";
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+	}
 
 
 

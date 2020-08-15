@@ -1,39 +1,74 @@
 <div class="col-md-12 col-sm-12 ">
 	<div class="x_panel">
 		<div class="x_title">
-			<h2>Data Siswa</h2>
+			<h2>Data Nilai Kelas</h2>
+			<?php
+			$u = $this->uri->segment(3);
+
+			// var_dump($listSiswa);
+			?>
+
+
+
+			<?php $bu = base_url(); ?>
 			<style>
 				#image {
-					max-width: 50px;
+					max-width: 100px;
 					display: block;
 				}
 			</style>
+			<input type="hidden" name="kelas" id="kelas" value="<?php echo $kelas[0]->id_kelas ?>">
 
 			<div class="clearfix"></div>
+			<h2>Mapel : <b><?php echo $mapel[0]->nama_mapel ?></b></h2>
+			<br>
+			<br>
+			<h2>Kelas : <b><?php echo $kelas[0]->nama_kelas ?></b></h2>
+
+			<div class="clearfix"></div>
+
+
 		</div>
+
 		<div class="x_content">
 			<div class="row">
 				<div class="col-sm-12">
-
 					<div class="card-box table-responsive">
-
-						<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
-
-						<table id="datatable_siswa" class="table table-striped table-bordered" style="width:100%">
+						<!-- <button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button> -->
+						<table id="datatable_siswa_kelas" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th>No</th>
-									<th>NISN</th>
-									<th>Nama Lengkap</th>
-									<th>Tanggal Lahir</th>
-									<th>Tempat Lahir</th>
-									<th>Jenis Kelamin</th>
-									<th>Alamat</th>
-									<th>Kelas</th>
+									<th>#</th>
+									<th>Nama Siswa</th>
 									<th>Foto</th>
-									<th>Aksi</th>
 								</tr>
 							</thead>
+
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+					<div class="card-box table-responsive">
+						<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
+						<table id="datatable_siswa" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nama Mapel</th>
+									<th>Nama Siswa</th>
+									<td>Nilai Harian</td>
+									<td>Nilai UTS</td>
+									<td>Nilai UAS</td>
+									<td>Nilai Pengetahuan</td>
+									<td>Nilai Karakter</td>
+									<td>Keterangan</td>
+									<th>Opsi</th>
+								</tr>
+							</thead>
+
 							<tbody>
 							</tbody>
 						</table>
@@ -45,6 +80,7 @@
 </div>
 
 
+
 <div class="modal fade bs-example-modal-lg" id="modal-detail" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<form id="form">
@@ -54,114 +90,89 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<h4>Detail User</h4>
+					<h4>Detail Nillai </h4>
 
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
 
+								<input id="id_nilai" name="id_nilai" type="hidden">
+								<input type="hidden" name="mapel" id="mapel" value="<?php echo $u ?>">
+
 								<div class="x_content">
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> NISN <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Pilih Siswa <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="nisn" name="nisn" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
-
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input id="nama" name="nama" class="form-control " placeholder="Isikan Nama" type="text" class="form-control">
-
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Alamat <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input id="alamat" name="alamat" class="form-control " placeholder="Isikan Alamat" type="text" class="form-control">
-
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Kelas <span class="required">*</span>
-											</label>
-											<div class="col-sm-9">
-												<select class="form-control select col-md-8 col-sm-8" name="kelas" id="kelas">
-													<option value="default" desable>Pilih Kelas</option>
-
-
+												<select class="form-control select col-md-8 col-sm-8" name="siswa" id="siswa">
+													<option value="default" desable>Pilih Siswa</option>
 													<?php
-													foreach ($listKelas as $r) {
-
+													foreach ($listSiswa as $r) {
 														// die;
 														echo '
-							<option value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
-							';
+														<option value="' . $r->nisn . '">' . $r->nama_lengkap . '</option>
+														';
 													}
 													?>
 												</select>
+
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Jenis Kelamin <span class="required">*</span>
-											</label>
-											<div class="col-sm-9">
-												<select class="form-control select col-md-8 col-sm-8 " id="jk" name="jk">
-													<option value="Laki-laki">Laki-laki</option>
-													<option value="Perempuan">Perempuan</option>
-												</select>
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Tanggal Lahir <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama Mapel <span class="required" value=>*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="tanggal_lahir" name="tanggal_lahir" class="form-control " placeholder="Isikan kelas" type="date" class="form-control">
+												<input id="nama_mapel" name="nama_mapel" class="form-control " readonly value="<?php echo $mapel[0]->nama_mapel ?>" placeholder="Isikan Nama Mapel" type="text" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Tempat Lahir <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nilai Harian <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="tempat_lahir" name="tempat_lahir" class="form-control " placeholder="Isikan tempat lahir" type="text" class="form-control">
+												<input id="nilai_harian" name="nilai_harian" class="form-control " placeholder="Isikan Nilai Harian" type="number" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai UTS<span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="username" name="username" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
+												<input id="nilai_uts" name="nilai_uts" class="form-control " placeholder="Isikan UTS" type="number" class="form-control">
 
 											</div>
 										</div>
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Password <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Uas <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="password" name="password" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
+												<input id="nilai_uas" name="nilai_uas" class="form-control " placeholder="Isikan UAS" type="number" class="form-control">
 
 											</div>
 										</div>
-
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Foto <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Pengetahuan <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<img style="width: 100px; display: block;" src="<?php echo base_url() . "upload/"; ?>images/" id="image" alt="image">
-												<div id="foto_wrappers" class="mb-2">
+												<input id="nilai_pengetahuan" name="nilai_pengetahuan" class="form-control " placeholder="Isikan Nilai Pengetahuan" type="number" class="form-control">
 
-													<div class="col-xs-12">
-														<label for="photo">Photo Profile</label>
-														<input type="file" accept="image/x-png,image/gif,image/jpeg,image/jpg;" name="foto" id="foto">
-													</div>
-												</div>
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Karakter <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="nilai_karakter" name="nilai_karakter" class="form-control " placeholder="Isikan Nilai Karakter" type="number" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Keterangan<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="keterangan" name="keterangan" class="form-control " placeholder="Keterangan" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -189,8 +200,8 @@
 	document.addEventListener("DOMContentLoaded", function(event) {
 
 		var bu = '<?= base_url(); ?>';
-		var url_form_ubah = bu + 'siswa/ubah_siswa_proses';
-		var url_form_tambah = bu + 'siswa/tambah_siswa_proses';
+		var url_form_ubah = bu + 'Nilai/ubah_nilai_siswa_proses';
+		var url_form_tambah = bu + 'Nilai/tambah_nilai_proses';
 
 
 
@@ -240,51 +251,47 @@
 			$('#tambah_act').hide();
 
 			// return false;
-			var nisn = $(this).data('nisn');
+			var id_nilai = $(this).data('id_nilai');
 			var nama = $(this).data('nama');
-			var kelas = $(this).data('id_kelas');
-			var jenkel = $(this).data('jen');
-			var tanggal_lahir = $(this).data('tanggal_lahir');
-			var tempat_lahir = $(this).data('tempat_lahir');
-			var alamat = $(this).data('alamat');
-			var username = $(this).data('username');
-			var password = $(this).data('password');
-
-			var foto = $(this).data('foto');
+			var nama_mapel = $(this).data('nama_mapel');
+			var nilai_harian = $(this).data('nilai_harian');
+			var nilai_uts = $(this).data('nilai_uts');
+			var nilai_uas = $(this).data('nilai_uas');
+			var nilai_pengetahuan = $(this).data('nilai_pengetahuan');
+			var nilai_karakter = $(this).data('nilai_karakter');
+			var keterangan = $(this).data('keterangan');
 			// var foto = $(this).data('foto');
-			console.log(kelas)
+			// console.log(kelas)
 
-			$('#nisn').val(nisn);
-			$('#nama').val(nama);
-			$('#kelas').val(kelas);
-			$('#jenkel').val(jenkel);
-			$('#tempat_lahir').val(tempat_lahir);
-			$('#tanggal_lahir').val(tanggal_lahir);
-			$('#alamat').val(alamat);
-			$('#username').val(username);
-			$('#password').val(password);
-
-			$('#image').prop('src', 'upload/images/' + foto);
+			$('#id_nilai').val(id_nilai);
+			$('#nama_mapel').val(nama_mapel);
+			$('#nama_siswa').val(nama);
+			$('#nilai_harian').val(nilai_harian);
+			$('#nilai_uts').val(nilai_uts);
+			$('#nilai_uas').val(nilai_uas);
+			$('#nilai_pengetahuan').val(nilai_pengetahuan);
+			$('#nilai_karakter').val(nilai_karakter);
+			$('#keterangan').val(keterangan);
 			$('#Edit').show();
-			$("#kelas").val(parseInt(kelas));
 
 
 		});
 		$('#Edit').on('click', function() {
 
-			var nisn = $('#nisn').val();
-			var nama = $('#nama').val();
-			var kelas = $('#kelas').val();
-			var jenis_kelamin = $('#jk').val();
-			var tanggal_lahir = $('#tanggal_lahir').val();
-			var tempat_lahir = $('#tempat_lahir').val();
+			var id_nilai = $('#id_nilai').val();
+			var nilai_harian = $('#nilai_harian').val();
+			var nilai_uts = $('#nilai_uts').val();
+			var nilai_uas = $('#nilai_uas').val();
+			var nilai_pengetahuan = $('#nilai_pengetahuan').val();
+			var nilai_karakter = $('#nilai_karakter').val();
+			var keterangan = $('#keterangan').val();
 			// var foto = cekDeskripsi();
 
 			// console.log(nama, kelas, jenis_kelamin, tanggal_lahir, tempat_lahir);
 			// return (false);
 			// _draft = 1;
 			if (
-				nama && kelas
+				id_nilai && nilai_uts
 			) {
 				$("#form").submit();
 				// console.log(_foto);
@@ -297,12 +304,15 @@
 		// 	lengthChange: false,
 		// 	buttons: ['copy', 'excel', 'pdf']
 		// });
+
+
+
 		$('body').on('click', '.hapus', function() {
 
-			var nisn = $(this).data('nisn');
+			var id_nilai = $(this).data('id_nilai');
 			var nama = $(this).data('nama');
 			// var foto = $(this).data('foto');
-			console.log(nisn)
+			// console.log(nisn)
 			// return false;
 			// var c = confirm('Apakah anda yakin akan menghapus Siswa: "' + nama + '" ?');
 			// $('#Edit').hide();
@@ -318,11 +328,11 @@
 
 				if (result.value) {
 					$.ajax({
-						url: bu + 'siswa/hapusSiswa',
+						url: bu + 'Nilai/hapusNilai',
 						dataType: 'json',
 						method: 'POST',
 						data: {
-							nisn: nisn
+							id_nilai: id_nilai
 						}
 					}).done(function(e) {
 						console.log(e);
@@ -332,9 +342,11 @@
 							'success'
 						)
 						$('#modal-detail').modal('hide');
-						setTimeout(function() {
-							location.reload();
-						}, 4000);
+						datatable.ajax.reload();
+
+						// setTimeout(function() {
+						// 	// location.reload();
+						// }, 4000);
 
 
 					}).fail(function(e) {
@@ -411,6 +423,7 @@
 			return false;
 		});
 
+
 		function notifikasiModal(modal, sel, msg, err) {
 			var alert_type = 'alert-success ';
 			if (err) alert_type = 'alert-danger ';
@@ -423,28 +436,34 @@
 
 		$('body').on('click', '.btn_tambah', function() {
 			url_form = url_form_tambah;
-			console.log(url_form);
+			// console.log(url_form);
 			$('#Edit').hide();
 			$("#nisn").removeAttr('readonly');
 
 
 
 		});
+		$('body').on('click', '.tomboldetail', function() {
+			window.location = '<?= $bu; ?>Nilai/kelas_detail/' + $(this).data('id_kelas');
+		});
 
 		$('#tambah_act').on('click', function() {
 
-			var nisn = $('#nisn').val();
-			var nama = $('#nama').val();
-			var alamat = $('#alamat').val();
-			var kelas = $('#kelas').val();
-			var jenis_kelamin = $('#jk').val();
-			var tanggal_lahir = $('#tanggal_lahir').val();
-			var tempat_lahir = $('#tempat_lahir').val();
+			var nisn = $('#siswa').val();
+			var nilai_harian = $('#nilai_harian').val();
+			var nilai_uts = $('#nilai_uts').val();
+			var nilai_uas = $('#nilai_uas').val();
+			var nilai_pengetahuan = $('#nilai_pengetahuan').val();
+			var nilai_karakter = $('#nilai_karakter').val();
+			var keterangan = $('#keterangan').val();
 			var user_name = $('#username').val();
 			var password = $('#password').val();
+			var mapel = $('#mapel').val();
+			// console.log(nisn, mapel, nilai_harian, nilai_uts, nilai_uas, nilai_pengetahuan, nilai_karakter, keterangan)
+			// return false;
 
 			if (
-				nama && kelas
+				nisn && nilai_harian
 			) {
 				$("#form").submit();
 				// console.log(_foto);
@@ -453,9 +472,69 @@
 			}
 			// return false;
 		});
+		$('body').on('click', '.btn_pilih', function() {
+			var kelas = $('#kelas').find(':selected').data('id');
+			var mapel = $('#mapel').find(':selected').val()
+			var url = bu + 'Nilai/nilaiKelas/?';
+			// url += '&tipe_bid='+tipe_bid;
+			// url += '&status=' + status;
+			// url += '&selectDate=' + selectDate;
+			// url += '&date=' + date;
+			// url += '&id_user=' + id_user;
+			url += '&idMapel=' + mapel;
+
+			window.location = url;
+			console.log(url);
+			return false;
+		});
+
+		var datatable_siswa = $('#datatable_siswa_kelas').DataTable({
+			// dom: "Bfrltip",
+			'pageLength': 10,
+			"responsive": true,
+			"processing": true,
+			"bProcessing": true,
+			"autoWidth": false,
+			"serverSide": true,
+
+
+			"columnDefs": [{
+					"targets": 0,
+					"className": "dt-body-center dt-head-center",
+					"width": "20px",
+					"orderable": false
+				},
+				{
+					"targets": 1,
+					"className": "dt-head-center"
+				},
+			],
+			"order": [
+				[1, "desc"]
+			],
+			'ajax': {
+				url: bu + 'Nilai/getSiswaKelas',
+				type: 'POST',
+				"data": function(d) {
+					d.kelas = $('#kelas').val();
+					// d.mapel = $('#mapel').find(':selected').data('id');
+					// console.log(d);
+					return false;
+
+					return d;
+				}
+			},
+			"lengthMenu": [
+				[10, 25, 50, 1000],
+				[10, 25, 50, 1000]
+			]
+
+		});
+
+
 
 		var datatable = $('#datatable_siswa').DataTable({
-			dom: "Bfrltip",
+			// dom: "Bfrltip",
 			'pageLength': 10,
 			"responsive": true,
 			"processing": true,
@@ -483,67 +562,55 @@
 				}, {
 					"targets": 4,
 					"className": "dt-head-center"
-				}, {
-					"targets": 5,
-					"className": "dt-head-center"
-				}, {
-					"targets": 6,
-					"className": "dt-head-center"
-				}, {
-					"targets": 7,
-					"className": "dt-head-center"
-				}, {
-					"targets": 8,
-					"className": "dt-head-center"
-				}, {
-					"targets": 9,
-					"className": "dt-head-center"
 				},
 			],
 			"order": [
 				[1, "desc"]
 			],
 			'ajax': {
-				url: bu + 'siswa/getAllSiswa',
+				url: bu + 'Nilai/getKelas',
 				type: 'POST',
 				"data": function(d) {
+					d.kelas = $('#kelas').find(':selected').data('id');
+					d.mapel = $('#mapel').find(':selected').data('id');
+					// console.log(d);
+					return false;
 
 					return d;
 				}
 			},
 
-			buttons: [
+			// buttons: [
 
-				// 'excelHtml5',
-				// 'pdfHtml5'
-				{
-					text: "Excel",
-					extend: "excelHtml5",
-					className: "btn btn-round btn-info",
-
-					title: 'Data Siswa',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
-					}
-				}, {
-					text: "PDF",
-					extend: "pdfHtml5",
-					className: "<br>btn btn-round btn-danger",
-					title: 'Data Siswa',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
-					}
-				}
-
+			// 	// 'excelHtml5',
+			// 	// 'pdfHtml5'
+			// 	{
+			// 		text: "Excel",
+			// 		extend: "excelHtml5",
+			// 		className: "btn btn-round btn-info",
+			// 		tittle: '',
+			// 		exportOptions: {
+			// 			columns: [1, 2, 3, 4, 5, 6, 7]
+			// 		}
+			// 	}, {
+			// 		text: "PDF",
+			// 		extend: "pdfHtml5",
+			// 		className: "<br>btn btn-round btn-danger",
+			// 		tittle: '',
+			// 		exportOptions: {
+			// 			columns: [1, 2, 3, 4, 5, 6, 7]
+			// 		}
+			// 	}
 
 
 
 
-			],
-			language: {
-				searchPlaceholder: "Cari Kelas",
 
-			},
+			// ],
+			// language: {
+			// 	searchPlaceholder: "Cari Kelas",
+
+			// },
 			// columnDefs: [{
 			// 	targets: -1,
 			// 	visible: false
@@ -553,6 +620,39 @@
 				[10, 25, 50, 1000]
 			]
 
+		});
+
+
+		$('#kelas').on('change', function() {
+			var id = $(this).val();
+			// console.log(id)
+			// return false
+			// 	datatable.ajax.reload();
+			$.ajax({
+				url: "<?php echo site_url('Nilai/getMapelByKelas'); ?>",
+				method: "POST",
+				data: {
+					id: id
+				},
+				async: true,
+				dataType: 'json',
+				success: function(data) {
+
+					var html = '';
+					var i;
+					for (i = 0; i < data.length; i++) {
+						html += '<option value=' + data[i].kode_mapel + '>' + data[i].nama_mapel + '</option>';
+					}
+					$('#mapel').html(html);
+
+				}
+			});
+			return false;
+		});
+
+		// });
+		$('#mapel').on('change', function() {
+			datatable.ajax.reload();
 		});
 
 

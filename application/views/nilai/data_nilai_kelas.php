@@ -56,7 +56,7 @@
 								</select>
 							</div>
 						</div>
-						<button class="btn btn-round btn-info btn_pilih"> Pilih</button>
+						<button class="btn btn-round btn-info btn_pilih"> Tambah</button>
 
 
 						<!-- <button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button> -->
@@ -466,9 +466,18 @@
 		});
 		$('body').on('click', '.btn_pilih', function() {
 			var kelas = $('#kelas').find(':selected').data('id');
-			var mapel = $('#mapel').find(':selected').data('id')
-			console.log(mapel);
-			// return false;
+			var mapel = $('#mapel').find(':selected').val()
+			var url = bu + 'Nilai/nilaiKelas/';
+			// url += '&tipe_bid='+tipe_bid;
+			// url += '&status=' + status;
+			// url += '&selectDate=' + selectDate;
+			// url += '&date=' + date;
+			// url += '&id_user=' + id_user;
+			url +=  + mapel;
+
+			window.location = url;
+			console.log(url);
+			return false;
 		});
 		var datatable = $('#datatable_siswa').DataTable({
 			// dom: "Bfrltip",
@@ -510,7 +519,7 @@
 				"data": function(d) {
 					d.kelas = $('#kelas').find(':selected').data('id');
 					d.mapel = $('#mapel').find(':selected').data('id');
-					console.log(d);
+					// console.log(d);
 					return false;
 
 					return d;
@@ -560,8 +569,33 @@
 		});
 
 		$('#kelas').on('change', function() {
-			datatable.ajax.reload();
+			var id = $(this).val();
+			// console.log(id)
+			// return false
+			// 	datatable.ajax.reload();
+			$.ajax({
+				url: "<?php echo site_url('Nilai/getMapelByKelas'); ?>",
+				method: "POST",
+				data: {
+					id: id
+				},
+				async: true,
+				dataType: 'json',
+				success: function(data) {
+
+					var html = '';
+					var i;
+					for (i = 0; i < data.length; i++) {
+						html += '<option value=' + data[i].kode_mapel + '>' + data[i].nama_mapel + '</option>';
+					}
+					$('#mapel').html(html);
+
+				}
+			});
+			return false;
 		});
+
+		// });
 		$('#mapel').on('change', function() {
 			datatable.ajax.reload();
 		});

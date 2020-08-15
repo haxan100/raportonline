@@ -709,17 +709,6 @@ class SiswaModel extends CI_Model
 		// var_dump($post);die;
 		$columns = array(
 			'nama_mapel',
-			// 'p.created_at',
-
-			// 'p.stok',
-
-			// 'p.view_count',
-
-			// 'p.harga_awal',
-
-			// // 'p.harga_awal',
-
-			// // 'p.created_at',
 
 		);
 		// untuk search
@@ -727,11 +716,7 @@ class SiswaModel extends CI_Model
 			// 's.nama_kelas',
 			// 'w.nama_wali',
 		);
-
-
-
 		// gunakan join disini
-
 		$from = 'kelas k';
 				// custom SQL
 		$sql = "SELECT m.nama_mapel, n.*,s.* FROM `nilai` n
@@ -740,66 +725,34 @@ class SiswaModel extends CI_Model
 		";
 		// var_dump($sql);
 		$where = "";
-
 		if (isset($post['kelas']) && $post['kelas'] != 'default') {
-
 			if ($where != "") $where .= "AND";
-
 			$where .= " (s.id_kelas='" . $post['kelas'] . "')";
 		}
-
 		if (isset($post['mapel']) && $post['mapel'] != 'default') {
-
 			if ($where != "") $where .= "AND";
-
 			$where .= " (n.kode_mapel='" . $post['mapel'] . "')";
 		}
-
 		// if (isset($post['status']) && $post['status'] != 'default') {
-
 		// 	if ($where != "") $where .= "AND";
-
 		// 	$where .= " (p.status='" . $post['status'] . "')";
 		// }
-
-
-
 		$whereTemp = "";
-
 		// if (isset($post['date']) && $post['date'] != '') {
-
 		//     $date = explode(' / ', $post['date']);
-
 		//     if (count($date) == 1) {
-
 		//         $whereTemp .= "(created_at LIKE '%" . $post['date'] . "%')";
-
 		//     } else {
-
 		//         // $whereTemp .= "(created_at BETWEEN '".$date[0]."' AND '".$date[1]."')";
-
 		//         $whereTemp .= "(date_format(created_at, \"%Y-%m-%d\") >='$date[0]' AND date_format(created_at, \"%Y-%m-%d\") <= '$date[1]')";
-
 		//     }
-
 		// }
-
-
-
 		if ($whereTemp != '' && $where != '') $where .= " AND (" . $whereTemp . ")";
-
 		else if ($whereTemp != '') $where .= $whereTemp;
-
-
-
 		// search
-
 		if (isset($post['search']['value']) && $post['search']['value'] != '') {
-
 			$search = $post['search']['value'];
-
 			// create parameter pencarian kesemua kolom yang tertulis
-
 			// di $columns
 
 			$whereTemp = "";
@@ -824,17 +777,8 @@ class SiswaModel extends CI_Model
 		}
 
 		if ($where != '') $sql .= ' WHERE (' . $where . ')';
-
-
-
-
-
-
-
 		//SORT Kolom
-
 		$sortColumn = isset($post['order'][0]['column']) ? $post['order'][0]['column'] : 1;
-
 		$sortDir    = isset($post['order'][0]['dir']) ? $post['order'][0]['dir'] : 'asc';
 		$sortColumn = $columns[$sortColumn - 1];
 		$sql .= " ORDER BY {$sortColumn} {$sortDir}";
@@ -1218,6 +1162,120 @@ class SiswaModel extends CI_Model
 		$this->db->where('username', $username);
 		// $this->db->where('password', $password);
 		return $this->db->get('siswa');
+	}
+	public function getMapelByidKelas($id_kelas)
+	{
+		$this->db->select('*');
+		$this->db->where('id_kelas', $id_kelas);
+		$query = $this->db->get('mapel');
+		return $query->result();
+		# code...
+	}
+	public function data_AllSiswaKelas($post,$idkelas)
+
+	{
+		// var_dump($post);die;
+		$columns = array(
+			'nama_lengkap',
+
+		);
+		// untuk search
+		$columnsSearch = array(
+			'nama_lengkap'
+			// 's.nama_kelas',
+			// 'w.nama_wali',
+		);
+		// gunakan join disini
+		$from = 'siswa s';
+		// custom SQL
+		$sql = "SELECT* FROM $from ";
+		// var_dump($sql);
+		$where = "";
+		if (isset($post['kelas']) && $post['kelas'] != 'default') {
+			if ($where != "") $where .= "AND";
+			$where .= " (s.id_kelas='" . $post['kelas'] . "')";
+		}
+		// if (isset($post['mapel']) && $post['mapel'] != 'default') {
+		// 	if ($where != "") $where .= "AND";
+		// 	$where .= " (n.kode_mapel='" . $post['mapel'] . "')";
+		// }
+		// if (isset($post['status']) && $post['status'] != 'default') {
+		// 	if ($where != "") $where .= "AND";
+		// 	$where .= " (p.status='" . $post['status'] . "')";
+		// }
+		$whereTemp = "";
+		// if (isset($post['date']) && $post['date'] != '') {
+		//     $date = explode(' / ', $post['date']);
+		//     if (count($date) == 1) {
+		//         $whereTemp .= "(created_at LIKE '%" . $post['date'] . "%')";
+		//     } else {
+		//         // $whereTemp .= "(created_at BETWEEN '".$date[0]."' AND '".$date[1]."')";
+		//         $whereTemp .= "(date_format(created_at, \"%Y-%m-%d\") >='$date[0]' AND date_format(created_at, \"%Y-%m-%d\") <= '$date[1]')";
+		//     }
+		// }
+		if ($whereTemp != '' && $where != '') $where .= " AND (" . $whereTemp . ")";
+		else if ($whereTemp != '') $where .= $whereTemp;
+		// search
+		if (isset($post['search']['value']) && $post['search']['value'] != '') {
+			$search = $post['search']['value'];
+			// create parameter pencarian kesemua kolom yang tertulis
+			// di $columns
+
+			$whereTemp = "";
+
+			for ($i = 0; $i < count($columnsSearch); $i++) {
+
+				$whereTemp .= $columnsSearch[$i] . ' LIKE "%' . $search . '%"';
+
+
+
+				// agar tidak menambahkan 'OR' diakhir Looping
+
+				if ($i < count($columnsSearch) - 1) {
+
+					$whereTemp .= ' OR ';
+				}
+			}
+
+			if ($where != '') $where .= " AND (" . $whereTemp . ")";
+
+			else $where .= $whereTemp;
+		}
+
+		if ($where != '') $sql .= ' WHERE (' . $where . ')';
+		//SORT Kolom
+		$sortColumn = isset($post['order'][0]['column']) ? $post['order'][0]['column'] : 1;
+		$sortDir    = isset($post['order'][0]['dir']) ? $post['order'][0]['dir'] : 'asc';
+		$sortColumn = $columns[$sortColumn - 1];
+		$sql .= " ORDER BY {$sortColumn} {$sortDir}";
+
+		$count = $this->db->query($sql);
+		$totaldata = $count->num_rows();
+		$start  = isset($post['start']) ? $post['start'] : 0;
+		$length = isset($post['length']) ? $post['length'] : 10;
+		$sql .= " LIMIT {$start}, {$length}";
+		$data  = $this->db->query($sql);
+		return array(
+
+			'totalData' => $totaldata,
+
+			'data' => $data,
+
+		);
+	}
+	public function getAllSiswaByIDKelas($kelas)
+
+	{
+		$this->db->select('*');
+		$query = $this->db->get('siswa s');
+		$this->db->where('id_kelas', $kelas);
+
+		return $query->result();
+	}
+	public function tambah_nama_tabel($in)
+	{
+
+		return $this->db->insert('nilai', $in);
 	}
 
 
