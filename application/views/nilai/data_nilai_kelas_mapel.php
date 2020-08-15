@@ -13,7 +13,8 @@
 			<?php $bu = base_url(); ?>
 			<style>
 				#image {
-					max-width: 100px;
+					max-width: 40px;
+					max-height: 40px;
 					display: block;
 				}
 			</style>

@@ -9,6 +9,7 @@ class Wali extends CI_Controller {
 		parent::__construct();
 		$this->load->model('SiswaModel');
 		$this->load->model('WaliModel');
+		$this->load->model('SekolahModel');
 
 		$this->load->helper('url');
 	}
@@ -28,6 +29,8 @@ class Wali extends CI_Controller {
 
 			exit();
 		}
+		$data['konfig']
+		= $this->SekolahModel->dataSekolah()->result();
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
 		$data['listWali'] = $this->WaliModel->index();
 		

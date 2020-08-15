@@ -8,6 +8,7 @@ class Siswa extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('SiswaModel');
+		$this->load->model('SekolahModel');
 
 		$this->load->helper('url');
 	}
@@ -30,6 +31,9 @@ class Siswa extends CI_Controller {
 
 			exit();
 		}
+
+		$data['konfig']
+		= $this->SekolahModel->dataSekolah()->result();
 		// var_dump($_SESSION);die;
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
 		$data['siswa']= $this->SiswaModel->siswa();
