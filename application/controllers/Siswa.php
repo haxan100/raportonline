@@ -440,14 +440,18 @@ class Siswa extends CI_Controller {
 			$fields[] = '<img src="upload/images/'.$row->foto . '" id="image" alt="image"><br>';
 			$fields[] = '
 
-			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-nisn="' . $row->nisn . ' " data-nama="' . $row->nama_lengkap . '" 
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			data-nisn="'.$row->nisn.'" 
+			data-nama="' . $row->nama_lengkap . '" 
 			data-tanggal_lahir="' . $row->tanggal_lahir . '" 
 			data-jen="' . $row->jenkel . '" 
 			data-kelas="' . $row->nama_kelas . '" 
+			data-id_kelas="' . $row->id_kelas . '" 
 			data-foto="' . $row->foto . '" 
 			data-alamat="' . $row->alamat . '" 
 			data-username="' . $row->username . '" 
 			data-password="' . $row->password . '" 
+			data-tempat_lahir="' . $row->tempat_lahir . '" 
 			
 			
 			

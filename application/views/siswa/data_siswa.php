@@ -67,7 +67,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> NISN <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="nisn" name="nisn" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
+												<input id="nisn" name="nisn" class="form-control " placeholder="Isikan Nama" readonly type="number" class="form-control">
 
 											</div>
 										</div>
@@ -236,7 +236,7 @@
 		});
 		$('body').on('click', '.btn_edit', function() {
 			url_form = url_form_ubah;
-			console.log(url_form);
+			// console.log(url_form);
 			$('#tambah_act').hide();
 
 			// return false;
@@ -252,7 +252,7 @@
 
 			var foto = $(this).data('foto');
 			// var foto = $(this).data('foto');
-			console.log(kelas)
+			// console.log(kelas)
 
 			$('#nisn').val(nisn);
 			$('#nama').val(nama);
@@ -325,7 +325,7 @@
 							nisn: nisn
 						}
 					}).done(function(e) {
-						console.log(e);
+						// console.log(e);
 						Swal.fire(
 							'Deleted!',
 							e.message,
@@ -387,7 +387,7 @@
 						':)',
 						e.message,
 						'success'
-					)
+					);
 
 					$('#modal-detail').modal('hide');
 					// setTimeout(function() {
@@ -405,7 +405,7 @@
 					})
 				}
 			}).fail(function(e) {
-				console.log(e);
+				// console.log(e);
 				notifikasi('#alertNotif', 'Terjadi kesalahan!', true);
 			});
 			return false;
@@ -541,7 +541,7 @@
 
 			],
 			language: {
-				searchPlaceholder: "Cari Kelas",
+				searchPlaceholder: "Cari..",
 
 			},
 			// columnDefs: [{
