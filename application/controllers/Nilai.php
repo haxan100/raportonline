@@ -385,6 +385,7 @@ class Nilai extends CI_Controller {
 		
 			$fields = array($no++);
 
+			$fields[] = $row->nama_kelas . '<br>';
 			$fields[] = $row->nama_mapel . '<br>';
 			$fields[] = $row->nama_lengkap . '<br>';
 			$fields[] = $row->nilai_harian . '<br>';

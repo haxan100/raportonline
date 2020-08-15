@@ -64,6 +64,7 @@
 							<thead>
 								<tr>
 									<th>#</th>
+									<th>Nama Kelas</th>
 									<th>Nama Mapel</th>
 									<th>Nama Siswa</th>
 									<td>Nilai Harian</td>
@@ -523,6 +524,24 @@
 				}, {
 					"targets": 4,
 					"className": "dt-head-center"
+				}, {
+					"targets": 5,
+					"className": "dt-head-center"
+				}, {
+					"targets": 6,
+					"className": "dt-head-center"
+				}, {
+					"targets": 7,
+					"className": "dt-head-center"
+				}, {
+					"targets": 8,
+					"className": "dt-head-center"
+				}, {
+					"targets": 9,
+					"className": "dt-head-center"
+				}, {
+					"targets": 10,
+					"className": "dt-head-center"
 				},
 			],
 			"order": [
@@ -535,7 +554,7 @@
 					d.kelas = $('#kelas').find(':selected').data('id');
 					d.mapel = $('#mapel').find(':selected').data('id');
 					// console.log(d);
-					return false;
+					// return false;
 
 					return d;
 				}

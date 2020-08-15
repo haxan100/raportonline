@@ -719,9 +719,10 @@ class SiswaModel extends CI_Model
 		// gunakan join disini
 		$from = 'kelas k';
 				// custom SQL
-		$sql = "SELECT m.nama_mapel, n.*,s.* FROM `nilai` n
+		$sql = "SELECT k.*, m.nama_mapel, n.*,s.* FROM `nilai` n
 					join mapel m on m.kode_mapel=n.kode_mapel
 					join siswa s on s.nisn=n.nisn 
+					join kelas k on k.id_kelas=s.id_kelas 
 		";
 		// var_dump($sql);
 		$where = "";
