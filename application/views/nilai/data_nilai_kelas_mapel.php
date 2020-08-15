@@ -103,7 +103,7 @@
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Pilih Siswa <span class="required">*</span>
+											<label class="col-form-label label_nama_siswa col-md-3 col-sm-3 label-align" for="first-name"> Pilih Siswa <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
 												<select class="form-control select col-md-8 col-sm-8" name="siswa" id="siswa">
@@ -120,6 +120,15 @@
 
 											</div>
 										</div>
+										<div class="item form-group">
+											<label class=" namanya_label_siswa col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama Siswa <span class="required" value=>*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="namanya" name="namanya" class="form-control " readonly value="" placeholder="Isikan Nama Mapel" type="text" class="form-control">
+
+											</div>
+										</div>
+
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama Mapel <span class="required" value=>*</span>
 											</label>
@@ -262,9 +271,11 @@
 			var nilai_karakter = $(this).data('nilai_karakter');
 			var keterangan = $(this).data('keterangan');
 			// var foto = $(this).data('foto');
-			console.log(nisn)
+			console.log(nama)
 
-			$('#siswa').val(nisn);
+			$('.label_nama_siswa').hide();
+			$('#siswa').hide();
+			$('#namanya').val(nama);
 			$('#id_nilai').val(id_nilai);
 			$('#nama_mapel').val(nama_mapel);
 			$('#nama_siswa').val(nama);
@@ -439,6 +450,13 @@
 
 		$('body').on('click', '.btn_tambah', function() {
 			url_form = url_form_tambah;
+
+			// $('.label_nama_siswa').hide();
+			// $('#siswa').hide();
+			$('#namanya').hide();
+			$('.namanya_label_siswa').hide();
+			$('#id_nilai').hide();
+
 			// console.log(url_form);
 			$('#Edit').hide();
 			$("#nisn").removeAttr('readonly');
@@ -463,11 +481,11 @@
 			var user_name = $('#username').val();
 			var password = $('#password').val();
 			var mapel = $('#mapel').val();
-			// console.log(nama_siswa)
+			// console.log(nama_siswa,nisn)
 			// return false;
 
 			if (
-				nisn && nilai_harian
+				nilai_harian
 			) {
 				$("#form").submit();
 				// console.log(_foto);

@@ -1293,6 +1293,22 @@ class SiswaModel extends CI_Model
 		return $query->result();
 		# code...
 	}
+	public function getAllSiswaByIDKelasOuterJinNilai($kelas)
+
+	{
+		$this->db->select('siswa.*');
+		$this->db->from('siswa');
+		
+		$this->db->join('nilai', 'nilai.nisn = siswa.nisn', 'LEFT OUTER');
+		$this->db->where('nilai.nisn is null');
+		$this->db->where('siswa.id_kelas', $kelas);
+		$query = $this->db->get();
+		// var_dump($this->db->last_query());
+		// die;
+		
+
+		return $query->result();
+	}
 
 
 
