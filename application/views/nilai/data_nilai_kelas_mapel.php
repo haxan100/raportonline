@@ -252,6 +252,7 @@
 
 			// return false;
 			var id_nilai = $(this).data('id_nilai');
+			var nisn = $(this).data('nisn');
 			var nama = $(this).data('nama');
 			var nama_mapel = $(this).data('nama_mapel');
 			var nilai_harian = $(this).data('nilai_harian');
@@ -261,8 +262,9 @@
 			var nilai_karakter = $(this).data('nilai_karakter');
 			var keterangan = $(this).data('keterangan');
 			// var foto = $(this).data('foto');
-			// console.log(kelas)
+			console.log(nisn)
 
+			$('#siswa').val(nisn);
 			$('#id_nilai').val(id_nilai);
 			$('#nama_mapel').val(nama_mapel);
 			$('#nama_siswa').val(nama);
@@ -413,7 +415,7 @@
 						icon: 'error',
 						title: 'Maaf...',
 						text: e.message,
-						
+
 
 					})
 				}

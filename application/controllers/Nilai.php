@@ -397,6 +397,7 @@ class Nilai extends CI_Controller {
 
 			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
 			
+			data-nisn="'.$row->nisn. '" 
 			data-id_nilai="' . $row->id_nilai . ' " 
 			data-kode_mapel="' . $row->kode_mapel . '" 
 			data-nama_mapel="' . $row->nama_mapel . ' " 
