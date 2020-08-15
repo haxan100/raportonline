@@ -829,7 +829,7 @@ class SiswaModel extends CI_Model
 
 		$from = 'kelas k';
 		// custom SQL
-		$sql = "SELECT s.*,k.*, k.id_kelas as kid_kelas FROM {$from} left join siswa s on k.id_kelas=s.id_kelas where k.id_kelas='$id_kelas'
+		$sql = "SELECT s.*,k.*, k.id_kelas as kid_kelas FROM {$from}  join siswa s on k.id_kelas=s.id_kelas where k.id_kelas='$id_kelas'
 		";
 		// var_dump($sql);
 		$where = "";
@@ -968,8 +968,10 @@ class SiswaModel extends CI_Model
 		// SQL SELECT  * FROM `nilai` 
 // join siswa s on s.nisn=nilai.nisn
 // join mapel m on m.kode_mapel=nilai.kode_mapel
-		$sql = "SELECT *FROM {$from}  join siswa s on s.nisn=n.nisn
-		join mapel m on m.kode_mapel=n.kode_mapel
+		$sql = "SELECT k.*, m.nama_mapel, n.*,s.* FROM `nilai` n
+					join mapel m on m.kode_mapel=n.kode_mapel
+					join siswa s on s.nisn=n.nisn 
+					join kelas k on k.id_kelas=s.id_kelas 
 		 where n.nisn='$nisn'
 		";
 		// var_dump($sql);
@@ -1307,6 +1309,30 @@ class SiswaModel extends CI_Model
 		// var_dump($this->db->last_query());
 		// die;
 		
+
+		return $query->result();
+	}
+	public function getIdKelasByNISN($nisn)
+	{
+
+		$this->db->select('*');
+		
+		$this->db->from('siswa');
+		
+
+
+		$this->db->where('nisn', $nisn);
+		$query = $this->db->get();
+		return $query->result();
+		# code...
+	}
+	public function getAllMapelByIdKelas($id_kelas)
+
+	{
+		$this->db->select('*');
+		$this->db->where('id_kelas', $id_kelas);
+		
+		$query = $this->db->get('mapel ');
 
 		return $query->result();
 	}

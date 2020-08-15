@@ -515,26 +515,37 @@ class Nilai extends CI_Controller {
 		foreach ($dt['data']->result() as $row) {
 
 			// var_dump(intVal($row->nilai));die;
-			$keterangan = "";
-			if (intVal($row->nilai) < intVal($row->kkm)) {
-				$keterangan = "<B> Belum Lulus</B>";
-			} else {
-				$keterangan = 'Lulus';
-			}
+			// $keterangan = "";
+			// if (intVal($row->nilai) < intVal($row->kkm)) {
+			// 	$keterangan = "<B> Belum Lulus</B>";
+			// } else {
+			// 	$keterangan = 'Lulus';
+			// }
 
 			$fields = array($no++);
 
-			$fields[] = $row->kode_mapel . '<br>';
+			$fields[] = $row->nama_kelas . '<br>';
 			$fields[] = $row->nama_mapel . '<br>';
-			$fields[] = $row->kkm . '<br>';
-			$fields[] = $row->nilai . '<br>';
-			$fields[] = $keterangan . '<br>';
+			$fields[] = $row->nilai_harian . '<br>';
+			$fields[] = $row->nilai_uts . '<br>';
+			$fields[] = $row->nilai_uas . '<br>';
+			$fields[] = $row->nilai_pengetahuan . '<br>';
+			$fields[] = $row->nilai_karakter . '<br>';
+			$fields[] = $row->keterangan . '<br>';
 			$fields[] = '
 
-			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-id_nilai="' . $row->id_nilai . ' " 
-			data-nilai="' . $row->nilai . ' " 
-			data-kode_mapel="' . $row->kode_mapel . ' " 
-			data-nisn="' . $row->nisn . ' " 
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			data-nisn="' . $row->nisn . '" 
+			data-id_nilai="' . $row->id_nilai . ' " 
+			data-kode_mapel="' . $row->kode_mapel . '" 
+			data-nama_mapel="' . $row->nama_mapel . ' " 
+			data-nilai_harian="' . intVal($row->nilai_harian) . '" 
+			data-nilai_uts="' . $row->nilai_uts . '" 
+			data-nilai_uas="' . $row->nilai_uas . '" 
+			data-nilai_pengetahuan="'.$row->nilai_pengetahuan.'" 
+			data-nilai_karakter="' . $row->nilai_karakter . '" 
+			data-keterangan="' . $row->keterangan . '" 			
+			data-nama="' . $row->nama_lengkap . '"
 			
 			
 			></i> Ubah</button>
@@ -560,17 +571,12 @@ class Nilai extends CI_Controller {
 
 	{
 		$urlid = $this->uri->segment(3);
-		// $urltransaksi = $this->uri->segment(4);
+		$id_kelas = $this->SiswaModel->getIdKelasByNISN($urlid);
+		$data['nama']= $id_kelas[0]->nama_lengkap;
 
-		// var_dump($urlid);
+		// var_dump($data['nama']);die;
 
-		// $this->cekLogin();
-
-		// $id_admin = $this->session->userdata('id_admin');
-
-		// $role = $this->AdminModel->getRole($id_admin, 'transaksi')->r;
-		// 
-		$data['listKelas'] = $this->SiswaModel->getAllMapel();
+		$data['listMapel'] = $this->SiswaModel->getAllMapelByIdKelas($id_kelas[0]->id_kelas);
 		// var_dump($data);die;
 		$data['content'] = 'nilai/data_detail_nilai_siswa';
 		$this->load->view('templates/index', $data);
@@ -1009,28 +1015,67 @@ class Nilai extends CI_Controller {
 	{
 		// var_dump($_POST);die;
 		$nisn = $this->input->post('nisn', TRUE);
-		$mapel = $this->input->post('kelas', TRUE);
-		$nilai = $this->input->post('nilai', TRUE);
+		$mapel = $this->input->post('mapel', TRUE);
+		$nilai_harian = $this->input->post('nilai_harian', TRUE);
+		$nilai_uts = $this->input->post('nilai_uts', TRUE);
+		$nilai_uas = $this->input->post('nilai_uas', TRUE);
+		$nilai_pengetahuan = $this->input->post('nilai_pengetahuan', TRUE);
+		$nilai_karakter = $this->input->post('nilai_karakter', TRUE);
+		$keterangan = $this->input->post('keterangan', TRUE);
 
 		$message = 'Gagal menambah data Nilai!<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
-		$cek_kelas = $this->SiswaModel->cekMapelDiNilai($mapel,$nisn);
-		// var_dump(count($cek_kelas) > 0);die;
-		if (count($cek_kelas) > 0) {
+		$cekNilai = $this->SiswaModel->cekMapelDiNilai($mapel,$nisn);
+		// var_dump(count($cekNilai) > 0);
+		// die;
+
+		if (count($cekNilai) > 0) {
+			// var_dump("jjjjjjj");
 			$message = 'Nilai Sudah Ada!';
 			$status = false;
+			// $errorInputs[] = array('#mapel', 'Silahkan Isi ');
 			// die;
-		} else {
+		} 
+		if ($mapel=='default') {
+			$status = false;
+			$errorInputs[] = array('#mapel', 'Silahkan Isi ');
+		}		if (empty($nilai_harian)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_harian', 'Silahkan Isi ');
+		}		if (empty($nilai_uts)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_uts', 'Silahkan Isi ');
+		}		if (empty($nilai_uas)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_uas', 'Silahkan Isi ');
+		}		if (empty($nilai_pengetahuan)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_pengetahuan', 'Silahkan Isi ');
+		}		if (empty($nilai_karakter)) {
+			$status = false;
+			$errorInputs[] = array('#nilai_karakter', 'Silahkan Isi ');
+		}		if (empty($keterangan)) {
+			$status = false;
+			$errorInputs[] = array('#keterangan', 'Silahkan Isi ');
+		}else {
 			$in = array(
 				'kode_mapel' => $mapel,
-				'nilai' => $nilai,
+				'nilai_harian' => $nilai_harian,
 				'nisn' => $nisn,
+				'nilai_uts' => $nilai_uts,
+				'nilai_uas' => $nilai_uas,
+				'nilai_pengetahuan' => $nilai_pengetahuan,
+				'nilai_karakter' => $nilai_karakter,
+				'keterangan' => $keterangan,
 			);
+	
+		}
+		if($status){
 			$this->SiswaModel->tambah_nilai_siswa($in);
 
 			$message = "Berhasil Menambah Nilai Siswa #1";
-			$status = true;
+			// $status = true;
 		}
 
 		echo json_encode(array(

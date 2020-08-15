@@ -388,9 +388,13 @@ class Siswa extends CI_Controller {
 			$fields[] = '
 
        	 <button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-id_kelas="'.$row->id_kelas.' " data-nama="'. $row->nama_kelas . '" ></i> Ubah</button>
+		  <button class="btn btn-round btn-primary btn_lihat fa fa-users " data-id_kelas="' . $row->id_kelas . '" data-nama="' . $row->nama_kelas . '"
+		> Lihat Siswa</button>   
+		
+        <button class="btn btn-round btn-danger hapus" data-id_kelas="'.$row->id_kelas.'" data-nama="'. $row->nama_kelas. '"
+		>Hapus</button>            
 
-        <button class="btn btn-round btn-danger hapus" data-id_kelas="'.$row->id_kelas.'" data-nama="'. $row->nama_kelas.'"
-        >Hapus</button>               
+    
 
         ';
 			$datatable['data'][] = $fields;

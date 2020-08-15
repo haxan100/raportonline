@@ -20,6 +20,9 @@
 			</style>
 
 			<div class="clearfix"></div>
+			<div class="clearfix">
+				<h2> <?php echo strtoupper($nama); ?></h2>
+			</div>
 		</div>
 		<div class="x_content">
 			<div class="row">
@@ -34,13 +37,16 @@
 						<table id="datatable_siswa" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
-									<th>No</th>
-									<th>Id Mapel</th>
+									<th>#</th>
+									<th>Nama Kelas</th>
 									<th>Nama Mapel</th>
-									<th>KKM</th>
-									<th>Nilai</th>
-									<th>Keterangan</th>
-									<th>Aksi</th>
+									<td>Nilai Harian</td>
+									<td>Nilai UTS</td>
+									<td>Nilai UAS</td>
+									<td>Nilai Pengetahuan</td>
+									<td>Nilai Karakter</td>
+									<td>Keterangan</td>
+									<th>Opsi</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,26 +74,24 @@
 					<div class="row">
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
-								<input type="hidden" name="nisn" id="nisn" value="<?php echo intval($nisn); ?>">
+								<input name="nisn" hidden id="nisn" value="<?php echo intval($nisn); ?>">
 								<input type="hidden" name="id_nilai" id="id_nilai">
 								<div class="x_content">
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Kelas <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Mapel <span class="required">*</span>
 											</label>
 											<div class="col-sm-9">
-												<select class="form-control select col-md-8 col-sm-8" name="kelas" id="kelas">
+												<select class="form-control select col-md-8 col-sm-8" name="mapel" id="mapel">
 													<option value="default" desable>Pilih Mapel</option>
 
 
 													<?php
-													foreach ($listKelas as $r) {
-
-														// die;
+													foreach ($listMapel	 as $r) {	// die;
 														echo '
-							<option value="' . $r->kode_mapel . '">' . $r->nama_mapel . '</option>
-							';
+													<option value="' . $r->kode_mapel . '">' . $r->nama_mapel . '</option>
+													';
 													}
 													?>
 												</select>
@@ -95,13 +99,55 @@
 										</div>
 
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nilai <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nilai Harian <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="nilai" name="nilai" class="form-control " placeholder="Isikan Nama" type="number" class="form-control">
+												<input id="nilai_harian" name="nilai_harian" class="form-control " placeholder="Isikan Nilai Harian" type="number" class="form-control">
 
 											</div>
 										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai UTS<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="nilai_uts" name="nilai_uts" class="form-control " placeholder="Isikan UTS" type="number" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Uas <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="nilai_uas" name="nilai_uas" class="form-control " placeholder="Isikan UAS" type="number" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Pengetahuan <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="nilai_pengetahuan" name="nilai_pengetahuan" class="form-control " placeholder="Isikan Nilai Pengetahuan" type="number" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Nilai Karakter <span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="nilai_karakter" name="nilai_karakter" class="form-control " placeholder="Isikan Nilai Karakter" type="number" class="form-control">
+
+											</div>
+										</div>
+										<div class="item form-group">
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Keterangan<span class="required">*</span>
+											</label>
+											<div class="col-md-6 col-sm-6 ">
+												<input id="keterangan" name="keterangan" class="form-control " placeholder="Keterangan" type="text" class="form-control">
+
+											</div>
+										</div>
+
+
 										<div class="ln_solid"></div>
 										<div class="item form-group">
 										</div>
@@ -176,35 +222,44 @@
 			console.log(url_form);
 			$('#tambah_act').hide();
 
-			// return false;
+			var mapel = $(this).data('kode_mapel');
 			var id_nilai = $(this).data('id_nilai');
-			var nisn = $(this).data('nisn');
-			var nilai = $(this).data('nilai');
-			var kode_mapel = $(this).data('kode_mapel');
-			// var jenkel = $(this).data('jen');
+			var nama = $(this).data('nama');
+			var nama_mapel = $(this).data('nama_mapel');
+			var nilai_harian = $(this).data('nilai_harian');
+			var nilai_uts = $(this).data('nilai_uts');
+			var nilai_uas = $(this).data('nilai_uas');
+			var nilai_pengetahuan = $(this).data('nilai_pengetahuan');
+			var nilai_karakter = $(this).data('nilai_karakter');
+			var keterangan = $(this).data('keterangan');
 			// var foto = $(this).data('foto');
-			console.log(nisn, nilai, kode_mapel, id_nilai);
+			console.log(mapel)
 
-			$('#nisn').val(nisn);
-			// $('#nama').val(nama);
-			// $('#kelas').val(kode_mapel);
-			// $('#nilai').val(nilai);
 			$('#id_nilai').val(id_nilai);
+			$('#nama_mapel').val(nama_mapel);
+			$('#mapel').val(mapel);
+			$('#nama_siswa').val(nama);
+			$('#nilai_harian').val(nilai_harian);
+			$('#nilai_uts').val(nilai_uts);
+			$('#nilai_uas').val(nilai_uas);
+			$('#nilai_pengetahuan').val(nilai_pengetahuan);
+			$('#nilai_karakter').val(nilai_karakter);
+			$('#keterangan').val(keterangan);
 			$('#Edit').show();
-			$("#kelas").val(parseInt(kode_mapel));
-			$("#nilai").val(parseInt(nilai));
 
 
 		});
 		$('#Edit').on('click', function() {
 
 			var id_nilai = $('#id_nilai').val();
-			var nisn = $('#nisn').val();
-			var nilai = parseInt($('#nilai').val());
-			var kelas = $('#kelas').val();
-			console.log(nilai);
+			var nilai_harian = $('#nilai_harian').val();
+			var nilai_uts = $('#nilai_uts').val();
+			var nilai_uas = $('#nilai_uas').val();
+			var nilai_pengetahuan = $('#nilai_pengetahuan').val();
+			var nilai_karakter = $('#nilai_karakter').val();
+			var keterangan = $('#keterangan').val();
 			if (
-				nilai && kelas
+				id_nilai && nilai_uas
 			) {
 				$("#form").submit();
 			}
@@ -318,6 +373,15 @@
 						text: e.message,
 
 					})
+					notifikasiModal('#modalProduk', '#alertNotifModal', e.message, true);
+					$.each(e.errorInputs, function(key, val) {
+						// console.log(val[0], val[1]);
+						validasi(val[0], false, val[1]);
+						$(val[0])
+							.parent()
+							.find('.input-group-text')
+							.addClass('form-control is-invalid');
+					});
 				}
 			}).fail(function(e) {
 				console.log(e);
@@ -326,6 +390,27 @@
 			return false;
 		});
 
+		function validasi(id, valid, message = '') {
+			if (valid) {
+				$(id)
+					// .addClass('is-valid')
+					.removeClass('is-invalid')
+					.parent()
+					.find('small')
+					// .addClass('valid-feedback')
+					.removeClass('invalid-feedback')
+					.html(message);
+			} else {
+				$(id)
+					// .removeClass('is-valid')
+					.addClass('is-invalid')
+					.parent()
+					.find('small')
+					// .removeClass('valid-feedback')
+					.addClass('invalid-feedback')
+					.html(message);
+			}
+		}
 
 		function notifikasiModal(modal, sel, msg, err) {
 			var alert_type = 'alert-success ';
@@ -351,14 +436,20 @@
 
 		$('#tambah_act').on('click', function() {
 
-			var mapel = $('#kelas').val();
-			var nisn = $('#nisn').val('');
-			var nisn = $(this).data('nisn');
-			// console.log(nisn);
-			var nilai = $('#nilai').val();
+			var mapel = $('#mapel').val();
+			var nisn = $('#nisn').val();
+			var nilai_harian = $('#nilai_harian').val();
+			var nilai_uts = $('#nilai_uts').val();
+			var nilai_uas = $('#nilai_uas').val();
+			var nilai_pengetahuan = $('#nilai_pengetahuan').val();
+			var nilai_karakter = $('#nilai_karakter').val();
+			var Keterangan = $('#Keterangan').val();
+			console.log(mapel);
+			// return false;
+			// var nilai = $('#nilai').val();
 
 			if (
-				nilai && mapel
+				nisn && mapel
 			) {
 				$("#form").submit();
 				// console.log(_foto);
@@ -440,7 +531,7 @@
 
 			],
 			language: {
-				searchPlaceholder: "Cari Kelas",
+				searchPlaceholder: "Cari Mapel",
 
 			},
 			// columnDefs: [{

@@ -459,7 +459,13 @@
 			}
 			// return false;
 		});
+		$('body').on('click', '.btn_lihat', function() {
 
+			var id_kelas = $(this).data('id_kelas');
+			url = 'SiswaKelas/' + id_kelas;
+
+			window.location = '<?= $bu; ?>Nilai/kelas_detail/' + $(this).data('id_kelas');
+		})
 
 
 

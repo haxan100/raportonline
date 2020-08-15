@@ -37,7 +37,7 @@
 									<th>No</th>
 									<th>NISN</th>
 									<th>Nama Siswa</th>
-									<th>Wali Kelas</th>
+									<th> Kelas</th>
 									<th>Aksi</th>
 								</tr>
 							</thead>
