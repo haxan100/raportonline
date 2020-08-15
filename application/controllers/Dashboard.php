@@ -13,9 +13,24 @@ class Dashboard extends CI_Controller {
 
 		$this->load->helper('url');
 	}
-
+	public function isLoggedInAdmin()
+	{
+		if ($this->session->userdata('admin_session'))
+		return true; // sudah login
+		else
+			return false; // belum login
+	}
 	public function index()
-	{	
+	{
+		if (!$this->isLoggedInAdmin()) {
+
+			echo 'Anda Harus Login!';
+
+			redirect('login', 'refresh');
+
+			exit();
+		}
+
 
 		// var_dump($_SESSION);die;
 		$data['siswa']= $this->SiswaModel->siswa();

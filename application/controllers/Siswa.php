@@ -23,6 +23,7 @@ class Siswa extends CI_Controller {
 
 	public function index()
 	{
+		// var_dump($_SESSION);die;
 		if (!$this->isLoggedInAdmin()) {
 
 			echo 'Anda Harus Login!';

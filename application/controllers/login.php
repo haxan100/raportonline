@@ -95,7 +95,7 @@ class login extends CI_Controller {
 			$data_session = array(
 				'nama' => $username,
 				'status' => "login",
-				'user' => "admin",
+				'user' => "guru",
 				'admin_session' => true, // Buat session authenticated dengan value true
 				'id_user' => $r->kode_wali, // Buat session authenticated
 				'nama' => $r->nama_wali,

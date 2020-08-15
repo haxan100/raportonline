@@ -2,8 +2,13 @@
 	<div class="x_panel">
 		<style>
 			.dropzone {
-				min-height: 30px;
+				min-height: 30px!important;
 				border: 1px solid #e5e5e5;
+			}
+
+			img {
+				border-radius: 11px;
+				max-width: 71px!important;
 			}
 		</style>
 		<div class="x_title">

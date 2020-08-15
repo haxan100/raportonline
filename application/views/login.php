@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<style>
+	img{
+		border-radius: 11px;
+		max-width: 71px;
+	}
+</style>
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -55,6 +61,7 @@
 							<br />
 
 							<div>
+								<h1> <img src="<?php echo base_url(); ?>/assets/images/logo.png " alt="" srcset=""></h1>
 								<h1><i class="fa fa-paw"></i> Raport Online</h1>
 								<p>2020</p>
 							</div>

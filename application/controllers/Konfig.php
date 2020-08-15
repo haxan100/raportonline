@@ -13,8 +13,23 @@ class Konfig extends CI_Controller {
 
 		$this->load->helper('url');
 	}
+	public function isLoggedInAdmin()
+	{
+		if ($this->session->userdata('admin_session'))
+		return true; // sudah login
+		else
+			return false; // belum login
+	}
 	public function index()
 	{
+		if (!$this->isLoggedInAdmin()) {
+
+			echo 'Anda Harus Login!';
+
+			redirect('login', 'refresh');
+
+			exit();
+		}
 		$data['content'] = 'konfig/Konfigurasi';
 		$data['konfig']
 		= $this->SekolahModel->dataSekolah()->result();

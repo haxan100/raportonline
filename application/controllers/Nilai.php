@@ -1095,6 +1095,16 @@ class Nilai extends CI_Controller {
 	}
 	public function nilaiKelas()
 	{
+
+		if (!$this->isLoggedInAdmin()) {
+
+			echo 'Anda Harus Login!';
+
+			redirect('login', 'refresh');
+
+			exit();
+		}
+
 		$u = $this->uri->segment(3);
 				
 			// var_dump($u);
