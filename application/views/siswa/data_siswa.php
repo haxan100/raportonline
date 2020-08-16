@@ -2,6 +2,17 @@
 	<div class="x_panel">
 		<div class="x_title">
 			<h2>Data Siswa</h2>
+			<?php
+
+			if ($_SESSION['user'] == 'guru') {
+				$id_kelasFromWali = $_SESSION['id_kelas'];
+				// echo"helo";
+				$data['listKelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelasFromWali);
+				$data['siswa'] = $this->SiswaModel->getSiswaByid_kelas($id_kelasFromWali);
+			}
+
+			// var_dump($_SESSION);die;
+			?>
 			<style>
 				#image {
 					max-width: 50px;
@@ -49,6 +60,16 @@
 	<div class="modal-dialog modal-lg">
 		<form id="form">
 			<div class="modal-content">
+				<?php
+				if ($_SESSION['user'] == 'guru') { ?>
+
+					<input type="hidden" name="id_kelasFromSession" id="id_kelasFromSession" value="<?php echo $id_kelasFromWali ?>">
+				<?php
+				} ?>
+
+				<input type="hidden" name="SessionUser" id="SessionUser" value="<?php echo $_SESSION['user']  ?>">
+
+
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
 					</button>
@@ -453,107 +474,218 @@
 			}
 			// return false;
 		});
+		// if($_)
+		var id_kelas = $("#id_kelasFromSession").val();
+		var sessionUser = $("#SessionUser").val();
+		// alert(sessionValue)
+		// console.log(sessionUser)
 
-		var datatable = $('#datatable_siswa').DataTable({
-			dom: "Bfrltip",
-			'pageLength': 10,
-			"responsive": true,
-			"processing": true,
-			"bProcessing": true,
-			"autoWidth": false,
-			"serverSide": true,
+		if (sessionUser == "guru") {
+			var datatable = $('#datatable_siswa').DataTable({
+				dom: "Bfrltip",
+				'pageLength': 10,
+				"responsive": true,
+				"processing": true,
+				"bProcessing": true,
+				"autoWidth": false,
+				"serverSide": true,
 
 
-			"columnDefs": [{
-					"targets": 0,
-					"className": "dt-body-center dt-head-center",
-					"width": "20px",
-					"orderable": false
-				},
-				{
-					"targets": 1,
-					"className": "dt-head-center"
-				},
-				{
-					"targets": 2,
-					"className": "dt-head-center"
-				}, {
-					"targets": 3,
-					"className": "dt-head-center"
-				}, {
-					"targets": 4,
-					"className": "dt-head-center"
-				}, {
-					"targets": 5,
-					"className": "dt-head-center"
-				}, {
-					"targets": 6,
-					"className": "dt-head-center"
-				}, {
-					"targets": 7,
-					"className": "dt-head-center"
-				}, {
-					"targets": 8,
-					"className": "dt-head-center"
-				}, {
-					"targets": 9,
-					"className": "dt-head-center"
-				},
-			],
-			"order": [
-				[1, "desc"]
-			],
-			'ajax': {
-				url: bu + 'siswa/getAllSiswa',
-				type: 'POST',
-				"data": function(d) {
+				"columnDefs": [{
+						"targets": 0,
+						"className": "dt-body-center dt-head-center",
+						"width": "20px",
+						"orderable": false
+					},
+					{
+						"targets": 1,
+						"className": "dt-head-center"
+					},
+					{
+						"targets": 2,
+						"className": "dt-head-center"
+					}, {
+						"targets": 3,
+						"className": "dt-head-center"
+					}, {
+						"targets": 4,
+						"className": "dt-head-center"
+					}, {
+						"targets": 5,
+						"className": "dt-head-center"
+					}, {
+						"targets": 6,
+						"className": "dt-head-center"
+					}, {
+						"targets": 7,
+						"className": "dt-head-center"
+					}, {
+						"targets": 8,
+						"className": "dt-head-center"
+					}, {
+						"targets": 9,
+						"className": "dt-head-center"
+					},
+				],
+				"order": [
+					[1, "desc"]
+				],
+				'ajax': {
+					url: bu + 'siswa/getAllSiswa',
+					type: 'POST',
+					"data": function(d) {
+						d.id_kelas = id_kelas;
 
-					return d;
-				}
-			},
-
-			buttons: [
-
-				// 'excelHtml5',
-				// 'pdfHtml5'
-				{
-					text: "Excel",
-					extend: "excelHtml5",
-					className: "btn btn-round btn-info",
-
-					title: 'Data Siswa',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
+						return d;
 					}
-				}, {
-					text: "PDF",
-					extend: "pdfHtml5",
-					className: "<br>btn btn-round btn-danger",
-					title: 'Data Siswa',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
+				},
+
+				buttons: [
+
+					// 'excelHtml5',
+					// 'pdfHtml5'
+					{
+						text: "Excel",
+						extend: "excelHtml5",
+						className: "btn btn-round btn-info",
+
+						title: 'Data Siswa',
+						exportOptions: {
+							columns: [1, 2, 3, 4, 5, 6, 7]
+						}
+					}, {
+						text: "PDF",
+						extend: "pdfHtml5",
+						className: "<br>btn btn-round btn-danger",
+						title: 'Data Siswa',
+						exportOptions: {
+							columns: [1, 2, 3, 4, 5, 6, 7]
+						}
 					}
-				}
 
 
 
 
 
-			],
-			language: {
-				searchPlaceholder: "Cari..",
+				],
+				language: {
+					searchPlaceholder: "Cari..",
 
-			},
-			// columnDefs: [{
-			// 	targets: -1,
-			// 	visible: false
-			// }],
-			"lengthMenu": [
-				[10, 25, 50, 1000],
-				[10, 25, 50, 1000]
-			]
+				},
+				// columnDefs: [{
+				// 	targets: -1,
+				// 	visible: false
+				// }],
+				"lengthMenu": [
+					[10, 25, 50, 1000],
+					[10, 25, 50, 1000]
+				]
 
-		});
+			});
+
+		} else {
+			var datatable = $('#datatable_siswa').DataTable({
+				dom: "Bfrltip",
+				'pageLength': 10,
+				"responsive": true,
+				"processing": true,
+				"bProcessing": true,
+				"autoWidth": false,
+				"serverSide": true,
+
+
+				"columnDefs": [{
+						"targets": 0,
+						"className": "dt-body-center dt-head-center",
+						"width": "20px",
+						"orderable": false
+					},
+					{
+						"targets": 1,
+						"className": "dt-head-center"
+					},
+					{
+						"targets": 2,
+						"className": "dt-head-center"
+					}, {
+						"targets": 3,
+						"className": "dt-head-center"
+					}, {
+						"targets": 4,
+						"className": "dt-head-center"
+					}, {
+						"targets": 5,
+						"className": "dt-head-center"
+					}, {
+						"targets": 6,
+						"className": "dt-head-center"
+					}, {
+						"targets": 7,
+						"className": "dt-head-center"
+					}, {
+						"targets": 8,
+						"className": "dt-head-center"
+					}, {
+						"targets": 9,
+						"className": "dt-head-center"
+					},
+				],
+				"order": [
+					[1, "desc"]
+				],
+				'ajax': {
+					url: bu + 'siswa/getAllSiswa',
+					type: 'POST',
+					"data": function(d) {
+
+						return d;
+					}
+				},
+
+				buttons: [
+
+					// 'excelHtml5',
+					// 'pdfHtml5'
+					{
+						text: "Excel",
+						extend: "excelHtml5",
+						className: "btn btn-round btn-info",
+
+						title: 'Data Siswa',
+						exportOptions: {
+							columns: [1, 2, 3, 4, 5, 6, 7]
+						}
+					}, {
+						text: "PDF",
+						extend: "pdfHtml5",
+						className: "<br>btn btn-round btn-danger",
+						title: 'Data Siswa',
+						exportOptions: {
+							columns: [1, 2, 3, 4, 5, 6, 7]
+						}
+					}
+
+
+
+
+
+				],
+				language: {
+					searchPlaceholder: "Cari..",
+
+				},
+				// columnDefs: [{
+				// 	targets: -1,
+				// 	visible: false
+				// }],
+				"lengthMenu": [
+					[10, 25, 50, 1000],
+					[10, 25, 50, 1000]
+				]
+
+			});
+		}
+
 
 
 	});

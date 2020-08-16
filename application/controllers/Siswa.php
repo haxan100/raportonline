@@ -23,7 +23,7 @@ class Siswa extends CI_Controller {
 
 	public function index()
 	{
-		// var_dump($_SESSION);die;
+
 		if (!$this->isLoggedInAdmin()) {
 
 			echo 'Anda Harus Login!';
@@ -32,12 +32,27 @@ class Siswa extends CI_Controller {
 
 			exit();
 		}
+		// var_dump($_SESSION);die;
+
+
+
+		if($_SESSION['user']=='guru'){
+			$id_kelasFromWali = $_SESSION['id_kelas'];
+			// echo"helo";
+			$data['listKelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelasFromWali);
+			$data['siswa'] = $this->SiswaModel->getSiswaByid_kelas($id_kelasFromWali);
+
+
+		}else{
+			$data['listKelas'] = $this->SiswaModel->getAllKelas();
+			$data['siswa'] = $this->SiswaModel->siswa();
+		}
+
 
 		$data['konfig']
 		= $this->SekolahModel->dataSekolah()->result();
 		// var_dump($_SESSION);die;
-		$data['listKelas'] = $this->SiswaModel->getAllKelas();
-		$data['siswa']= $this->SiswaModel->siswa();
+	
 		// var_dump($this->SiswaModel->siswa());die;
 		
 		$data['content']= 'siswa/data_siswa';
@@ -410,11 +425,21 @@ class Siswa extends CI_Controller {
 	public function getAllSiswa()
 
 	{
-		
+		// var_dump($_SESSION);die;
+
+		if ($_SESSION['user'] == 'guru') {
+			$id_kelasFromWali = $_SESSION['id_kelas'];
+			$dt = $this->SiswaModel->data_AllSiswaByKelas($_POST,$id_kelasFromWali);
+			// var_dump($id_kelasFromWali);die;
+	
+		} else {
+
+			$dt = $this->SiswaModel->data_AllSiswa($_POST);
+	
+		}
 
 		$bu = base_url();
 
-		$dt = $this->SiswaModel->data_AllSiswa($_POST);
 
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
 
