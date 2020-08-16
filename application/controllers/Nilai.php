@@ -448,29 +448,85 @@ class Nilai extends CI_Controller {
 
 	{
 		$urlid = $this->uri->segment(3);
-		// $urltransaksi = $this->uri->segment(4);
 
-		// var_dump($urlid);
+		$id_kelas = $_POST['id_kelas'];
+		$getKelasFromSess =  $_SESSION['id_kelas'];
 
-		// $this->cekLogin();
+		if (!$this->isLoggedInAdmin()) {
+			echo 'Anda Harus Login!';
+			redirect('login', 'refresh');
+			exit();
+		}
 
-		// $id_admin = $this->session->userdata('id_admin');
+		if ($_SESSION['user'] == "guru") {
 
-		// $role = $this->AdminModel->getRole($id_admin, 'transaksi')->r;
-			// 
-		$data['content'] = 'nilai/data_detail_kelas';
+			if ($getKelasFromSess == $urlid) {
+
+				$data['content'] = 'nilai/data_detail_kelas';
+
+			} else {
+				// $dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
+				// echo" alert("s")";
+				echo '<script type="text/javascript">
+				    alert("Kelas Bukan Untuk Anda...");
+				</script>';
+
+
+				redirect('Nilai', 'refresh');
+			}
+		} else if ($_SESSION['user'] == "admin") {
+
+			$data['content'] = 'nilai/data_detail_kelas';
+		
+		}
+		
+
 		$this->load->view('templates/index', $data);
 
-		// $this->load->view('admin/transaksi_detail', $obj);
 
 	}
 	public function getKelasDetailSiswa()
 	{
 		$id_kelas = $_POST['id_kelas'];
-		// var_dump($id_kelas);die;
+		$getKelasFromSess=  $_SESSION['id_kelas'];
+		// var_dump($getKelasFromSess);die;
+
 
 		$bu = base_url();
-		$dt = $this->SiswaModel->data_AllKelasSiswa($_POST,$id_kelas);
+		$u = $this->uri->segment(3);
+		// var_dump($u);die;
+
+		if (!$this->isLoggedInAdmin()) {
+			echo 'Anda Harus Login!';
+			redirect('login', 'refresh');
+			exit();
+		}
+
+		// $id_kelas = $this->SiswaModel->getMapelByid($u)[0]->id_kelas;
+
+		if ($_SESSION['user'] == "guru") {
+
+			if($getKelasFromSess == $id_kelas){
+
+				$dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
+				
+			} else {
+				$dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
+				// echo" alert("s")";
+				// echo '<script type="text/javascript">
+                //     alert("Kelas Bukan Untuk Anda...");
+				// </script>';
+
+
+				// redirect('Nilai', 'refresh');
+			}
+
+
+		}else if ($_SESSION['user'] == "admin"){
+
+			$dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
+		}
+		
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
 		$datatable['recordsTotal']    = $dt['totalData'];
 		$datatable['recordsFiltered'] = $dt['totalData'];
