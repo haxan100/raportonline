@@ -31,10 +31,27 @@ class Nilai extends CI_Controller {
 
 			exit();
 		}
+		if ($_SESSION['user'] == 'guru') {
+
+			$id_kelasFromWali = $_SESSION['id_kelas'];
+			// echo"helo";
+			$data['listKelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelasFromWali);
+			$data['siswa'] = $this->SiswaModel->getSiswaByid_kelas($id_kelasFromWali);
+
+
+			$data['listMapel'] = $this->SiswaModel->getMapelByidKelas($id_kelasFromWali);
+
+		} else {
+			$data['listKelas'] = $this->SiswaModel->getAllKelas();
+			$data['listMapel'] = $this->SiswaModel->getAllMapel();
+			$data['siswa'] = $this->SiswaModel->siswa();
+		}
+		
+
 		// var_dump($_SESSION);die;
-		$data['listKelas'] = $this->SiswaModel->getAllKelas();
-		$data['listMapel'] = $this->SiswaModel->getAllMapel();
-		$data['siswa']= $this->SiswaModel->siswa();
+		// $data['listKelas'] = $this->SiswaModel->getAllKelas();
+		// $data['listMapel'] = $this->SiswaModel->getAllMapel();
+		// $data['siswa']= $this->SiswaModel->siswa();
 		// var_dump($this->SiswaModel->siswa());die;
 		
 		$data['content']= 'nilai/data_nilai_kelas';

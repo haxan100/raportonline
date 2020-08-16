@@ -13,6 +13,7 @@
 				}
 			</style>
 
+
 			<div class="clearfix"></div>
 		</div>
 
@@ -25,12 +26,22 @@
 
 					<div class="card-box table-responsive">
 
+						<?php
+						if ($_SESSION['user'] == 'guru') {
+							$id_kelasFromWali = $_SESSION['id_kelas'];
+						?>
+
+							<input type="hidden" name="id_kelasFromSession" id="id_kelasFromSession" value="<?php echo $id_kelasFromWali ?>">
+						<?php
+						} ?>
+
+						<input type="hidden" name="SessionUser" id="SessionUser" value="<?php echo $_SESSION['user']  ?>">
 
 						<div class="form-group row">
 							<!-- <label class="control-label col-md-3 col-sm-3 ">Select</label> -->
 							<div class="col-md-3 col-sm-3 ">
 								<select class="form-control" id="kelas">
-									<option>Pilih Kelas</option>
+									<option data-id=0>Pilih Kelas</option>
 									<?php
 									foreach ($listKelas as $r) {
 										echo '
@@ -468,8 +479,16 @@
 		$('body').on('click', '.btn_pilih', function() {
 			var kelas = $('#kelas').find(':selected').data('id');
 			var mapel = $('#mapel').find(':selected').val()
-			if (kelas == "") {
-				alert("Pilih Kelas");
+			// console.log(kelas)
+			if (kelas == 0) {
+				// alert("Pilih Kelas");
+				Swal.fire(
+					'Error!',
+					"Pilih Kelas",
+					'error'
+				)
+				return false
+
 			} else if (mapel == "Pilih Mapel") {
 
 				Swal.fire(
@@ -495,112 +514,227 @@
 			console.log(url);
 			return false;
 		});
-		var datatable = $('#datatable_siswa').DataTable({
-			// dom: "Bfrltip",
-			'pageLength': 10,
-			"responsive": true,
-			"processing": true,
-			"bProcessing": true,
-			"autoWidth": false,
-			"serverSide": true,
+		var id_kelas = $("#id_kelasFromSession").val();
+		var sessionUser = $("#SessionUser").val();
+
+		if (sessionUser == "guru") {
+			console.log("guru");
+			var datatable = $('#datatable_siswa').DataTable({
+				// dom: "Bfrltip",
+				'pageLength': 10,
+				"responsive": true,
+				"processing": true,
+				"bProcessing": true,
+				"autoWidth": false,
+				"serverSide": true,
 
 
-			"columnDefs": [{
-					"targets": 0,
-					"className": "dt-body-center dt-head-center",
-					"width": "20px",
-					"orderable": false
+				"columnDefs": [{
+						"targets": 0,
+						"className": "dt-body-center dt-head-center",
+						"width": "20px",
+						"orderable": false
+					},
+					{
+						"targets": 1,
+						"className": "dt-head-center"
+					},
+					{
+						"targets": 2,
+						"className": "dt-head-center"
+					}, {
+						"targets": 3,
+						"className": "dt-head-center"
+					}, {
+						"targets": 4,
+						"className": "dt-head-center"
+					}, {
+						"targets": 5,
+						"className": "dt-head-center"
+					}, {
+						"targets": 6,
+						"className": "dt-head-center"
+					}, {
+						"targets": 7,
+						"className": "dt-head-center"
+					}, {
+						"targets": 8,
+						"className": "dt-head-center"
+					}, {
+						"targets": 9,
+						"className": "dt-head-center"
+					}, {
+						"targets": 10,
+						"className": "dt-head-center"
+					},
+				],
+				"order": [
+					[1, "desc"]
+				],
+				'ajax': {
+					url: bu + 'Nilai/getKelas',
+					type: 'POST',
+					"data": function(d) {
+						d.kelas = d.id_kelas = id_kelas;
+						// console.log(d);
+						// return false;
+
+						return d;
+					}
 				},
-				{
-					"targets": 1,
-					"className": "dt-head-center"
+
+				// buttons: [
+
+				// 	// 'excelHtml5',
+				// 	// 'pdfHtml5'
+				// 	{
+				// 		text: "Excel",
+				// 		extend: "excelHtml5",
+				// 		className: "btn btn-round btn-info",
+				// 		tittle: '',
+				// 		exportOptions: {
+				// 			columns: [1, 2, 3, 4, 5, 6, 7]
+				// 		}
+				// 	}, {
+				// 		text: "PDF",
+				// 		extend: "pdfHtml5",
+				// 		className: "<br>btn btn-round btn-danger",
+				// 		tittle: '',
+				// 		exportOptions: {
+				// 			columns: [1, 2, 3, 4, 5, 6, 7]
+				// 		}
+				// 	}
+
+
+
+
+
+				// ],
+				// language: {
+				// 	searchPlaceholder: "Cari Kelas",
+
+				// },
+				// columnDefs: [{
+				// 	targets: -1,
+				// 	visible: false
+				// }],
+				"lengthMenu": [
+					[10, 25, 50, 1000],
+					[10, 25, 50, 1000]
+				]
+
+			});
+		} else {
+			// console.log("admin");
+			var datatable = $('#datatable_siswa').DataTable({
+				// dom: "Bfrltip",
+				'pageLength': 10,
+				"responsive": true,
+				"processing": true,
+				"bProcessing": true,
+				"autoWidth": false,
+				"serverSide": true,
+
+
+				"columnDefs": [{
+						"targets": 0,
+						"className": "dt-body-center dt-head-center",
+						"width": "20px",
+						"orderable": false
+					},
+					{
+						"targets": 1,
+						"className": "dt-head-center"
+					},
+					{
+						"targets": 2,
+						"className": "dt-head-center"
+					}, {
+						"targets": 3,
+						"className": "dt-head-center"
+					}, {
+						"targets": 4,
+						"className": "dt-head-center"
+					}, {
+						"targets": 5,
+						"className": "dt-head-center"
+					}, {
+						"targets": 6,
+						"className": "dt-head-center"
+					}, {
+						"targets": 7,
+						"className": "dt-head-center"
+					}, {
+						"targets": 8,
+						"className": "dt-head-center"
+					}, {
+						"targets": 9,
+						"className": "dt-head-center"
+					}, {
+						"targets": 10,
+						"className": "dt-head-center"
+					},
+				],
+				"order": [
+					[1, "desc"]
+				],
+				'ajax': {
+					url: bu + 'Nilai/getKelas',
+					type: 'POST',
+					"data": function(d) {
+						// d.kelas = $('#kelas').find(':selected').data('id');
+						// d.mapel = $('#mapel').find(':selected').data('id');
+						// console.log(d);
+						// return false;
+
+						return d;
+					}
 				},
-				{
-					"targets": 2,
-					"className": "dt-head-center"
-				}, {
-					"targets": 3,
-					"className": "dt-head-center"
-				}, {
-					"targets": 4,
-					"className": "dt-head-center"
-				}, {
-					"targets": 5,
-					"className": "dt-head-center"
-				}, {
-					"targets": 6,
-					"className": "dt-head-center"
-				}, {
-					"targets": 7,
-					"className": "dt-head-center"
-				}, {
-					"targets": 8,
-					"className": "dt-head-center"
-				}, {
-					"targets": 9,
-					"className": "dt-head-center"
-				}, {
-					"targets": 10,
-					"className": "dt-head-center"
-				},
-			],
-			"order": [
-				[1, "desc"]
-			],
-			'ajax': {
-				url: bu + 'Nilai/getKelas',
-				type: 'POST',
-				"data": function(d) {
-					d.kelas = $('#kelas').find(':selected').data('id');
-					d.mapel = $('#mapel').find(':selected').data('id');
-					// console.log(d);
-					// return false;
 
-					return d;
-				}
-			},
+				// buttons: [
 
-			// buttons: [
-
-			// 	// 'excelHtml5',
-			// 	// 'pdfHtml5'
-			// 	{
-			// 		text: "Excel",
-			// 		extend: "excelHtml5",
-			// 		className: "btn btn-round btn-info",
-			// 		tittle: '',
-			// 		exportOptions: {
-			// 			columns: [1, 2, 3, 4, 5, 6, 7]
-			// 		}
-			// 	}, {
-			// 		text: "PDF",
-			// 		extend: "pdfHtml5",
-			// 		className: "<br>btn btn-round btn-danger",
-			// 		tittle: '',
-			// 		exportOptions: {
-			// 			columns: [1, 2, 3, 4, 5, 6, 7]
-			// 		}
-			// 	}
+				// 	// 'excelHtml5',
+				// 	// 'pdfHtml5'
+				// 	{
+				// 		text: "Excel",
+				// 		extend: "excelHtml5",
+				// 		className: "btn btn-round btn-info",
+				// 		tittle: '',
+				// 		exportOptions: {
+				// 			columns: [1, 2, 3, 4, 5, 6, 7]
+				// 		}
+				// 	}, {
+				// 		text: "PDF",
+				// 		extend: "pdfHtml5",
+				// 		className: "<br>btn btn-round btn-danger",
+				// 		tittle: '',
+				// 		exportOptions: {
+				// 			columns: [1, 2, 3, 4, 5, 6, 7]
+				// 		}
+				// 	}
 
 
 
 
 
-			// ],
-			// language: {
-			// 	searchPlaceholder: "Cari Kelas",
+				// ],
+				// language: {
+				// 	searchPlaceholder: "Cari Kelas",
 
-			// },
-			// columnDefs: [{
-			// 	targets: -1,
-			// 	visible: false
-			// }],
-			"lengthMenu": [
-				[10, 25, 50, 1000],
-				[10, 25, 50, 1000]
-			]
+				// },
+				// columnDefs: [{
+				// 	targets: -1,
+				// 	visible: false
+				// }],
+				"lengthMenu": [
+					[10, 25, 50, 1000],
+					[10, 25, 50, 1000]
+				]
 
-		});
+			});
+
+		}
+
 
 		$('#kelas').on('change', function() {
 			var id = $(this).val();
