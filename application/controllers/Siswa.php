@@ -315,21 +315,15 @@ class Siswa extends CI_Controller {
 
 	public function Kelas()
 	{
-				if (!$this->isLoggedInAdmin()) {
-
+		if (!$this->isLoggedInAdmin()) {
 			echo 'Anda Harus Login!';
-
 			exit();
 		}
 		
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
-		// $data['siswa'] = $this->SiswaModel->siswa();
-		// var_dump($this->SiswaModel->siswa());die;
-
 		$data['content'] = 'siswa/data_kelas';
-
-
 		$this->load->view('templates/index', $data);
+
 	}
 	public function tambah_kelas_proses()
 	{
@@ -368,18 +362,22 @@ class Siswa extends CI_Controller {
 
 	{
 
-		// if (!$this->isLoggedInAdmin()) {
+		if (!$this->isLoggedInAdmin()) {
 
-		// 	echo '403 Forbidden!';
+			echo '403 Forbidden!';
 
-		// 	exit();
-		// }
+			exit();
+		}
+		// var_dump($_SESSION);die;
+		if($_SESSION['user']=='guru'){
+			$id_kelasFromWali= $_SESSION['id_kelas'];
+			$dt = $this->SiswaModel->data_AllKelasByKelas($_POST,$id_kelasFromWali);
+		}else{
 
+			$dt = $this->SiswaModel->data_AllKelas($_POST);
+		}
 
 		$bu = base_url();
-
-		$dt = $this->SiswaModel->data_AllKelas($_POST);
-
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
 
 		$datatable['recordsTotal']    = $dt['totalData'];
