@@ -590,8 +590,18 @@ class Siswa extends CI_Controller {
 	public function getAllMapel()
 
 	{
+
+		if ($_SESSION['user'] == "guru") {
+			$getKelasFromSess =  $_SESSION['id_kelas'];
+			$dt = $this->SiswaModel->data_AllMapellByIdKelas($_POST, $getKelasFromSess);
+
+
+		}else{
+
+			$dt = $this->SiswaModel->data_AllMapel($_POST);
+		}
+
 		$bu = base_url();
-		$dt = $this->SiswaModel->data_AllMapel($_POST);
 
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
 

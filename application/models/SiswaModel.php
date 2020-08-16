@@ -1672,6 +1672,168 @@ class SiswaModel extends CI_Model
 
 		);
 	}
+	public function data_AllMapellByIdKelas($post, $getKelasFromSess)
+
+	{
+		$columns = array(
+			'm.nama_mapel',
+			// 'p.created_at',
+
+			// 'p.stok',
+
+			// 'p.view_count',
+
+			// 'p.harga_awal',
+
+			// // 'p.harga_awal',
+
+			// // 'p.created_at',
+
+		);
+		// untuk search
+		$columnsSearch = array(
+			'm.nama_mapel',
+
+
+			// 'p.judul',
+
+			// 'p.harga_awal',
+
+			// 'p.view_count',
+
+			// 'p.status',
+
+		);
+
+
+
+		// gunakan join disini
+
+		$from = 'mapel m';
+
+
+
+		// custom SQL
+
+		$sql = "SELECT * FROM {$from}  join kelas k on k.id_kelas = m.id_kelas where m.id_kelas=$getKelasFromSess
+		";
+
+
+
+		$where = "";
+
+		// if (isset($post['id_tipe_produk']) && $post['id_tipe_produk'] != 'default') {
+
+		// 	if ($where != "") $where .= "AND";
+
+		// 	$where .= " (p.id_tipe_produk='" . $post['id_tipe_produk'] . "')";
+		// }
+
+		// if (isset($post['id_tipe_bid']) && $post['id_tipe_bid'] != 'default') {
+
+		// 	if ($where != "") $where .= "AND";
+
+		// 	$where .= " (p.id_tipe_bid='" . $post['id_tipe_bid'] . "')";
+		// }
+
+		// if (isset($post['status']) && $post['status'] != 'default') {
+
+		// 	if ($where != "") $where .= "AND";
+
+		// 	$where .= " (p.status='" . $post['status'] . "')";
+		// }
+
+
+
+		$whereTemp = "";
+
+		// if (isset($post['date']) && $post['date'] != '') {
+
+		//     $date = explode(' / ', $post['date']);
+
+		//     if (count($date) == 1) {
+
+		//         $whereTemp .= "(created_at LIKE '%" . $post['date'] . "%')";
+
+		//     } else {
+
+		//         // $whereTemp .= "(created_at BETWEEN '".$date[0]."' AND '".$date[1]."')";
+
+		//         $whereTemp .= "(date_format(created_at, \"%Y-%m-%d\") >='$date[0]' AND date_format(created_at, \"%Y-%m-%d\") <= '$date[1]')";
+
+		//     }
+
+		// }
+
+
+
+		if ($whereTemp != '' && $where != '') $where .= " AND (" . $whereTemp . ")";
+
+		else if ($whereTemp != '') $where .= $whereTemp;
+
+
+
+		// search
+
+		if (isset($post['search']['value']) && $post['search']['value'] != '') {
+
+			$search = $post['search']['value'];
+
+			// create parameter pencarian kesemua kolom yang tertulis
+
+			// di $columns
+
+			$whereTemp = "";
+
+			for ($i = 0; $i < count($columnsSearch); $i++) {
+
+				$whereTemp .= $columnsSearch[$i] . ' LIKE "%' . $search . '%"';
+
+
+
+				// agar tidak menambahkan 'OR' diakhir Looping
+
+				if ($i < count($columnsSearch) - 1) {
+
+					$whereTemp .= ' OR ';
+				}
+			}
+
+			if ($where != '') $where .= " AND (" . $whereTemp . ")";
+
+			else $where .= $whereTemp;
+		}
+
+		if ($where != '') $sql .= ' WHERE (' . $where . ')';
+
+
+
+
+
+
+
+		//SORT Kolom
+
+		$sortColumn = isset($post['order'][0]['column']) ? $post['order'][0]['column'] : 1;
+
+		$sortDir    = isset($post['order'][0]['dir']) ? $post['order'][0]['dir'] : 'asc';
+		$sortColumn = $columns[$sortColumn - 1];
+		$sql .= " ORDER BY {$sortColumn} {$sortDir}";
+
+		$count = $this->db->query($sql);
+		$totaldata = $count->num_rows();
+		$start  = isset($post['start']) ? $post['start'] : 0;
+		$length = isset($post['length']) ? $post['length'] : 10;
+		$sql .= " LIMIT {$start}, {$length}";
+		$data  = $this->db->query($sql);
+		return array(
+
+			'totalData' => $totaldata,
+
+			'data' => $data,
+
+		);
+	}
 
 
 

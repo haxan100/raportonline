@@ -653,10 +653,10 @@ class Nilai extends CI_Controller {
 		$id_kelas = $this->SiswaModel->getIdKelasByNISN($urlid);
 		$id_kelasFromNisn =$id_kelas[0]->id_kelas;
 		$data['nama']= $id_kelas[0]->nama_lengkap;
-		$getKelasFromSess =  $_SESSION['id_kelas'];
-
+		
 		if ($_SESSION['user'] == "guru") {
-
+			
+			$getKelasFromSess =  $_SESSION['id_kelas'];
 			if ($getKelasFromSess == $id_kelasFromNisn) {
 
 			$data['listMapel'] = $this->SiswaModel->getAllMapelByIdKelas($id_kelas[0]->id_kelas);
