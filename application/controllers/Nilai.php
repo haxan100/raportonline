@@ -1114,30 +1114,47 @@ class Nilai extends CI_Controller {
 	{
 
 		if (!$this->isLoggedInAdmin()) {
-
 			echo 'Anda Harus Login!';
-
 			redirect('login', 'refresh');
-
 			exit();
 		}
 
-		$u = $this->uri->segment(3);
-				
+		$u = $this->uri->segment(3);				
 			// var_dump($u);
 		// var_dump($_SESSION);die;
+		$u = $this->uri->segment(3);
 		$id_kelas = $this->SiswaModel->getMapelByid($u)[0]->id_kelas;
-		// var_dump($this->SiswaModel->getMapelByid($u));die;
-		// var_dump($id_kelas);die;
+
+		if($_SESSION['user']=="guru"){
+			
+			if($_SESSION['id_kelas'] == $id_kelas ){
+				$data['mapel'] = $this->SiswaModel->getMapelByid($u);
+				$data['kelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelas);
+				$data['listKelas'] = $this->SiswaModel->getAllKelas();
+				$data['listSiswa'] = $this->SiswaModel->getAllSiswaByIDKelasOuterJinNilai($id_kelas);
+				$data['listMapel'] = $this->SiswaModel->getAllMapel();
+				$data['siswa'] = $this->SiswaModel->siswa();
+			} else{
+
+			// echo" alert("s")";
+ 			 echo'<script type="text/javascript">
+                    alert("Kelas Bukan Untuk Anda...");
+				</script>';
+				
+				
+				redirect('Nilai','refresh');
+				
+			}
+			
+		}else{
+
 		$data['mapel'] = $this->SiswaModel->getMapelByid($u);
 		$data['kelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelas);
-
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
 		$data['listSiswa'] = $this->SiswaModel->getAllSiswaByIDKelasOuterJinNilai($id_kelas);
-		// var_dump($data['listSiswa']);die;
-		// $data['listSiswa'] = $this->SiswaModel->getAllSiswaByIDKelas($id_kelas);
 		$data['listMapel'] = $this->SiswaModel->getAllMapel();
 		$data['siswa'] = $this->SiswaModel->siswa();
+		}
 
 		$data['content'] = 'nilai/data_nilai_kelas_mapel';
 
