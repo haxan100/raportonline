@@ -571,16 +571,24 @@ class Siswa extends CI_Controller {
 	}
 	public function Mapel()
 	{
-				if (!$this->isLoggedInAdmin()) {
+		if (!$this->isLoggedInAdmin()) {
 
 			echo 'Anda Harus Login!';
 
 			exit();
 		}
-		
-		$data['listMapel'] = $this->SiswaModel->getAllMapel();
 
-		$data['listKelas'] = $this->SiswaModel->getAllKelas();
+		if ($_SESSION['user'] == "guru") {
+			$getKelasFromSess =  $_SESSION['id_kelas'];
+
+			$data['listKelas'] = $this->SiswaModel->getKelasByid_kelas($getKelasFromSess);
+		}else{
+
+			$data['listMapel'] = $this->SiswaModel->getAllMapel();
+			$data['listKelas'] = $this->SiswaModel->getAllKelas();
+		}
+
+		
 		// var_dump($data['listKelas']);die;
 		$data['content'] = 'siswa/data_mapel';
 
