@@ -1275,8 +1275,8 @@ class SiswaModel extends CI_Model
 
 	{
 		$this->db->select('*');
-		$query = $this->db->get('siswa s');
 		$this->db->where('id_kelas', $kelas);
+		$query = $this->db->get('siswa s');
 
 		return $query->result();
 	}
@@ -1305,6 +1305,7 @@ class SiswaModel extends CI_Model
 		$this->db->join('nilai', 'nilai.nisn = siswa.nisn', 'LEFT OUTER');
 		$this->db->where('nilai.nisn is null');
 		$this->db->where('siswa.id_kelas', $kelas);
+		// $this->db->where('nilai.kode_mapel', 9);
 		$query = $this->db->get();
 		// var_dump($this->db->last_query());
 		// die;

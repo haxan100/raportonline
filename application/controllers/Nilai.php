@@ -1220,7 +1220,8 @@ class Nilai extends CI_Controller {
 				$data['mapel'] = $this->SiswaModel->getMapelByid($u);
 				$data['kelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelas);
 				$data['listKelas'] = $this->SiswaModel->getAllKelas();
-				$data['listSiswa'] = $this->SiswaModel->getAllSiswaByIDKelasOuterJinNilai($id_kelas);
+				// $data['listSiswa'] = $this->SiswaModel->getAllSiswaByIDKelasOuterJinNilai($id_kelas);
+				$data['listSiswa'] = $this->SiswaModel->getAllSiswaByIDKelas($id_kelas);
 				$data['listMapel'] = $this->SiswaModel->getAllMapel();
 				$data['siswa'] = $this->SiswaModel->siswa();
 			} else{
