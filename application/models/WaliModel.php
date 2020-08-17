@@ -434,6 +434,23 @@ class WaliModel extends CI_Model
 			}
 		}
 	}
+	public function UpdateProfAdmin($data)
+	{
+
+		$arr = [
+			'username' => trim($data['username']),
+			'password' => trim($data['password']),
+		];
+		if (!empty($data['id_user'])) {
+			$this->db->where('id_user', $data['id_user']);
+			$this->db->update('admin', $arr);
+		} else {
+			$this->db->insert('admin', $arr);
+			if (!empty($this->db->error()['message'])) {
+				return $this->db->error();
+			}
+		}
+	}
 
 
 }
