@@ -1271,7 +1271,9 @@ class Nilai extends CI_Controller {
 
 			$fields = array($no++);
 
-			$fields[] = $row->nama_lengkap . '<br>';
+			$fields[] = $row->nama_lengkap .
+			'<br>';
+			$fields[] = $row->nisn . '<br>';
 			$fields[] = '<img src="'.base_url().'upload/images/' . $row->foto.'" id="image" alt="image"><br>';
 			$datatable['data'][] = $fields;
 		}

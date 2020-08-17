@@ -25,6 +25,9 @@
 			<br>
 			<br>
 			<h2>Kelas : <b><?php echo $kelas[0]->nama_kelas ?></b></h2>
+			<br>
+			<br>
+			<h2>Kode Mapel : <b><?php echo $mapel[0]->kode_mapel ?></b></h2>
 
 			<div class="clearfix"></div>
 
@@ -41,6 +44,7 @@
 								<tr>
 									<th>#</th>
 									<th>Nama Siswa</th>
+									<th>NISN</th>
 									<th>Foto</th>
 								</tr>
 							</thead>
@@ -552,7 +556,7 @@
 		});
 
 		var datatable_siswa = $('#datatable_siswa_kelas').DataTable({
-			// dom: "Bfrltip",
+			dom: "Bfrltip",
 			'pageLength': 10,
 			"responsive": true,
 			"processing": true,
@@ -569,6 +573,10 @@
 				},
 				{
 					"targets": 1,
+					"className": "dt-head-center"
+				},
+				{
+					"targets": 2,
 					"className": "dt-head-center"
 				},
 			],
@@ -588,6 +596,25 @@
 					return d;
 				}
 			},
+			buttons: [
+
+				// 'excelHtml5',
+				// 'pdfHtml5'
+				{
+					text: "Export Excel",
+					extend: "excelHtml5",
+					className: "btn btn-round btn-info",
+					tittle: '',
+					exportOptions: {
+						columns: [1, 2]
+					}
+				},
+
+
+
+
+
+			],
 			"lengthMenu": [
 				[10, 25, 50, 1000],
 				[10, 25, 50, 1000]
@@ -644,33 +671,7 @@
 				}
 			},
 
-			// buttons: [
 
-			// 	// 'excelHtml5',
-			// 	// 'pdfHtml5'
-			// 	{
-			// 		text: "Excel",
-			// 		extend: "excelHtml5",
-			// 		className: "btn btn-round btn-info",
-			// 		tittle: '',
-			// 		exportOptions: {
-			// 			columns: [1, 2, 3, 4, 5, 6, 7]
-			// 		}
-			// 	}, {
-			// 		text: "PDF",
-			// 		extend: "pdfHtml5",
-			// 		className: "<br>btn btn-round btn-danger",
-			// 		tittle: '',
-			// 		exportOptions: {
-			// 			columns: [1, 2, 3, 4, 5, 6, 7]
-			// 		}
-			// 	}
-
-
-
-
-
-			// ],
 			// language: {
 			// 	searchPlaceholder: "Cari Kelas",
 
