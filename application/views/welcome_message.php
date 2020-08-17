@@ -10,6 +10,8 @@
 					</div>
 
 					<div class="clearfix"></div>
+					<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
 
 					<!-- menu profile quick info -->
 					<div class="profile clearfix">
@@ -110,4 +112,4 @@
 			<!-- footer content -->
 			<?php $this->load->view('templates/footer'); ?>
 
-</html>
+			</html>

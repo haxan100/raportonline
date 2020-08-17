@@ -488,7 +488,6 @@ class Nilai extends CI_Controller {
 	public function getKelasDetailSiswa()
 	{
 		$id_kelas = $_POST['id_kelas'];
-		$getKelasFromSess=  $_SESSION['id_kelas'];
 		// var_dump($getKelasFromSess);die;
 
 
@@ -506,7 +505,10 @@ class Nilai extends CI_Controller {
 
 		if ($_SESSION['user'] == "guru") {
 
+			$getKelasFromSess =  $_SESSION['id_kelas'];
+
 			if($getKelasFromSess == $id_kelas){
+
 
 				$dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
 				

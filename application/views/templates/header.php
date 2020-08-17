@@ -9,7 +9,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="icon" href=" <?php echo base_url() . "templates/"; ?>images/favicon.ico" type="image/ico" />
 
-	<title>Gentelella Alela! | </title>
+	<title>Raport Online </title>
 
 	<!-- Bootstrap -->
 	<link href="<?php echo base_url() . "templates/"; ?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">

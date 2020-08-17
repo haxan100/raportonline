@@ -417,5 +417,23 @@ class WaliModel extends CI_Model
 		return $this->db->update('guru', $in);
 
 	}
+	public function UpdateProf($data)
+	{
+
+		$arr = [
+			'username' => trim($data['username']),
+			'password' => trim($data['password']),
+		];
+		if (!empty($data['id_user'])) {
+			$this->db->where('kode_wali', $data['id_user']);
+			$this->db->update('wali_kelas', $arr);
+		} else {
+			$this->db->insert('wali_kelas', $arr);
+			if (!empty($this->db->error()['message'])) {
+				return $this->db->error();
+			}
+		}
+	}
+
 
 }
