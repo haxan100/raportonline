@@ -713,8 +713,8 @@ class SiswaModel extends CI_Model
 		);
 		// untuk search
 		$columnsSearch = array(
-			// 's.nama_kelas',
-			// 'w.nama_wali',
+			's.nama_lengkap',
+			'm.nama_mapel',
 		);
 		// gunakan join disini
 		$from = 'kelas k';
@@ -734,20 +734,16 @@ class SiswaModel extends CI_Model
 			if ($where != "") $where .= "AND";
 			$where .= " (n.kode_mapel='" . $post['mapel'] . "')";
 		}
-		// if (isset($post['status']) && $post['status'] != 'default') {
+
+		// if (isset($post['kelas']) && $post['kelas'] != 'Pilih Kelas') {
 		// 	if ($where != "") $where .= "AND";
-		// 	$where .= " (p.status='" . $post['status'] . "')";
+		// 	$where .= " (s.id_kelas='" . $post['kelas'] . "')";
+		// }
+		// if (isset($post['mapel']) && $post['mapel'] != 'Pilih Mapel') {
+		// 	if ($where != "") $where .= "AND";
+		// 	$where .= " (n.kode_mapel='" . $post['mapel'] . "')";
 		// }
 		$whereTemp = "";
-		// if (isset($post['date']) && $post['date'] != '') {
-		//     $date = explode(' / ', $post['date']);
-		//     if (count($date) == 1) {
-		//         $whereTemp .= "(created_at LIKE '%" . $post['date'] . "%')";
-		//     } else {
-		//         // $whereTemp .= "(created_at BETWEEN '".$date[0]."' AND '".$date[1]."')";
-		//         $whereTemp .= "(date_format(created_at, \"%Y-%m-%d\") >='$date[0]' AND date_format(created_at, \"%Y-%m-%d\") <= '$date[1]')";
-		//     }
-		// }
 		if ($whereTemp != '' && $where != '') $where .= " AND (" . $whereTemp . ")";
 		else if ($whereTemp != '') $where .= $whereTemp;
 		// search

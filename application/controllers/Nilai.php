@@ -385,7 +385,7 @@ class Nilai extends CI_Controller {
 	public function getKelas()
 	{
 		// $dt = $this->ProdukModel->dt_produk($_POST);
-		// var_dump($_POST['mapel']);die;
+		// var_dump($_POST);die;
 		$bu = base_url();
 		$dt = $this->SiswaModel->data_AllKelasWali($_POST);
 		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;

@@ -575,8 +575,11 @@
 					url: bu + 'Nilai/getKelas',
 					type: 'POST',
 					"data": function(d) {
-						d.kelas = d.id_kelas = id_kelas;
-						// console.log(d);
+						// d.kelas = d.id_kelas = id_kelas;
+
+						d.kelas = $('#kelas').val();
+						d.mapel = $('#mapel').val();
+						console.log(d);
 						// return false;
 
 						return d;

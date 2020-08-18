@@ -780,8 +780,8 @@
 					"data": function(d) {
 						d.kelas = $('#kelas').val();
 						d.mapel = $('#mapel').val();
-						// console.log(d);
-						return false;
+						console.log(d);
+						// return false;
 
 						return d;
 					}
