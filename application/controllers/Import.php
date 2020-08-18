@@ -237,5 +237,110 @@ class Import extends CI_Controller
 		redirect("siswa/kelas"); 
 		
 	}
+	public function import_nilai()
+	{
+		// var_dump($_POST);die;
+		$kode_mapel= $_POST['kode_mapel'];
+		$berhasil = 0;
+		$excelreader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+		$data = array();
+		$data['title'] = 'Import Excel Sheet | TechArise';
+		$data['breadcrumbs'] = array('Home' => '#');
+		$message = 'Gagal menambah data Kelas!<br>Silahkan lengkapi data yang diperlukan.';
+		// var_dump($id_master_harga_awal);die;
+		if (!empty($_FILES['fileURL']['name'])) {
+			// get file extension
+			$extension = pathinfo($_FILES['fileURL']['name'], PATHINFO_EXTENSION);
+			$berhasil = 0;
+
+			if ($extension == 'csv') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+			} elseif ($extension == 'xlsx') {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
+			} else {
+				$reader = new \PhpOffice\PhpSpreadsheet\Reader\Xls();
+			}
+			// file path
+			$spreadsheet = $reader->load($_FILES['fileURL']['tmp_name']);
+			// var_dump($spreadsheet);die;
+			$allDataInSheet = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
+
+			// array Count
+			$arrayCount = count($allDataInSheet);
+			$hasilRow = $arrayCount - 1;
+			$ugagal = "";
+			$duplicateuser = '';
+			$duplicateCount = 0;
+			// var_dump($arrayCount);die;
+			$numrow = 1; // untuk mengecek duplikat 
+
+			foreach ($allDataInSheet as $row) {
+
+				// var_dump($row);die;
+				if ($numrow > 1) {
+					// var_dump($row);die;
+					$cek = $this->db->query("SELECT * FROM `nilai` where 
+					
+					kode_mapel= '" . $row['A'] ."'  and
+					nisn= '" . $row['B'] . "' 
+					
+					 ");
+					$hasil = count($cek->result());
+					// var_dump($cek->result());
+					// die;
+					if ($hasil >= 1) {
+						$duplicateCount++;
+						$duplicateuser .= $row['B'];
+					}
+				}
+				$numrow++;
+			}
+			if ($duplicateCount >= 1) {
+				$numrow = 1;
+				$message = 'Gagal menambah data Nilai!<br>Duplikat.';
+				$status = false;
+				$this->session->set_flashdata('flash_error', "Error.: <br> $duplicateCount Kelas terdapat duplikat! <br> $duplicateuser");
+				$this->session->set_flashdata('flash_oke', "$hasilRow Nilai berhasil di import.");
+			} else {
+				$numrow = 1;
+				foreach ($allDataInSheet as $row) {
+					if ($numrow > 1) {
+
+						$data['ci'] = $this;
+						$data = array(
+
+							'kode_mapel' => $row['A'],
+							'nisn' => $row['B'],
+							'nilai_harian' => $row['C'],
+							'nilai_uts' => $row['D'],
+							'nilai_uas' => $row['E'],
+							'nilai_pengetahuan' => $row['F'],
+							'nilai_karakter' => $row['G'],
+							'keterangan' => $row['H'],
+						);
+						// var_dump($data);
+						// die;	
+						$this->SiswaModel->tambah_nilai_siswa($data);
+						$message = 'Berhasil menambah data Nilai!';
+						$this->session->set_flashdata('flash_oke', "$hasilRow Nilai berhasil di import.");
+
+						$status = true;
+						//   var_dump($data);die;
+						// $this->load->view('siswa/kelas', $data);
+					}
+					$numrow++;
+				}
+			}
+			redirect("Nilai/nilaiKelas/".$kode_mapel);
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			// 'errorInputs' => $errorInputs
+		));
+		// var_dump("hhhh");die;
+		$data['ci'] = $this;
+		redirect("siswa/kelas");
+	}
 
 }

@@ -1366,6 +1366,17 @@ class Nilai extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+	public function downloadTemplateNilai()
+
+	{
+		$this->load->helper('download');
+
+
+		// Use it when necessary
+
+		$sFileName = 'assets/template/template_nilai.xlsx';
+		force_download($sFileName, NULL);
+	}
 
 
 

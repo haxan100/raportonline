@@ -46,6 +46,30 @@
 
 
 					<div class="row">
+						<?php
+						if ($this->session->flashdata('flash_oke')) : ?>
+							<script type="text/javascript">
+								document.addEventListener("DOMContentLoaded", function(event) {
+									Swal.fire(
+										'Import!',
+										'Sukses Import Nilai',
+										'success'
+									)
+								});
+							</script>
+						<?php endif; ?>
+						<?php
+						if ($this->session->flashdata('flash_error')) : ?>
+							<script type="text/javascript">
+								document.addEventListener("DOMContentLoaded", function(event) {
+									Swal.fire(
+										'Import!',
+										'Gagal Import Kelas, terdapat duplikat',
+										'error'
+									)
+								});
+							</script>
+						<?php endif; ?>
 
 						<div class="col-md-12 col-sm-12 ">
 							<div class="x_panel">
@@ -55,7 +79,7 @@
 										<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 										</li>
 										<li class="dropdown">
-							
+
 											<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 												<a class="dropdown-item" href="#">Settings 1</a>
 												<a class="dropdown-item" href="#">Settings 2</a>
@@ -100,11 +124,55 @@
 
 					</div>
 					<!-- table siswa mulai -->
+					<!-- // MODAL Import -->
+					<div id="myImport" class="modal fade" role="dialog">
+						<div class="modal-dialog modal-md">
 
+							<!-- Modal content-->
+							<div class="modal-content">
+								<div class="modal-header">
+									<h4 class="modal-title">Import </h4>
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+								</div>
+								<div class="modal-body">
+									<div class="container-fluid">
+
+										<form method="post" enctype="multipart/form-data" action="<?= $bu; ?>Import/import_nilai">
+
+											<div class="row">
+												<div class="col-lg-12 col-md-12 col-sm-12">
+													<p> Pilih File : </p>
+													<input type="hidden" id=" kode_mapel" name="kode_mapel" value="<?php echo $u ?>">
+
+													<input type="file" class="custom-file-input" id="validatedCustomFile" name="fileURL" required="required" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+
+													<label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+													<span class="btn btn-info"><a href="../downloadTemplateNilai" title="Download Template Excel" class="download" style="color: #fff">
+															<i class="fas fa-cloud-download-alt"></i>Download Template </a>
+													</span>
+												</div>
+											</div>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="submit" name="upload" class="btn btn-success"> IMPORT </button>
+									<button type="button" class="btn btn-default" data-dismiss="modal"> BATAL </button>
+								</div>
+							</div>
+
+							</form>
+
+						</div>
+					</div>
 					<!-- table siswa akhir  -->
 
 					<div class="col-sm-12">
 						<div class="card-box table-responsive">
+							<a href="javascript:void(0)" data-toggle="modal" data-target="#myImport" class="btn m-t-20 btn-info waves-effect waves-light btnTambah">
+								<i class="fas fa-upload "></i>
+								<i class="fa fa-file-excel"></i> Import Nilai
+							</a>
 							<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
 							<table id="datatable_siswa" class="table table-bordered table-striped">
 								<thead>

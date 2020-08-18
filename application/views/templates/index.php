@@ -140,7 +140,7 @@
 				<!-- /top tiles -->
 
 				<section class="content">
-					<?php if ($this->session->flashdata()) : ?>
+					<?php if ($this->session->flashdata('flash_data')) : ?>
 						<script>
 							Swal.fire(
 								
