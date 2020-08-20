@@ -34,6 +34,8 @@
 
 						<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
 
+						<button type="button" class="btn btn-primary btn_tambah" id="cetakNilai" >Cetak Nilai</button>
+
 						<table id="datatable_siswa" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
@@ -248,6 +250,18 @@
 			$('#Edit').show();
 
 
+		});
+
+		$('#cetakNilai').on('click', function() {
+			// console.log("sssss")
+
+			var url = bu + 'Laporan/CetakNilaiByNISN/';
+			var nisn = $('#nisn').val();
+			console.log(url+nisn)
+			// return false
+			window.open(url+nisn);
+
+			
 		});
 		$('#Edit').on('click', function() {
 

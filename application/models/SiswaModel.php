@@ -1842,6 +1842,18 @@ class SiswaModel extends CI_Model
 
 		return $query->result();
 	}
+		public function getNilaiSiswaByNISN($nisn)
+	{
+
+		$this->db->select('*');
+		$this->db->from('nilai n');
+		$this->db->join('mapel m', 'm.kode_mapel = n.kode_mapel');	
+		
+		$this->db->where('n.nisn', $nisn);
+		$query = $this->db->get();
+		return $query->result();
+		# code...
+	}
 
 
 

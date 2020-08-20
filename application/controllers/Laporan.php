@@ -8,6 +8,7 @@ class Laporan extends CI_Controller {
             $this->load->library('Pdf');
             
 		    $this->load->model('SiswaModel');
+		$this->load->model('KonfigModel');
 		    $this->load->model('GuruModel');
         }
     public function index()
@@ -37,6 +38,35 @@ class Laporan extends CI_Controller {
             $data['judulData']="Data Mapel";
             $data['data']=$dt;
             $this->load->view('cetak/MapelAll',$data);
+        }
+        public function CetakNilaiByNISN($post)
+        {           
+            
+			$urlid = $this->uri->segment(3);
+			$nisn = $urlid;
+			// var_dump($urlid);
+            $dt = $this->SiswaModel->getNilaiSiswaByNISN($nisn); 
+            $siswa = $this->SiswaModel->getSiswaByNisn($nisn)[0]->nama_lengkap; 
+            $id_kelas = $this->SiswaModel->getSiswaByNisn($nisn)[0]->id_kelas; 
+
+            $kelas = $this->SiswaModel->getKelasByid_kelas($id_kelas)[0]->nama_kelas; 
+            # pendekatan prosedural
+            setlocale(LC_ALL, 'id-ID', 'id_ID');
+            $hari = strftime("%A %d %B %Y");
+            // die;
+        $kp = $this->KonfigModel->GetSekolah()->result()[0];
+        // var_dump($kp);
+        // die;
+
+            $data['kepala_sekolah']=$kp->kepala_sekolah;
+            $data['hari']=$hari;
+            $data['nisn']=$nisn;
+            $data['kelas']=$kelas;
+            $data['siswa']=$siswa;
+            $data['judul']="Data Nilai $siswa";
+            $data['judulData']="Data Nilai Siswa  $siswa";
+            $data['data']=$dt;
+            $this->load->view('cetak/cetak_nilai_siswa',$data);
         }
         
        

@@ -348,5 +348,10 @@ class KonfigModel extends CI_Model
 
 		# code...
 	}
+		public function GetSekolah()
+	{
+		$this->db->select('*');
+	return 	$query = $this->db->get('data_sekolah');
+	}
 
 }
