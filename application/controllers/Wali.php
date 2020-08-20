@@ -32,7 +32,7 @@ class Wali extends CI_Controller {
 		$data['konfig']
 		= $this->SekolahModel->dataSekolah()->result();
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
-		$data['listWali'] = $this->WaliModel->index();
+		$data['listGuru'] = $this->WaliModel->listAllGuru();
 		
 		
 		$data['content']= 'wali/data_wali';
@@ -59,13 +59,13 @@ class Wali extends CI_Controller {
 			$fields[] = $row->nama_kelas . '<br>';
 			$fields[] = '
 
-			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_wali="' . $row->kode_wali. '" data-nama="' . $row->nama_wali . '" 
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_wali="' . $row->id_wali_kelas. '" data-nama="' . $row->nama_wali . '" 
 			data-id_kelas="' . $row->id_kelas . '" 
 			data-username="' . $row->username . '" 
 			data-password="' . $row->password . '" 
 			></i> Ubah</button>
 
-        <button class="btn btn-round btn-danger hapus" data-kode_wali="' . $row->kode_wali . '" data-nama="' . $row->nama_wali . '"
+        <button class="btn btn-round btn-danger hapus" data-kode_wali="' . $row->id_wali_kelas . '" data-nama="' . $row->nama_wali . '"
         >Hapus</button>               
 
         ';
@@ -134,8 +134,10 @@ class Wali extends CI_Controller {
 	}
 	public function tambah_wali_proses()
 	{
-		$kode_wali = $this->input->post('kode_wali', TRUE);
-		$nama = $this->input->post('nama', TRUE);
+		// $nama = $this->input->post('nama', TRUE);
+		// var_dump(empty($password));die;
+		// var_dump($this->input->post());die;
+		$nik = $this->input->post('nik', TRUE);
 		$kelas = $this->input->post('kelas', TRUE);
 		$username = $this->input->post('username', TRUE);
 		$password = $this->input->post('password', TRUE);
@@ -143,17 +145,36 @@ class Wali extends CI_Controller {
 		$message = 'Gagal menambah data !<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
-		$cek = $this->WaliModel->getWaliById($kode_wali);
-		if (count($cek) > 1) {
+		$cek = $this->WaliModel->getWaliByNikAndKelas($nik,$kelas);
+		$cekPass = $this->WaliModel->getWaliByNikAndPass($nik,$password);
+		// var_dump($cek);die;
+		$nama =  $this->WaliModel->getGuruByRealNik($nik)[0]->nama_guru;
+		// var_dump(count($cek)>=1);die;
+		if (count($cek) >= 1) {
 			$message = 'Wali Kelas Sudah Ada!';
-			// die;
 			$status = false;
-		} else {
+		}else if (count($cekPass) >= 1) {
+			$message = 'Guru Sudah Pernah Daftar Wali kelas dengan password yang sama , mohon di bedakan!';
+			$status = false;
+		}else 
+		if($nik==0){
+			$message = 'Guru harus di pilih!';
+			$status = false;
+		}else if($kelas=='default'){
+			$message = 'Kelas harus di pilih!';
+			$status = false;
+		}else if(empty($password)){
+			$message = 'Password harus di isi!';
+			$status = false;
+		}else	if(empty($username)){
+			$message = 'Username harus di isi!';
+			$status = false;
+		}else {
 
 			$in = array(
 
 				'id_kelas' => $kelas,
-				'kode_wali' => $kode_wali,
+				'kode_wali' => $nik,
 				'nama_wali' => $nama,
 				'password' => $password,
 				'username' => $username,
@@ -164,6 +185,7 @@ class Wali extends CI_Controller {
 			$message = "Berhasil Menambah Wali Kelas #1";
 			$status = true;
 		}
+	
 
 		echo json_encode(array(
 			'status' => $status,

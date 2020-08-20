@@ -59,18 +59,23 @@
 									<br />
 									<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Id Wali <span class="required">*</span>
+											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Guru <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="kode_wali" name="kode_wali" class="form-control " placeholder="Isikan Nama" readonly type="text" class="form-control">
+									<select class="form-control select col-md-8 col-sm-8" name="nik" id="nik">
+													<option value=0 desable>Pilih Guru</option>
 
-											</div>
-										</div>
-										<div class="item form-group">
-											<label class="col-form-label col-md-3 col-sm-3 label-align" for="first-name"> Nama <span class="required">*</span>
-											</label>
-											<div class="col-md-6 col-sm-6 ">
-												<input id="nama" name="nama" class="form-control " placeholder="Isikan Nama" type="text" class="form-control">
+
+													<?php
+													foreach ($listGuru as $r) {
+
+														// die;
+														echo '
+												<option value="' . $r->nik . '">' . $r->nama_guru . '</option>
+													';
+													}
+													?>
+												</select>
 
 											</div>
 										</div>
@@ -88,8 +93,8 @@
 
 														// die;
 														echo '
-							<option value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
-							';
+												<option value="' . $r->id_kelas . '">' . $r->nama_kelas . '</option>
+													';
 													}
 													?>
 												</select>
@@ -147,16 +152,14 @@
 			$("#kode_wali").prop("readonly", true);
 
 
-			// return false;
-			var kode_wali = $(this).data('kode_wali');
-			var nama = $(this).data('nama');
+			var id_wali_kelas = $(this).data('id_wali_kelas');
 			var kelas = $(this).data('id_kelas');
 			var username = $(this).data('username');
 			var password = $(this).data('password');
-			console.log(kelas)
+			// console.log(kelas)
 
-			$('#kode_wali').val(kode_wali);
-			$('#nama').val(nama);
+			$('#kode_wali').val(id_wali_kelas);
+			// $('#nama').val(nama);
 			$('#kelas').val(kelas);
 			$('#username').val(username);
 			$('#password').val(password);
@@ -291,10 +294,11 @@
 					// window.location.reload();
 					// resetForm();
 				} else {
+					// console.log(e);
 					Swal.fire({
 						icon: 'error',
 						title: 'Oops...',
-						text: 'terjadi kesalahan!',
+						text: e.message,
 
 					})
 				}
@@ -327,14 +331,13 @@
 
 		$('#tambah_act').on('click', function() {
 
-			var kode_wali = $('#kode_wali').val();
-			var nama = $('#nama').val();
+			var nik = $('#nik').val();
 			var kelas = $('#kelas').val();
 			var user_name = $('#username').val();
 			var password = $('#password').val();
 
 			if (
-				nama && kelas
+				nik && kelas && password
 			) {
 				$("#form").submit();
 				// console.log(_foto);

@@ -451,6 +451,38 @@ class WaliModel extends CI_Model
 			}
 		}
 	}
+		public function listAllGuru()
+
+	{
+		$this->db->select('*');
+		$query = $this->db->get('guru s');
+
+		return $query->result();
+	}
+		public function getGuruByRealNik($nik)
+	{
+		$this->db->select('*');
+		$this->db->where('nik', $nik);
+		$query = $this->db->get('guru');
+		return $query->result();
+	}
+		public function getWaliByNikAndKelas($kode_wali,$id_kelas)
+	{
+		$this->db->select('*');
+		$this->db->where('kode_wali', $kode_wali);
+		$this->db->where('id_kelas', $id_kelas);
+		$query = $this->db->get('wali_kelas');
+		return $query->result();
+	}
+	public function getWaliByNikAndPass($kode_wali,$pass)
+	{
+		$this->db->select('*');
+		$this->db->where('kode_wali', $kode_wali);
+		// $this->db->where('id_kelas', $id_kelas);
+		$this->db->where('password', $pass);
+		$query = $this->db->get('wali_kelas');
+		return $query->result();
+	}
 
 
 }
