@@ -29,6 +29,14 @@ class Laporan extends CI_Controller {
             $data['judulData']="Data Guru";
             $data['guru']=$dt->result();
             $this->load->view('cetak/guruAll',$data);
+        }             
+         public function MapelAll()
+        {            
+			$dt= $this->SiswaModel->getAllMapelAndKelas();      
+            $data['judul']="Mapel_All";
+            $data['judulData']="Data Mapel";
+            $data['data']=$dt;
+            $this->load->view('cetak/MapelAll',$data);
         }
         
        

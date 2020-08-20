@@ -1831,6 +1831,17 @@ class SiswaModel extends CI_Model
 
 		);
 	}
+		public function getAllMapelAndKelas()
+
+	{
+		$this->db->select('*');
+		$this->db->from('mapel m');
+		$this->db->join('kelas k', 'k.id_kelas = m.id_kelas');
+		// db_
+		$query = $this->db->get();
+
+		return $query->result();
+	}
 
 
 

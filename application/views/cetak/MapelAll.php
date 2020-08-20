@@ -25,34 +25,26 @@ $pdf->Cell(190,7,'JAWA TENGAH',0,1,'C');
 
 $html=
 "<hr class='solid'>";
-
 $pdf->Ln();
             $i=0;
             $html.='<h3>'.$judulData.'<h3>
                     <table cellspacing="1" bgcolor="#666666" cellpadding="">
                         <tr bgcolor="#ffffff">
-                            <th width="5%" align="center" style="border:1px solid #000;">No</th>
-                            <th width="15%" align="center" style="border:1px solid #000;">Nama Guru</th>
-                            <th width="15%" align="center" style="border:1px solid #000;">NIK</th>
+                            <th  align="center" style="border:1px solid #000;">No</th>
+                            <th  align="center" style="border:1px solid #000;">Nama Mapel</th>
 
-                            <th width="15%" align="center" style="border:1px solid #000;">Tempat Lahir</th>
+                            <th  align="center" style="border:1px solid #000;">Kode Mapel</th>
 
-                            <th width="15%" align="center" style="border:1px solid #000;">Tanggal Lahir</th>
-                            <th width="25%" align="center" style="border:1px solid #000;">Alamat</th>
-
-                            <th width="10%" align="center" style="border:1px solid #000;">Kelas</th>
+                            <th  align="center" style="border:1px solid #000;">Nama Kelas</th>
                         </tr>';
-            foreach ($guru as $row) 
+            foreach ($data as $row) 
                 {
                     // var_dump($row);die;
                     $i++;
                     $html.='<tr bgcolor="#ffffff">
                             <td align="center" style="border:1px solid #000;">'.$i.'</td>
-                            <td align="center"  style="border:1px solid #000;">'.$row->nama_guru.'</td>
-                            <td align="center"  style="border:1px solid #000;">'.$row->nik.'</td>
-                            <td align="center"  style="border:1px solid #000;">'.$row->tempat_lahir.'</td>
-                            <td align="center"  style="border:1px solid #000;">'.$row->tanggal_lahir.'</td>
-                            <td align="center"  style="border:1px solid #000;">'.$row->alamat.'</td>
+                            <td align="center"  style="border:1px solid #000;">'.$row->nama_mapel.'</td>
+                            <td align="center"  style="border:1px solid #000;">'.$row->kode_mapel.'</td>
                             <td align="center"  style="border:1px solid #000;">'.$row->nama_kelas.'</td>
                         </tr>';
                 }
