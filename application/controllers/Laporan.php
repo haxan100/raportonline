@@ -8,6 +8,7 @@ class Laporan extends CI_Controller {
             $this->load->library('Pdf');
             
 		    $this->load->model('SiswaModel');
+		    $this->load->model('GuruModel');
         }
     public function index()
         {
@@ -15,13 +16,19 @@ class Laporan extends CI_Controller {
             $this->load->view('contoh',$data);
         }
             public function SiswaAll()
-        {
-            
-            $dt = $this->SiswaModel->siswa();
-            
+        {            
+            $dt = $this->SiswaModel->siswa();          
             $data['judul']="SISWA";
             $data['siswa']=$dt->result();
             $this->load->view('contoh',$data);
+        }
+              public function GuruAll()
+        {            
+            $dt = $this->GuruModel->GuruAll();          
+            $data['judul']="Guru_All";
+            $data['judulData']="Data Guru";
+            $data['guru']=$dt->result();
+            $this->load->view('cetak/guruAll',$data);
         }
         
        

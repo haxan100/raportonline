@@ -29,5 +29,16 @@ class GuruModel extends CI_Model
 		// $this->db->where('password', $password);
 		return $this->db->get('guru');
 	}
+		public function GuruAll()
+
+	{
+		$this->db->select('w.*,k.nama_kelas');
+		
+		$this->db->join('kelas k', 'k.id_kelas = w.id_kelas', 'left');
+		$query = $this->db->get('guru w');
+		
+		return $query;
+	}
+
 
 }
