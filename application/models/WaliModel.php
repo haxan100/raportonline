@@ -179,7 +179,7 @@ class WaliModel extends CI_Model
 	public function getWaliById($kode_wali)
 	{
 		$this->db->select('*');
-		$this->db->where('kode_wali', $kode_wali);
+		$this->db->where('id_wali_kelas', $kode_wali);
 		$query = $this->db->get('wali_kelas');
 		return $query->result();
 	}
@@ -190,7 +190,7 @@ class WaliModel extends CI_Model
 	}
 	public function HapusWali($kode_wali)
 	{
-		$this->db->where('kode_wali', $kode_wali);
+		$this->db->where('id_wali_kelas', $kode_wali);
 
 		$this->db->delete('wali_kelas');
 		$query = $this->db->get('wali_kelas s');

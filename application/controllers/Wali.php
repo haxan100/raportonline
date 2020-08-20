@@ -59,13 +59,13 @@ class Wali extends CI_Controller {
 			$fields[] = $row->nama_kelas . '<br>';
 			$fields[] = '
 
-			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-kode_wali="' . $row->id_wali_kelas. '" data-nama="' . $row->nama_wali . '" 
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" data-id_wali_kelas="' . $row->id_wali_kelas. '" data-kode_wali="' . $row->kode_wali . '" 
 			data-id_kelas="' . $row->id_kelas . '" 
 			data-username="' . $row->username . '" 
 			data-password="' . $row->password . '" 
 			></i> Ubah</button>
 
-        <button class="btn btn-round btn-danger hapus" data-kode_wali="' . $row->id_wali_kelas . '" data-nama="' . $row->nama_wali . '"
+        <button class="btn btn-round btn-danger hapus" data-id_wali_kelas="' . $row->id_wali_kelas . '" data-nama="' . $row->nama_wali . '"
         >Hapus</button>               
 
         ';
@@ -82,11 +82,15 @@ class Wali extends CI_Controller {
 	{
 
 		// var_dump($this->input->post());die;
-		$nama = $this->input->post('nama', TRUE);
+		// $nama = $this->input->post('nama', TRUE);
+		$nik = $this->input->post('nik', TRUE);
+		
+		$nama =  $this->WaliModel->getGuruByRealNik($nik)[0]->nama_guru;
+
 		$kelas = $this->input->post('kelas', TRUE);
 		$kode_wali = $this->input->post('kode_wali', TRUE);
-		$username = $this->input->post('username', TRUE);
-		$password = $this->input->post('password', TRUE);
+		$username = $this->input->post('usernames', TRUE);
+		$password = $this->input->post('passwords', TRUE);
 		$message = 'Gagal mengedit data Wali!<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
@@ -118,7 +122,7 @@ class Wali extends CI_Controller {
 
 		if ($status) {
 
-			if ($this->WaliModel->edit_wali($in, $kode_wali)) {
+			if ($this->WaliModel->edit_wali($in, $nik)) {
 
 				$message = "Berhasil Mengubah Wali Kelas #1";
 			}
@@ -139,8 +143,8 @@ class Wali extends CI_Controller {
 		// var_dump($this->input->post());die;
 		$nik = $this->input->post('nik', TRUE);
 		$kelas = $this->input->post('kelas', TRUE);
-		$username = $this->input->post('username', TRUE);
-		$password = $this->input->post('password', TRUE);
+		$username = $this->input->post('usernames', TRUE);
+		$password = $this->input->post('passwords', TRUE);
 
 		$message = 'Gagal menambah data !<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
@@ -197,7 +201,7 @@ class Wali extends CI_Controller {
 	{
 		// var_dump($this->input->post());die;
 
-		$kode_wali = $this->input->post('kode_wali', TRUE);
+		$kode_wali = $this->input->post('id_wali_kelas', TRUE);
 
 		$data = $this->WaliModel->getWaliById($kode_wali);
 		$status = false;

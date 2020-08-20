@@ -105,15 +105,16 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="username" name="username" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
+												<input id="usernames" name="usernames" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
 
 											</div>
 										</div>
+										
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Password <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="password" name="password" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
+												<input id="passwords" name="passwords" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -152,17 +153,18 @@
 			$("#kode_wali").prop("readonly", true);
 
 
+			var kode_wali = $(this).data('kode_wali');
 			var id_wali_kelas = $(this).data('id_wali_kelas');
 			var kelas = $(this).data('id_kelas');
 			var username = $(this).data('username');
 			var password = $(this).data('password');
-			// console.log(kelas)
+			console.log(username,password,kelas,id_wali_kelas)
 
-			$('#kode_wali').val(id_wali_kelas);
-			// $('#nama').val(nama);
+			$('#nik').val(kode_wali);
+			// $('#kode_wali').val(id_wali_kelas);
 			$('#kelas').val(kelas);
-			$('#username').val(username);
-			$('#password').val(password);
+			$('#usernames').val(username);
+			$('#passwords').val(password);
 
 			$('#Edit').show();
 			$("#kelas").val(parseInt(kelas));
@@ -172,22 +174,14 @@
 		$('#Edit').on('click', function() {
 
 			var id_wali = $('#id_wali').val();
-			var nama = $('#nama').val();
+			// var nama = $('#nama').val();
 			var kelas = $('#kelas').val();
-			var username = $('#username').val();
-			var password = $('#password').val();
-			// var foto = cekDeskripsi();
-
-			// console.log(nama, kelas, jenis_kelamin, tanggal_lahir, tempat_lahir);
-			// return (false);
-			// _draft = 1;
+			var username = $('#usernames').val();
+			var password = $('#passwords').val();
 			if (
-				nama && kelas
+				username && kelas
 			) {
 				$("#form").submit();
-				// console.log(_foto);
-				// return;
-				// console.log("draft");
 			}
 			// return false;
 		});
@@ -197,10 +191,10 @@
 		// });
 		$('body').on('click', '.hapus', function() {
 
-			var kode_wali = $(this).data('kode_wali');
+			var id_wali_kelas = $(this).data('id_wali_kelas');
 			var nama = $(this).data('nama');
 			// var foto = $(this).data('foto');
-			// console.log(nisn)
+			// console.log(id_wali_kelas)
 			// return false;
 			// var c = confirm('Apakah anda yakin akan menghapus Siswa: "' + nama + '" ?');
 			// $('#Edit').hide();
@@ -220,7 +214,7 @@
 						dataType: 'json',
 						method: 'POST',
 						data: {
-							kode_wali: kode_wali
+							id_wali_kelas: id_wali_kelas
 						}
 					}).done(function(e) {
 						console.log(e);
@@ -333,8 +327,8 @@
 
 			var nik = $('#nik').val();
 			var kelas = $('#kelas').val();
-			var user_name = $('#username').val();
-			var password = $('#password').val();
+			var user_name = $('#usernames').val();
+			var password = $('#passwords').val();
 
 			if (
 				nik && kelas && password
