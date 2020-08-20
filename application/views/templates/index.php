@@ -97,9 +97,13 @@
 								<button type="submit" class="btn btn-primary">Save changes</button>
 							</div>
 							</form>
+							<?php ?>
 
 						<?php } }else if ($userSiapa == "guru") {
-							$pu = $this->db->query('select * from wali_kelas where kode_wali=' . $_SESSION['id_user']);
+
+							$id_user = $_SESSION['id_user'];
+							$id_kelas = $_SESSION['id_kelas'];
+							$pu = $this->db->query('select * from wali_kelas where kode_wali='.$id_user.' and id_kelas='.$id_kelas.'' );
 						
 							foreach ($pu->result_array() as $p) {
 						?>
@@ -107,6 +111,7 @@
 								<form class="form-group" action="<?= base_url('Wali/formProfil') ?>" method="post">
 									<div>
 										<input type="hidden" name="id_user" class="form-control" value="<?= $p['kode_wali']; ?>" required="required" />
+										<input type="hidden" name="id_kelas" class="form-control" value="<?= $p['id_kelas']; ?>" required="required" />
 
 										<label for="exampleInputEmail1">Username</label>
 										<input type="text" class="form-control" id="username" aria-describedby="username" name="username" placeholder=" Enter username" value="<?= $p['username']; ?>">

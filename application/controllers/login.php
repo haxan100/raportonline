@@ -91,7 +91,7 @@ class login extends CI_Controller {
 		}else if($cekWali>0){
 			// echo "guru";
 			$r = $this->AdminModel->cek_login("wali_kelas", $where)->row();
-
+			
 			$data_session = array(
 				'nama' => $username,
 				'status' => "login",

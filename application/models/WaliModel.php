@@ -426,6 +426,7 @@ class WaliModel extends CI_Model
 		];
 		if (!empty($data['id_user'])) {
 			$this->db->where('kode_wali', $data['id_user']);
+			$this->db->where('id_kelas', $data['id_kelas']);
 			$this->db->update('wali_kelas', $arr);
 		} else {
 			$this->db->insert('wali_kelas', $arr);
