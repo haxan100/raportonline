@@ -12,10 +12,6 @@
 					<div class="clearfix"></div>
 					<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
-
-					<!-- menu profile quick info -->
-					<!-- /menu profile quick info -->
-
 					<br />
 
 					<!-- sidebar menu -->
@@ -67,8 +63,10 @@
 						</div>
 						<?php
 						$userSiapa = $_SESSION['user'];
-
+						$who = "";
 						if ($userSiapa == "admin") {
+							$who = "admin";
+
 							$pu = $this->db->query('select * from admin where id_user=' . $_SESSION['id_user']);
 						
 							foreach ($pu->result_array() as $p) {
@@ -100,6 +98,7 @@
 							<?php ?>
 
 						<?php } }else if ($userSiapa == "guru") {
+							$who = "guru";
 
 							$id_user = $_SESSION['id_user'];
 							$id_kelas = $_SESSION['id_kelas'];
@@ -134,6 +133,8 @@
 							</form>
 
 						<?php } }else if ($userSiapa == "siswa") {
+							$who = "siswa";
+
 							$pu = $this->db->query('select * from siswa where nisn=' . $_SESSION['id_user']);
 							// var_dump($pu);die;
 							foreach ($pu->result_array() as $p) {
