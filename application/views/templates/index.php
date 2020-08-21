@@ -133,7 +133,38 @@
 							</div>
 							</form>
 
-						<?php } }?>
+						<?php } }else if ($userSiapa == "siswa") {
+							$pu = $this->db->query('select * from siswa where nisn=' . $_SESSION['id_user']);
+							// var_dump($pu);die;
+							foreach ($pu->result_array() as $p) {
+						?>
+							<div class="modal-body">
+								<form class="form-group" action="<?= base_url('Murid/formProfilSiswa') ?>" method="post">
+									<div>
+										<input type="hidden" name="id_user" class="form-control" value="<?= $p['nisn']; ?>" required="required" />
+
+										<label for="exampleInputEmail1">Username</label>
+										<input type="text" class="form-control" id="username" aria-describedby="username" name="username" placeholder=" Enter username" value="<?= $p['username']; ?>">
+										<small id="username" class="form-text text-muted">We'll never share your email with anyone else.</small>
+									</div>
+									<div class="form-group">
+										<label for="password">Password</label>
+										<input type="text" class="form-control" id="password" name="password" placeholder=" password" value="<?= $p['password']; ?>">
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="exampleCheck1">
+										<label class="form-check-label" for="exampleCheck1">Check me out</label>
+									</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Save changes</button>
+							</div>
+							</form>
+							<?php ?>
+
+						<?php } } ?>
 
 					</div>
 				</div>

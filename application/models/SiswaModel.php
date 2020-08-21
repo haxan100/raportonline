@@ -1854,6 +1854,23 @@ class SiswaModel extends CI_Model
 		return $query->result();
 		# code...
 	}
+		public function UpdateProfSiswa($data)
+	{
+
+		$arr = [
+			'username' => trim($data['username']),
+			'password' => trim($data['password']),
+		];
+		if (!empty($data['id_user'])) {
+			$this->db->where('nisn', $data['id_user']);
+			$this->db->update('siswa', $arr);
+		} else {
+			$this->db->insert('siswa', $arr);
+			if (!empty($this->db->error()['message'])) {
+				return $this->db->error();
+			}
+		}
+	}
 
 
 
