@@ -52,7 +52,6 @@ $pdf->Ln();
                         <tr bgcolor="#ffffff">
                             <th  align="center" style="border:1px solid #000;">No</th>
                             <th  align="center" style="border:1px solid #000;">Nama Mapel</th>
-                            <th  align="center" style="border:1px solid #000;">Kode Mapel</th>
                             <th  align="center" style="border:1px solid #000;">Nilai Harian</th>
                             <th  align="center" style="border:1px solid #000;">Nilai UTS</th>
                             <th  align="center" style="border:1px solid #000;">Nilai UAS</th>
@@ -89,7 +88,6 @@ $pdf->Ln();
                     $html.='<tr bgcolor="#ffffff">
                             <td align="center" style="border:1px solid #000;">'.$i.'</td>
                             <td align="center"  style="border:1px solid #000;">'.$row->nama_mapel.'</td>
-                            <td align="center"  style="border:1px solid #000;">'.$row->kode_mapel.'</td>
                             <td align="center"  style="border:1px solid #000;">'.$row->nilai_harian.'</td>
                             <td align="center"  style="border:1px solid #000;">'.$row->nilai_uts.'</td>
                             <td align="center"  style="border:1px solid #000;">'.$row->nilai_uas.'</td>
