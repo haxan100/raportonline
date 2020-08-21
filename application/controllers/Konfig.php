@@ -30,6 +30,16 @@ class Konfig extends CI_Controller {
 
 			exit();
 		}
+		if($_SESSION['user']=="siswa" or $_SESSION['user']=="guru"  ){
+			             
+            echo '<script type="text/javascript">
+                        alert("Hanya Admin Yang Dapat Memasuki Menu Ini...");
+                    </script>';
+			// echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+
+		}
 		$data['content'] = 'konfig/Konfigurasi';
 		$data['konfig']
 		= $this->SekolahModel->dataSekolah()->result();

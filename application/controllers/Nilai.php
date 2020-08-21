@@ -31,6 +31,16 @@ class Nilai extends CI_Controller {
 
 			exit();
 		}
+			if($_SESSION['user']=="siswa"){
+			             
+            echo '<script type="text/javascript">
+                        alert("Siswa Tidak Dapat Memasuki Menu Ini...");
+                    </script>';
+			echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+
+		}
 		if ($_SESSION['user'] == 'guru') {
 
 			$id_kelasFromWali = $_SESSION['id_kelas'];

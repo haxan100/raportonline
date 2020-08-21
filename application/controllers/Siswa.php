@@ -32,6 +32,17 @@ class Siswa extends CI_Controller {
 
 			exit();
 		}
+			if($_SESSION['user']=="siswa"){
+			             
+            echo '<script type="text/javascript">
+                        alert("Siswa Tidak Dapat Memasuki Menu Ini...");
+                    </script>';
+			echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+
+		}
+
 		// var_dump($_SESSION);die;
 
 
@@ -319,7 +330,16 @@ class Siswa extends CI_Controller {
 			echo 'Anda Harus Login!';
 			exit();
 		}
-		
+		if($_SESSION['user']=="siswa"){
+			             
+            echo '<script type="text/javascript">
+                        alert("Siswa Tidak Dapat Memasuki Menu Ini...");
+                    </script>';
+			echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+
+		}
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
 		$data['content'] = 'siswa/data_kelas';
 		$this->load->view('templates/index', $data);
@@ -576,6 +596,16 @@ class Siswa extends CI_Controller {
 			echo 'Anda Harus Login!';
 
 			exit();
+		}
+			if($_SESSION['user']=="siswa"){
+			             
+            echo '<script type="text/javascript">
+                        alert("Siswa Tidak Dapat Memasuki Menu Ini...");
+                    </script>';
+			echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+
 		}
 
 		if ($_SESSION['user'] == "guru") {

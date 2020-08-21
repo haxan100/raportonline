@@ -29,6 +29,16 @@ class Wali extends CI_Controller {
 
 			exit();
 		}
+		if($_SESSION['user']=="siswa"){
+			             
+            echo '<script type="text/javascript">
+                        alert("Siswa Tidak Dapat Memasuki Menu Ini...");
+                    </script>';
+			echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+
+		}
 		$data['konfig']
 		= $this->SekolahModel->dataSekolah()->result();
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
@@ -228,6 +238,16 @@ class Wali extends CI_Controller {
 			 redirect('login'); 
 
 			exit();
+		}
+				if($_SESSION['user']=="siswa"){
+			             
+            echo '<script type="text/javascript">
+                        alert("Siswa Tidak Dapat Memasuki Menu Ini...");
+                    </script>';
+			echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+
 		}
 		$data['listKelas'] = $this->SiswaModel->getAllKelas();
 		$data['listWali'] = $this->WaliModel->index();
