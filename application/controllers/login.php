@@ -72,6 +72,8 @@ class login extends CI_Controller {
 		);
 		$cek = $this->AdminModel->cek_login("admin", $where)->num_rows(); // cek admin
 		$cekWali = $this->AdminModel->cek_login("wali_kelas", $where)->num_rows(); // cek walikelas
+		$cekSiswa = $this->AdminModel->cek_login("siswa", $where)->num_rows(); // cek walikelas
+		// var_dump($cekSiswa);die;
 
 		if($cek>0){
 			// echo "admin";/
@@ -105,6 +107,23 @@ class login extends CI_Controller {
 			$this->session->set_userdata($data_session);
 			$status = true;
 			$message = 'Selamat datang Wali Kelas <span class="font-weight-bold"> ' . $r->nama_wali . '</span>, sedang mengalihkan..';
+		}else if($cekSiswa>0){
+			// echo "guru";
+			$r = $this->AdminModel->cek_login("siswa", $where)->row();
+			// var_dump($r);die;
+			$data_session = array(
+				'nama' => $r->nama_lengkap,
+				'status' => "login",
+				'user' => "siswa",
+				'admin_session' => true, // Buat session authenticated dengan value true
+				'id_user' => $r->nisn, // Buat session authenticated
+				'id_kelas' => $r->id_kelas,
+				'foto' => $r->foto,
+
+			);
+			$this->session->set_userdata($data_session);
+			$status = true;
+			$message = 'Selamat datang Siswa '.$r->nama_lengkap.' <span class="font-weight-bold"> </span>, sedang mengalihkan..';
 		}
 
 		 else {
