@@ -41,32 +41,70 @@ class Laporan extends CI_Controller {
         }
         public function CetakNilaiByNISN($post)
         {           
-            
-			$urlid = $this->uri->segment(3);
-			$nisn = $urlid;
-			// var_dump($urlid);
-            $dt = $this->SiswaModel->getNilaiSiswaByNISN($nisn); 
-            $siswa = $this->SiswaModel->getSiswaByNisn($nisn)[0]->nama_lengkap; 
-            $id_kelas = $this->SiswaModel->getSiswaByNisn($nisn)[0]->id_kelas; 
+            // var_dump($_SESSION);die;
+            if ($_SESSION['user'] == "siswa") {
+                
+                $nisn =  $_SESSION['id_user'];
+                if ($nisn == $post){
+                    $urlid = $this->uri->segment(3);
+                    // $nisn = $urlid;
+                    // var_dump($urlid);
+                    $dt = $this->SiswaModel->getNilaiSiswaByNISN($nisn); 
+                    $siswa = $this->SiswaModel->getSiswaByNisn($nisn)[0]->nama_lengkap; 
+                    $id_kelas = $this->SiswaModel->getSiswaByNisn($nisn)[0]->id_kelas; 
 
-            $kelas = $this->SiswaModel->getKelasByid_kelas($id_kelas)[0]->nama_kelas; 
-            # pendekatan prosedural
-            setlocale(LC_ALL, 'id-ID', 'id_ID');
-            $hari = strftime("%A %d %B %Y");
-            // die;
-        $kp = $this->KonfigModel->GetSekolah()->result()[0];
-        // var_dump($kp);
-        // die;
+                    $kelas = $this->SiswaModel->getKelasByid_kelas($id_kelas)[0]->nama_kelas; 
+                    # pendekatan prosedural
+                    setlocale(LC_ALL, 'id-ID', 'id_ID');
+                    $hari = strftime("%A %d %B %Y");
+                    // die;
+                    $kp = $this->KonfigModel->GetSekolah()->result()[0];
 
-            $data['kepala_sekolah']=$kp->kepala_sekolah;
-            $data['hari']=$hari;
-            $data['nisn']=$nisn;
-            $data['kelas']=$kelas;
-            $data['siswa']=$siswa;
-            $data['judul']="Data Nilai $siswa";
-            $data['judulData']="Data Nilai Siswa  $siswa";
-            $data['data']=$dt;
-            $this->load->view('cetak/cetak_nilai_siswa',$data);
+                    $data['kepala_sekolah']=$kp->kepala_sekolah;
+                    $data['hari']=$hari;
+                    $data['nisn']=$nisn;
+                    $data['kelas']=$kelas;
+                    $data['siswa']=$siswa;
+                    $data['judul']="Data Nilai $siswa";
+                    $data['judulData']="Data Nilai Siswa  $siswa";
+                    $data['data']=$dt;
+                    $this->load->view('cetak/cetak_nilai_siswa',$data);
+                } else {
+                    // var_dump("sss");die;
+                    
+                    echo '<script type="text/javascript">
+                        alert("Nilai Siswa Bukan Untuk Anda...");
+                    </script>';
+
+
+                    redirect('siswa/Kelas', 'refresh');
+                }
+            }	else{
+                 $urlid = $this->uri->segment(3);
+                    $nisn = $urlid;
+                    // var_dump($urlid);
+                    $dt = $this->SiswaModel->getNilaiSiswaByNISN($nisn); 
+                    $siswa = $this->SiswaModel->getSiswaByNisn($nisn)[0]->nama_lengkap; 
+                    $id_kelas = $this->SiswaModel->getSiswaByNisn($nisn)[0]->id_kelas; 
+
+                    $kelas = $this->SiswaModel->getKelasByid_kelas($id_kelas)[0]->nama_kelas; 
+                    # pendekatan prosedural
+                    setlocale(LC_ALL, 'id-ID', 'id_ID');
+                    $hari = strftime("%A %d %B %Y");
+                    // die;
+                    $kp = $this->KonfigModel->GetSekolah()->result()[0];
+
+                    $data['kepala_sekolah']=$kp->kepala_sekolah;
+                    $data['hari']=$hari;
+                    $data['nisn']=$nisn;
+                    $data['kelas']=$kelas;
+                    $data['siswa']=$siswa;
+                    $data['judul']="Data Nilai $siswa";
+                    $data['judulData']="Data Nilai Siswa  $siswa";
+                    $data['data']=$dt;
+                    $this->load->view('cetak/cetak_nilai_siswa',$data);
+
+            }
         }
         
        

@@ -679,6 +679,25 @@ class Nilai extends CI_Controller {
 			$data['listMapel'] = $this->SiswaModel->getAllMapelByIdKelas($id_kelas[0]->id_kelas);
 			// var_dump($data);die;
 			$data['content'] = 'nilai/data_detail_nilai_siswa';
+		}else if ($_SESSION['user'] == "siswa") {
+			
+			$getKelasFromSess =  $_SESSION['id_kelas'];
+			if ($getKelasFromSess == $id_kelasFromNisn) {
+
+			$data['listMapel'] = $this->SiswaModel->getAllMapelByIdKelas($id_kelas[0]->id_kelas);
+			// / var_dump($data);die;
+			$data['content'] = 'nilai/data_detail_nilai_siswa';
+
+			} else {
+				// $dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
+				// echo" alert("s")";
+				echo '<script type="text/javascript">
+				    alert("Nilai Siswa Bukan Untuk Anda...");
+				</script>';
+
+
+				redirect('siswa/Kelas', 'refresh');
+			}
 		}
 
 

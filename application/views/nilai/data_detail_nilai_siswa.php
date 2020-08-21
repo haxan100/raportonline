@@ -32,7 +32,14 @@
 
 						<input type="hidden" id="nisn" value="<?= $nisn ?>" />
 
-						<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
+
+							<?php if($_SESSION['user']=="guru" or $_SESSION['user']=="admin" ){
+										?>
+											<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
+									<?php 
+									} 
+									?>
+					
 
 						<button type="button" class="btn btn-primary btn_tambah" id="cetakNilai" >Cetak Nilai</button>
 
@@ -48,7 +55,12 @@
 									<td>Nilai Pengetahuan</td>
 									<td>Nilai Karakter</td>
 									<td>Keterangan</td>
-									<th>Opsi</th>
+									<?php if($_SESSION['user']=="guru" or $_SESSION['user']=="admin" ){
+										?>
+										<th>Opsi</th>
+									<?php 
+									} 
+									?>
 								</tr>
 							</thead>
 							<tbody>
@@ -474,7 +486,7 @@
 		});
 
 		var datatable = $('#datatable_siswa').DataTable({
-			dom: "Bfrltip",
+			// dom: "Bfrltip",
 			'pageLength': 10,
 			"responsive": true,
 			"processing": true,
@@ -517,33 +529,33 @@
 				}
 			},
 
-			buttons: [
+			// buttons: [
 
-				// 'excelHtml5',
-				// 'pdfHtml5'
-				{
-					text: "Excel",
-					extend: "excelHtml5",
-					className: "btn btn-round btn-info",
-					tittle: '',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
-					}
-				}, {
-					text: "PDF",
-					extend: "pdfHtml5",
-					className: "<br>btn btn-round btn-danger",
-					tittle: '',
-					exportOptions: {
-						columns: [1, 2, 3, 4, 5, 6, 7]
-					}
-				}
-
-
+			// 	// 'excelHtml5',
+			// 	// 'pdfHtml5'
+			// 	{
+			// 		text: "Excel",
+			// 		extend: "excelHtml5",
+			// 		className: "btn btn-round btn-info",
+			// 		tittle: '',
+			// 		exportOptions: {
+			// 			columns: [1, 2, 3, 4, 5, 6, 7]
+			// 		}
+			// 	}, {
+			// 		text: "PDF",
+			// 		extend: "pdfHtml5",
+			// 		className: "<br>btn btn-round btn-danger",
+			// 		tittle: '',
+			// 		exportOptions: {
+			// 			columns: [1, 2, 3, 4, 5, 6, 7]
+			// 		}
+			// 	}
 
 
 
-			],
+
+
+			// ],
 			language: {
 				searchPlaceholder: "Cari Mapel",
 
