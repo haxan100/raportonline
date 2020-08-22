@@ -40,7 +40,7 @@ class Konfig extends CI_Controller {
 			exit();
 
 		}
-		$data['content'] = 'konfig/Konfigurasi';
+		$data['content'] = 'konfig/konfigurasi';
 		$data['konfig']
 		= $this->SekolahModel->dataSekolah()->result();
 

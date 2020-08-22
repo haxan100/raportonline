@@ -8,9 +8,7 @@ saya menggunakan
 <br> Sweetalert2<br>
 dan menggunakan bootstrap  <br>
 
-masih tahap pengembangan!!!
-
-Untuk donasi bisa menggunakan pulsa/gopay/dana/ovo seikhlasnya : <b>089602350857<b>.
+Untuk donasi bisa menggunakan pulsa/gopay/dana/ovo  : <b>089602350857<b>.
 
 
 <p align="center">
