@@ -17,12 +17,30 @@
 				<div class="col-sm-12">
 
 					<div class="card-box table-responsive">
+						<?php
+						$userSiapa = $_SESSION['user'];
+								$who = "";
+								if($userSiapa=="guru"){
+									$who="guru";								
+								}else if($userSiapa=="admin"){
+									$who="admin";								
+								}else if($userSiapa=="murid"){
+									$who="murid";								
+								}
+
+							?>
+					<?php if ( $who =="admin"){  ?>
 						<a href="javascript:void(0)" data-toggle="modal" data-target="#myImport" class="btn m-t-20 btn-info waves-effect waves-light btnTambah">
+
 							<i class="fas fa-upload "></i>
 							<i class="fa fa-file-excel"></i> Import Kelas
 						</a>
 
 						<button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button>
+						
+					<?php }?>
+
+
 
 						<p id="alertNotif" class="mt-2"></p>
 

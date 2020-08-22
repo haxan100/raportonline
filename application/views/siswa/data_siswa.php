@@ -270,6 +270,7 @@
 			var alamat = $(this).data('alamat');
 			var username = $(this).data('username');
 			var password = $(this).data('password');
+			// console.log(username)
 
 			var foto = $(this).data('foto');
 			// var foto = $(this).data('foto');

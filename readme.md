@@ -1,14 +1,70 @@
 ini adalah aplikasi Raport online sederhana yang saya buat.. <br>
 
-saya menggunakan
-<br> Codeigniter<br>
-<br> Ajax<br>
-<br> Jquery<br>
-<br> Gantelela<br>
-<br> Sweetalert2<br>
-dan menggunakan bootstrap  <br>
+#jualan #share #oot
+Jual aplikasi E-raport
+Harga : Donasi Internet + uang Jajan
+Link demo :
+http://covid.my.id/raportonline/
+User :
+-admin :
+username : admins
+Pass : admins
 
-Untuk donasi bisa menggunakan pulsa/gopay/dana/ovo  : <b>089602350857<b>.
+-Wali Kelas (bisa di cek di Wali kelas)
+username: sepuluhas
+Pass 	: sepuluhas
+
+-Siswa  :
+username: pems
+Pass 	: pems
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++
+Role Siswa: 
+	- dashboard
+	- bisa melihat nilai sendiri
+	- bisa cetak nilai sendiri
+	- ada peringatan ketika mengecek nilai orang lain
+	- ubah username dan password 
+
+Role Wali :
+	- dashboard
+	- master siswa ( hanya meilhat siswa per kelas yang di ikuti oleh guru login tersebut , dan akan ada peringatan jika ke url kelas lain)
+	- master mapel ( hanya meilhat mapel per kelas yang di ikuti oleh guru login tersebut , dan akan ada peringatan jika ke url kelas lain)
+	- isi nilai Siswa (hanya Crud nilai siswa per kelas yang di ikuti oleh guru login tersebut , dan akan ada peringatan jika ke url kelas lain)
+
+Role Admin :
+
+	- dashboard
+	- Master Wali kelas( crud wali kelas)
+	- master Siswa (crud siswa)
+	- master Guru (crud guru)
+	- master kelas (crud kelas, dan ada validasi ketima menambah guru, jika menambah guru yang sama dengan kelas dan mapel yang sama akan ada peringatan)
+	- cetak 
+		+ cetak Semua siswa
+		+ cetak semua guru
+		+cetak semua mapel
+	-administrator
+		+ edit  detail sekolah , meliputi logo nama sekolah , nama kepala sekolah dll yang akan menguah di halaman login dan print
+		+crud visi
+		+crud misi
+
+
+
++++++++++++++++++++++++++++++++++++++++++++
+
+- menggunakan :
+
+	+ Codeiniter 3
+	+ ajax 
+	+ jquery
+	+ Gentelella
+	+ sweetalert
+	+ tcpdf
+
+
+Minat hubungi saya
+Wa : 089602350857
 
 
 <p align="center">
