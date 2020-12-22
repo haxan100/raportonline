@@ -4,7 +4,7 @@ ini adalah aplikasi Raport online sederhana yang saya buat.. <br>
 Jual aplikasi E-raport
 Harga : Donasi Internet + uang Jajan
 Link demo :
-http://covid.my.id/raportonline/
+http://heyiamhasan.com/raportonline/
 User :
 -admin :
 username : admins
