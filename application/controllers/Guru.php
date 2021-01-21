@@ -125,5 +125,20 @@ class Guru extends CI_Controller {
 
 		redirect('login');
 	}
+		public function formProfil($user_id = 0)
+	{
+		// var_dump($_POST);die;
+		if ($_POST) {
+			$id_user = $_POST['id_user'];
+			$result = $this->GuruModel->UpdateProf($_POST);
+			if (isset($result['code'])) {
+				$this->session->set_flashdata('flash_data', $result['message']);
+			} else {
+				$this->session->set_flashdata('flash_data', "User data already saved.");
+			}
+			redirect('dashboard');
+		}
+	}
+
 
 }

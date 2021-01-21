@@ -39,6 +39,24 @@ class GuruModel extends CI_Model
 		
 		return $query;
 	}
+		public function UpdateProf($data)
+	{
+
+		$arr = [
+			'username' => trim($data['username']),
+			'password' => trim($data['password']),
+		];
+		if (!empty($data['id_user'])) {
+			$this->db->where('id_guru', $data['id_user']);
+			$this->db->where('id_kelas', $data['id_kelas']);
+			$this->db->update('guru', $arr);
+		} else {
+			$this->db->insert('guru', $arr);
+			if (!empty($this->db->error()['message'])) {
+				return $this->db->error();
+			}
+		}
+	}
 
 
 }

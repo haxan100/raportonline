@@ -63,6 +63,7 @@
 						</div>
 						<?php
 						$userSiapa = $_SESSION['user'];
+						// var_dump($userSiapa == "guru");die;
 						$who = "";
 						if ($userSiapa == "admin") {
 							$who = "admin";
@@ -97,19 +98,58 @@
 							</form>
 							<?php ?>
 
-						<?php } }else if ($userSiapa == "guru") {
-							$who = "guru";
+						<?php } }else if ($userSiapa == "wali") {
+							$who = "wali";
+							// var_dump($_SESSION); die();
 
 							$id_user = $_SESSION['id_user'];
 							$id_kelas = $_SESSION['id_kelas'];
 							$pu = $this->db->query('select * from wali_kelas where kode_wali='.$id_user.' and id_kelas='.$id_kelas.'' );
 						
 							foreach ($pu->result_array() as $p) {
+								// var_dump($p);die;
 						?>
 							<div class="modal-body">
 								<form class="form-group" action="<?= base_url('Wali/formProfil') ?>" method="post">
 									<div>
 										<input type="hidden" name="id_user" class="form-control" value="<?= $p['kode_wali']; ?>" required="required" />
+										<input type="hidden" name="id_kelas" class="form-control" value="<?= $p['id_kelas']; ?>" required="required" />
+
+										<label for="exampleInputEmail1">Username</label>
+										<input type="text" class="form-control" id="username" aria-describedby="username" name="username" placeholder=" Enter username" value="<?= $p['username']; ?>">
+										<small id="username" class="form-text text-muted">We'll never share your email with anyone else.</small>
+									</div>
+									<div class="form-group">
+										<label for="password">Password</label>
+										<input type="text" class="form-control" id="password" name="password" placeholder=" password" value="<?= $p['password']; ?>">
+									</div>
+									<div class="form-check">
+										<input type="checkbox" class="form-check-input" id="exampleCheck1">
+										<label class="form-check-label" for="exampleCheck1">Check me out</label>
+									</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Save changes</button>
+							</div>
+							</form>
+							
+						<?php } }else if ($userSiapa == "guru") {
+							$who = "wali";
+							// var_dump($_SESSION); die();
+
+							$id_user = $_SESSION['id_user'];
+							$id_kelas = $_SESSION['id_kelas'];
+							$pu = $this->db->query('select * from guru where id_guru='.$id_user.' and id_kelas='.$id_kelas.'' );
+						
+							foreach ($pu->result_array() as $p) {
+								// var_dump($p);die;
+						?>
+							<div class="modal-body">
+								<form class="form-group" action="<?= base_url('Guru/formProfil') ?>" method="post">
+									<div>
+										<input type="hidden" name="id_user" class="form-control" value="<?= $p['id_guru']; ?>" required="required" />
 										<input type="hidden" name="id_kelas" class="form-control" value="<?= $p['id_kelas']; ?>" required="required" />
 
 										<label for="exampleInputEmail1">Username</label>
