@@ -24,7 +24,7 @@ class GuruModel extends CI_Model
 	}
 	public function login($username)
 	{
-		$this->db->select('id_guru,nama_guru,password');
+		$this->db->select('*');
 		$this->db->where('username', $username);
 		// $this->db->where('password', $password);
 		return $this->db->get('guru');

@@ -74,13 +74,19 @@ class Guru extends CI_Controller {
 		);
 		
 		$cek = $this->GuruModel->cek_login("guru", $where)->num_rows();
-		// var_dump($cek);die;
+		$data = $this->GuruModel->cek_login("guru", $where)->row();
+		// var_dump();die;
 		if ($cek > 0) {
 
 			$data_session = array(
 				'nama' => $username,
 				'status' => "login",
 				'user' => "guru",
+				'id_user' => $data->id_guru, // Buat session authenticated
+				'id_guru' => $data->id_guru, // Buat session authenticated
+				'id_kelas' => $data->id_kelas, // Buat session authenticated
+				'id_mapel' => $data->id_mapel, // Buat session authenticated
+
 			);
 			$this->session->set_userdata($data_session);
 		} else {
