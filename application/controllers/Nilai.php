@@ -459,6 +459,8 @@ class Nilai extends CI_Controller {
 	{
 		$urlid = $this->uri->segment(3);
 
+		// var_dump($_SESSION);
+		// die;
 		$id_kelas = $_POST['id_kelas'];
 		$getKelasFromSess =  $_SESSION['id_kelas'];
 
