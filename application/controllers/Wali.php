@@ -9,6 +9,7 @@ class Wali extends CI_Controller {
 		parent::__construct();
 		$this->load->model('SiswaModel');
 		$this->load->model('WaliModel');
+		$this->load->model('GuruModel');
 		$this->load->model('SekolahModel');
 
 		$this->load->helper('url');
@@ -279,9 +280,10 @@ class Wali extends CI_Controller {
 		$nik = $this->input->post('nik', TRUE);
 		$nama = $this->input->post('nama', TRUE);
 		$mapel = $this->input->post('mapel', TRUE);
-		$username = $this->input->post('username', TRUE);
-		$password = $this->input->post('password', TRUE);
+		$username = $this->input->post('usernames', TRUE);
+		$password = $this->input->post('passwords', TRUE);
 		$alamat = $this->input->post('alamat', TRUE);
+		$kelas = $this->input->post('kelas', TRUE);
 		$tempat_lahir = $this->input->post('tempat_lahir', TRUE);
 		$tanggal_lahir = $this->input->post('tanggal_lahir', TRUE);
 		$pass = md5($password);
@@ -289,10 +291,40 @@ class Wali extends CI_Controller {
 		$errorInputs = array();
 		$status = true;
 		$cek = $this->WaliModel->getGuruMapel($mapel);
-		if (count($cek) > 1) {
+
+		$cekUNameGuru = $this->GuruModel->GetGuruByUsername($username);
+		if($cekUNameGuru!=null){
+			$status = false;
+			$message = "Username Sudah Pernah Terpakai!";
+		}			
+		if (count($cek) > 0) {
 			$message = 'Mapel di Kelas Sudah Ada Yang Mengisi!';
 			$status = false;
-		} else {
+		}if (empty($nik)) {
+			$message = 'NIK Harap Di Isi';
+			$status = false;
+		} 	if (empty($nama)) {
+			$message = 'Nama Harap Di Isi';
+			$status = false;
+		} 	if (empty($mapel)) {
+			$message = 'Mapel Harap Di Isi';
+			$status = false;
+		} 	if (empty($username)) {
+			$message = 'UserName Harap Di Isi';
+			$status = false;
+		} 	if (empty($password)) {
+			$message = 'Password Harap Di Isi';
+			$status = false;
+		} 	if (empty($alamat)) {
+			$message = 'Alamat Harap Di Isi';
+			$status = false;
+		} 	if (empty($tanggal_lahir)) {
+			$message = 'Tanggal Lahir Harap Di Isi';
+			$status = false;
+		} 	
+		
+		if($status){
+
 			$in = array(
 				// 'id_kelas' => $kelas,
 				'nik' => $nik,
@@ -301,7 +333,7 @@ class Wali extends CI_Controller {
 				'tanggal_lahir' => $nama,
 				'alamat' => $nama,
 				'id_mapel' => $mapel,
-				// 'id_mapel' => $mapel,
+				'id_kelas' => $kelas,
 				'password' => $password,
 				'tempat_lahir' => $tempat_lahir,
 				'tanggal_lahir' => $tanggal_lahir,
@@ -310,7 +342,6 @@ class Wali extends CI_Controller {
 
 			);
 			$this->WaliModel->tambah_Guru($in);
-
 			$message = "Berhasil Menambah Guru Mapel #1";
 			$status = true;
 		}
@@ -414,8 +445,8 @@ class Wali extends CI_Controller {
 		$mapel = $this->input->post('mapel', TRUE);
 		$id_guru = $this->input->post('id_guru', TRUE);
 		$nik = $this->input->post('nik', TRUE);
-		$username = $this->input->post('username', TRUE);
-		$password = $this->input->post('password', TRUE);
+		$username = $this->input->post('usernames', TRUE);
+		$password = $this->input->post('passwords', TRUE);
 		$tempat_lahir = $this->input->post('tempat_lahir', TRUE);
 		$tanggal_lahir = $this->input->post('tanggal_lahir', TRUE);
 		$alamat = $this->input->post('alamat', TRUE);

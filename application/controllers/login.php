@@ -145,5 +145,14 @@ class Login extends CI_Controller {
 
 		redirect('login');
 	}
+		public function Register()
+	{
+		echo json_encode(array(
+			'status' => true,
+			'message' =>"Berhasil Mendaftar",
+
+		));
+
+	}
 
 }

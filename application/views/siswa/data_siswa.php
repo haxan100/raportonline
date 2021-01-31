@@ -158,7 +158,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="username" name="username" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
+												<input id="usernames" name="usernames" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -166,7 +166,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Password <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="password" name="password" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
+												<input id="passwords" name="passwords" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -234,7 +234,7 @@
 			document.getElementById("jk").readOnly = true;
 			document.getElementById("tanggal_lahir").readOnly = true;
 			document.getElementById("tempat_lahir").readOnly = true;
-			document.getElementById("username").readOnly = true;
+			// document.getElementById("username").readOnly = true;
 			document.getElementById("password").readOnly = true;
 
 
@@ -270,7 +270,7 @@
 			var alamat = $(this).data('alamat');
 			var username = $(this).data('username');
 			var password = $(this).data('password');
-			// console.log(username)
+			// console.log(username,password,"ssss")
 
 			var foto = $(this).data('foto');
 			// var foto = $(this).data('foto');
@@ -283,8 +283,8 @@
 			$('#tempat_lahir').val(tempat_lahir);
 			$('#tanggal_lahir').val(tanggal_lahir);
 			$('#alamat').val(alamat);
-			$('#username').val(username);
-			$('#password').val(password);
+			$('#usernames').val(username);
+			$('#passwords').val(password);
 
 			$('#image').prop('src', 'upload/images/' + foto);
 			$('#Edit').show();
@@ -354,9 +354,10 @@
 							'success'
 						)
 						$('#modal-detail').modal('hide');
-						setTimeout(function() {
-							location.reload();
-						}, 4000);
+						// setTimeout(function() {
+						// 	location.reload();
+						// }, 4000);
+					datatable.ajax.reload();
 
 
 					}).fail(function(e) {
@@ -422,7 +423,7 @@
 					Swal.fire({
 						icon: 'error',
 						title: 'Oops...',
-						text: 'terjadi kesalahan!',
+						text: e.message,
 
 					})
 				}
@@ -464,10 +465,39 @@
 			var tempat_lahir = $('#tempat_lahir').val();
 			var user_name = $('#username').val();
 			var password = $('#password').val();
-
-			if (
-				nama && kelas
-			) {
+			if(nisn==''){
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'NISN Harus Di Isi',
+					})
+			}
+			else if(kelas=='default'){
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Kelas Harus Di Pilih',
+					})
+			}else if(nama==''){				
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Nama Harus Di Isi..',
+					});
+			}else if(username==''){				
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Username Harus Di Isi..',
+					});
+			}else if(password==''){				
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Password Harus Di Isi..',
+					});
+			}
+			else {
 				$("#form").submit();
 				// console.log(_foto);
 				// return;
@@ -522,10 +552,15 @@
 						"className": "dt-head-center"
 					}, {
 						"targets": 8,
-						"className": "dt-head-center"
+						"className": "dt-head-center",
+						"orderable": false
+						
+						
 					}, {
 						"targets": 9,
-						"className": "dt-head-center"
+						"className": "dt-head-center",
+						"orderable": false
+
 					},
 				],
 				"order": [
@@ -625,10 +660,13 @@
 						"className": "dt-head-center"
 					}, {
 						"targets": 8,
-						"className": "dt-head-center"
+						"className": "dt-head-center",
+						
+					"orderable": false
 					}, {
 						"targets": 9,
-						"className": "dt-head-center"
+						"className": "dt-head-center",						
+					"orderable": false
 					},
 				],
 				"order": [

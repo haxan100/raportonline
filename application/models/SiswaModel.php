@@ -113,6 +113,7 @@ class SiswaModel extends CI_Model
 
 	{
 		$columns = array(
+			'id_kelas',
 			'nama_kelas',
 			// 'p.created_at',
 
@@ -275,18 +276,13 @@ class SiswaModel extends CI_Model
 
 	{
 		$columns = array(
+			'nisn',
 			'nama_lengkap',
-			// 'p.created_at',
-
-			// 'p.stok',
-
-			// 'p.view_count',
-
-			// 'p.harga_awal',
-
-			// // 'p.harga_awal',
-
-			// // 'p.created_at',
+			'tanggal_lahir',
+			'tempat_lahir',
+			'jenkel',
+			'alamat',
+			'nama_kelas',
 
 		);
 		// untuk search
@@ -492,33 +488,19 @@ class SiswaModel extends CI_Model
 	public function data_AllMapel($post)
 
 	{
-		$columns = array(
-			'm.nama_mapel',
-			// 'p.created_at',
-
-			// 'p.stok',
-
-			// 'p.view_count',
-
-			// 'p.harga_awal',
-
-			// // 'p.harga_awal',
-
-			// // 'p.created_at',
+			$columns = array(
+			'm.kode_mapel',
+			'm.nama_mapel',	
+			'm.kkm',
+			'k.nama_kelas',
 
 		);
 		// untuk search
 		$columnsSearch = array(
-			'm.nama_mapel',
-
-
-			// 'p.judul',
-
-			// 'p.harga_awal',
-
-			// 'p.view_count',
-
-			// 'p.status',
+			'm.nama_mapel',	
+			'm.kode_mapel',
+			'm.kkm',
+			'k.nama_kelas',
 
 		);
 
@@ -1511,6 +1493,7 @@ class SiswaModel extends CI_Model
 
 	{
 		$columns = array(
+			'id_kelas',
 			'nama_kelas',
 			// 'p.created_at',
 
@@ -1673,32 +1656,18 @@ class SiswaModel extends CI_Model
 
 	{
 		$columns = array(
-			'm.nama_mapel',
-			// 'p.created_at',
-
-			// 'p.stok',
-
-			// 'p.view_count',
-
-			// 'p.harga_awal',
-
-			// // 'p.harga_awal',
-
-			// // 'p.created_at',
+			'm.kode_mapel',
+			'm.nama_mapel',	
+			'm.kkm',
+			'k.nama_kelas',
 
 		);
 		// untuk search
 		$columnsSearch = array(
-			'm.nama_mapel',
-
-
-			// 'p.judul',
-
-			// 'p.harga_awal',
-
-			// 'p.view_count',
-
-			// 'p.status',
+			'm.nama_mapel',	
+			'm.kode_mapel',
+			'm.kkm',
+			'k.nama_kelas',
 
 		);
 
@@ -1870,6 +1839,28 @@ class SiswaModel extends CI_Model
 				return $this->db->error();
 			}
 		}
+	}
+			
+	
+	public function getUserBy($idTabel,$namaId)
+	{
+		$this->db->select('*');
+		$this->db->from('siswa');		
+		$this->db->where($idTabel, $namaId);
+		$query = $this->db->get();
+        // var_dump($this->db->last_query());die;
+		return $query->result();
+		# code...
+	}
+		public function getUserByUsername($username)
+	{
+		$this->db->select('*');
+		$this->db->from('siswa');		
+		$this->db->where('username', $username);
+		$query = $this->db->get();
+        // var_dump($this->db->last_query());die;
+		return $query->result();
+		# code...
 	}
 
 

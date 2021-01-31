@@ -19,7 +19,6 @@
 									<ul class="nav child_menu">
 										<li><a href="<?php echo site_url('dashboard') ?>">Dashbsoard</a></li>
 										<?php if ( $who =="admin"){  ?>
-										<li><a href="<?php echo site_url('Wali') ?>">Wali Kelas</a></li>
 										<?php }?>
 
 									</ul>
@@ -28,6 +27,8 @@
 
 								<li><a><i class="glyphicon glyphicon-user"></i> Master  <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
+
+										<li><a href="<?php echo site_url('Wali') ?>">Wali Kelas</a></li>
 										<li><a href="<?php echo site_url('siswa') ?>">Master Siswa</a></li>
 										<li><a href="<?php echo site_url('siswa/Kelas') ?>">Master Kelas</a></li>
 										<li><a href="<?php echo site_url('siswa/Mapel') ?>">Master Mapel</a></li>										

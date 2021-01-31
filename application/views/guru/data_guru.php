@@ -120,7 +120,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="username" name="username" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
+												<input id="usernames" name="usernames" class="form-control " placeholder="Isikan Username" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -128,7 +128,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Password <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
-												<input id="password" name="password" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
+												<input id="passwords" name="passwords" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
 
 											</div>
 										</div>
@@ -199,7 +199,7 @@
 					}
 				},
 				success: function(res) { // Ketika proses pengiriman berhasil
-					console.log(res);
+					// console.log(res);
 					// return false;
 					$("#loading").hide(); // Sembunyikan loadingnya
 					// set isi dari combobox kota
@@ -270,7 +270,7 @@
 			var tempat_lahir = $(this).data('tempat_lahir');
 			var tanggal_lahir = $(this).data('tanggal_lahir');
 			var alamat = $(this).data('alamat');
-			// console.log(mapel);
+			console.log(password,username);
 
 			$('#nik').val(nik);
 			$('#id_guru').val(id_guru);
@@ -278,8 +278,8 @@
 			$('#kelas').val(kelas);
 			$('#mapel').val(mapel);
 			mapels(kelas, mapel);
-			$('#username').val(username);
-			$('#password').val(password);
+			$('#usernames').val(username);
+			$('#passwords').val(password);
 
 			$('#tempat_lahir').val(tempat_lahir);
 			$('#tanggal_lahir').val(tanggal_lahir);
@@ -297,8 +297,8 @@
 			var nama = $('#nama').val();
 			var kelas = $('#kelas').val();
 			var mapel = $('#mapel').val();
-			var username = $('#username').val();
-			var password = $('#password').val();
+			var username = $('#usernames').val();
+			var password = $('#passwords').val();
 			var tempat_lahir = $('#tempat_lahir').val();
 			var tanggal_lahir = $('#tanggal_lahir').val();
 			var alamat = $('#alamat').val();
@@ -417,8 +417,8 @@
 				} else {
 					Swal.fire({
 						icon: 'error',
-						title: 'Oops...',
-						text: 'terjadi kesalahan!',
+						title: 'Oopssss...',
+						text: e.message,
 
 					})
 				}
@@ -498,6 +498,11 @@
 				}, {
 					"targets": 4,
 					"className": "dt-head-center"
+				},{
+					"targets": 5,
+					"className": "dt-head-center",
+					"orderable": false
+
 				},
 			],
 			"order": [

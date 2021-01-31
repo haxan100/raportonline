@@ -82,8 +82,8 @@ class Siswa extends CI_Controller {
 		$alamat = $this->input->post('alamat', TRUE);
 		// $id_tipe_bid = $this->input->post('tipeBid', TRUE);
 		$jk = $this->input->post('jk', TRUE);
-		$username = $this->input->post('username', TRUE);
-		$password = $this->input->post('password', TRUE);
+		$username = $this->input->post('usernames', TRUE);
+		$password = $this->input->post('passwords', TRUE);
 
 		$tanggal_lahir = $this->input->post('tanggal_lahir', TRUE);
 		$tempat_lahir = $this->input->post('tempat_lahir', TRUE);
@@ -216,7 +216,7 @@ class Siswa extends CI_Controller {
 			$this->SiswaModel->HapusSiswa($nisn);
 
 			$status = true;
-			$message = 'Berhasil menghapus Siswa: <b>' . $data[0]->nama . '</b>';
+			$message = 'Berhasil menghapus Siswa: <b>' . $data[0]->nama_lengkap . '</b>';
 
 		}
 		echo json_encode(array(
@@ -232,83 +232,101 @@ class Siswa extends CI_Controller {
 		$kelas = $this->input->post('kelas', TRUE);
 		$alamat = $this->input->post('alamat', TRUE);
 		$jk = $this->input->post('jk', TRUE);
-		$username = $this->input->post('username', TRUE);
-		$password = $this->input->post('password', TRUE);
-
+		$username = $this->input->post('usernames', TRUE);
+		$password = $this->input->post('passwords', TRUE);
+		// vra_dump()
 		$tanggal_lahir = $this->input->post('tanggal_lahir', TRUE);
 		$tempat_lahir = $this->input->post('tempat_lahir', TRUE);
 
 		$message = 'Gagal menambah data siswa!<br>Silahkan lengkapi data yang diperlukan.';
 		$errorInputs = array();
 		$status = true;
+		$cekNISN= $this->SiswaModel->getUserBy('nisn',$nisn);
+		$cekPWnU= $this->SiswaModel->getUserByUsername($username);
 
-
-		// var_dump($in);die();
+		if($cekNISN!=null){
+			$status = false;
+			$message = "NISN Sudah Pernah Terdaftar!";
+			// die("sss");
+		}	if($cekPWnU!=null){
+			$status = false;
+			$message = "Username Sudah Pernah Terdaftar!";
+		}		
 		if (empty($nama)) {
 			$status = false;
-			$errorInputs[] = array('#nama', 'Silahkan Isi Nama');
+			$message = "Nama Harus Di Isi!";
 		}
-		if (empty($kelas)) {
+		if (empty($kelas) or $kelas=='default') {
 			$status = false;
-			$errorInputs[] = array('#kelas', 'Silahkan pilih Kelas');
+			$message = "Kelas Harus Di Isi!";
 		}
 		if (empty($alamat)) {
 			$status = false;
-			$errorInputs[] = array('#alamat', 'Silahkan isi Alamat');
+			$message = "Alamat Harus Di Isi!";
 		}
-		$cekFoto = empty($_FILES['foto']['name'][0]) || $_FILES['foto']['name'][0] == '';
-		// var_dump(!$cekFoto);die;
-		if (!$cekFoto) {
+		if (empty($password)) {
+			$status = false;
+			$message = "Password Harus Di Isi!";
+		}
+		if (empty($username)) {
+			$status = false;
+			$message = "Username Harus Di Isi!";
+		}
 
+		$cekFoto = empty($_FILES['foto']['name'][0]) || $_FILES['foto']['name'][0] == '';
+		// var_dump($cekFoto);die;
+		if (!$cekFoto) {
 
 			$_FILES['f']['name']     = $_FILES['foto']['name'];
 			$_FILES['f']['type']     = $_FILES['foto']['type'];
 			$_FILES['f']['tmp_name'] = $_FILES['foto']['tmp_name'];
 			$_FILES['f']['error']     = $_FILES['foto']['error'];
 			$_FILES['f']['size']     = $_FILES['foto']['size'];
-
 			$config['upload_path']          = './upload/images/';
 			$config['allowed_types']        = 'jpg|jpeg|png|gif';
-			$config['max_size']             = 3 * 1024; // kByte
+			$config['max_size']             = 3 * 1024; 
 			$config['max_width']            = 10 * 1024;
 			$config['max_height']           = 10 * 1024;
 			$config['file_name'] = $nisn . "-" . date("Y-m-d-H-i-s") . ".jpg";
 			$this->load->library('image_lib');
 			$this->load->library('upload', $config);
 			$this->upload->initialize($config);
-
-
 			$this->image_lib->resize();
-			// var_dump(!$this->upload->do_upload('f'));die;
-			// Upload file to server
 
 			if (!$this->upload->do_upload('f')) {
 				$errorUpload = $this->upload->display_errors() . '<br>';
+				$status = false;
+				$errorInputs[] = array('#foto', $errorUpload);
 			} else {
-				// Uploaded file data
-				$fileName = $this->upload->data()["file_name"];
-				$foto = array(
-					'foto' => $fileName,
-				);
-				$in = array(
-					'foto' => $fileName,
-					'nisn' => $nisn,
-					'nama_lengkap' => $nama,
-					'tanggal_lahir' => $tanggal_lahir,
-					'tempat_lahir' => $tempat_lahir,
-					'jenkel' => $jk,
-					'alamat' => $alamat,
-					'id_kelas' => $kelas,
-					'username' => $username,
-					'password' => $password,
-				);
+				// var_dump($status);die;
+				if($status){
+					// Uploaded file data
+					$fileName = $this->upload->data()["file_name"];
+					$foto = array(
+						'foto' => $fileName,
+					);
+					$in = array(
+						'foto' => $fileName,
+						'nisn' => $nisn,
+						'nama_lengkap' => $nama,
+						'tanggal_lahir' => $tanggal_lahir,
+						'tempat_lahir' => $tempat_lahir,
+						'jenkel' => $jk,
+						'alamat' => $alamat,
+						'id_kelas' => $kelas,
+						'username' => $username,
+						'password' => $password,
+					);
 				$this->SiswaModel->tambah_siswa($in);
 
 				$message = "Berhasil Menambah Siswa #1";
+				}
 			}
 		} else {
-			$message = "Gagal menambah Siswa #1";
+			$message = "Harap Upload Foto!";
+			$status = false;
 		}
+
 		echo json_encode(array(
 			'status' => $status,
 			'message' => $message,

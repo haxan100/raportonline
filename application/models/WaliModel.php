@@ -232,16 +232,18 @@ class WaliModel extends CI_Model
 
 	{
 		$columns = array(
+			'nik',
 			'nama_guru',
-			'w.id_kelas',	
-			'nama_kelas',
+			'nama_kelas',	
+			'nama_mapel',
 
 		);
 		// untuk search
 		$columnsSearch = array(
+			'nik',
 			'nama_guru',
-			'w.id_kelas',		
-			'nama_kelas',
+			'nama_kelas',	
+			'nama_mapel',
 
 		);
 		$from = 'guru w';

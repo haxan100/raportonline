@@ -369,7 +369,9 @@
 					"className": "dt-head-center"
 				}, {
 					"targets": 4,
-					"className": "dt-head-center"
+					"className": "dt-head-center",
+					"orderable": false
+
 				},
 			],
 			"order": [

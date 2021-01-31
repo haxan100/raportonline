@@ -244,6 +244,15 @@
 					"targets": 1,
 					"className": "dt-head-center"
 				},
+				{
+					"targets": 2,
+					"className": "dt-head-center"
+				},
+				{
+					"targets": 3,
+					"className": "dt-head-center",
+					"orderable": false
+				},
 			],
 			"order": [
 				[1, "desc"]
