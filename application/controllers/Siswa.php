@@ -216,7 +216,7 @@ class Siswa extends CI_Controller {
 			$this->SiswaModel->HapusSiswa($nisn);
 
 			$status = true;
-			$message = 'Berhasil menghapus Siswa: <b>' . $data[0]->nama_lengkap . '</b>';
+			$message = 'Berhasil menghapus Siswa: <b>' . $data[0]->nama . '</b>';
 
 		}
 		echo json_encode(array(

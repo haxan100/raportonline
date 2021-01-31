@@ -24,7 +24,7 @@ class GuruModel extends CI_Model
 	}
 	public function login($username)
 	{
-		$this->db->select('id_guru,nama_guru,password');
+		$this->db->select('*');
 		$this->db->where('username', $username);
 		// $this->db->where('password', $password);
 		return $this->db->get('guru');
@@ -38,6 +38,24 @@ class GuruModel extends CI_Model
 		$query = $this->db->get('guru w');
 		
 		return $query;
+	}
+		public function UpdateProf($data)
+	{
+
+		$arr = [
+			'username' => trim($data['username']),
+			'password' => trim($data['password']),
+		];
+		if (!empty($data['id_user'])) {
+			$this->db->where('id_guru', $data['id_user']);
+			$this->db->where('id_kelas', $data['id_kelas']);
+			$this->db->update('guru', $arr);
+		} else {
+			$this->db->insert('guru', $arr);
+			if (!empty($this->db->error()['message'])) {
+				return $this->db->error();
+			}
+		}
 	}
 
 
