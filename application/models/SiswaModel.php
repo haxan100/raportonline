@@ -784,7 +784,7 @@ class SiswaModel extends CI_Model
 			'nisn',
 			'nama_lengkap',
 			'nama_kelas',
-			
+
 
 		);
 		// untuk search
@@ -792,7 +792,7 @@ class SiswaModel extends CI_Model
 			'k.nisn',
 			'nama_lengkap',
 			'nama_kelas',
-			
+
 		);
 
 
@@ -922,24 +922,31 @@ class SiswaModel extends CI_Model
 
 	{
 		$columns = array(
+			'k.nama_kelas',
 			'nama_mapel',
+			'n.nilai_harian',
+			'n.nilai_uts',
+			'n.nilai_uas',
+			'n.nilai_pengetahuan',
+			'n.nilai_karakter',
+			'n.keterangan'
 
 		);
 		// untuk search
 		$columnsSearch = array(
+			'k.nama_kelas',
 			'nama_mapel',
-			// 's.nama_lengkap',
+			'n.nilai_harian',
+			'n.nilai_uts',
+			'n.nilai_uas',
+			'n.nilai_pengetahuan',
+			'n.nilai_karakter',
+			'n.keterangan'
 		);
-
-
 
 		// gunakan join disini
 
 		$from = 'nilai n';
-		// custom 
-		// SQL SELECT  * FROM `nilai` 
-// join siswa s on s.nisn=nilai.nisn
-// join mapel m on m.kode_mapel=nilai.kode_mapel
 		$sql = "SELECT k.*, m.nama_mapel, n.*,s.* FROM `nilai` n
 					join mapel m on m.kode_mapel=n.kode_mapel
 					join siswa s on s.nisn=n.nisn 

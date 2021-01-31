@@ -511,9 +511,25 @@
 				}, {
 					"targets": 3,
 					"className": "dt-head-center"
-				}, {
+				},{
 					"targets": 4,
 					"className": "dt-head-center"
+				}, {
+					"targets": 5,
+					"className": "dt-head-center"
+				}, {
+					"targets": 6,
+					"className": "dt-head-center"
+				}, {
+					"targets": 7,
+					"className": "dt-head-center"
+				}, {
+					"targets": 8,
+					"className": "dt-head-center"
+				},  {
+					"targets": 9,
+					"className": "dt-head-center",					
+					"orderable": false
 				},
 			],
 			"order": [
