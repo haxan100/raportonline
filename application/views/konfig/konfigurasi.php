@@ -681,7 +681,8 @@
 				},
 				{
 					"targets": 2,
-					"className": "dt-head-center"
+					"className": "dt-head-center",					
+					"orderable": false
 				},
 			],
 			"order": [
@@ -723,17 +724,33 @@
 				},
 				{
 					"targets": 1,
-					"className": "dt-head-center"
+					"className": "dt-head-center",					
+					"orderable": false
 				},
 				{
 					"targets": 2,
-					"className": "dt-head-center"
+					"className": "dt-head-center",					
+					"orderable": false
 				}, {
 					"targets": 3,
-					"className": "dt-head-center"
+					"className": "dt-head-center",					
+					"orderable": false
 				}, {
 					"targets": 4,
-					"className": "dt-head-center"
+					"className": "dt-head-center",					
+					"orderable": false
+				},{
+					"targets": 5,
+					"className": "dt-head-center",					
+					"orderable": false
+				},{
+					"targets": 6,
+					"className": "dt-head-center",					
+					"orderable": false
+				},{
+					"targets": 7,
+					"className": "dt-head-center",					
+					"orderable": false
 				},
 			],
 			"order": [
@@ -778,7 +795,8 @@
 				},
 				{
 					"targets": 2,
-					"className": "dt-head-center"
+					"className": "dt-head-center",					
+					"orderable": false
 				},
 			],
 			"order": [
