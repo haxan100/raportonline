@@ -529,45 +529,49 @@
 				"serverSide": true,
 
 
-				"columnDefs": [{
-						"targets": 0,
-						"className": "dt-body-center dt-head-center",
-						"width": "20px",
-						"orderable": false
-					},
-					{
-						"targets": 1,
-						"className": "dt-head-center"
-					},
-					{
-						"targets": 2,
-						"className": "dt-head-center"
-					}, {
-						"targets": 3,
-						"className": "dt-head-center"
-					}, {
-						"targets": 4,
-						"className": "dt-head-center"
-					}, {
-						"targets": 5,
-						"className": "dt-head-center"
-					}, {
-						"targets": 6,
-						"className": "dt-head-center"
-					}, {
-						"targets": 7,
-						"className": "dt-head-center"
-					}, {
-						"targets": 8,
-						"className": "dt-head-center"
-					}, {
-						"targets": 9,
-						"className": "dt-head-center"
-					}, {
-						"targets": 10,
-						"className": "dt-head-center"
-					},
-				],
+			"columnDefs": [{
+					"targets": 0,
+					"className": "dt-body-center dt-head-center",
+					"width": "20px",
+					"orderable": false
+				},
+				{
+					"targets": 1,
+					"className": "dt-head-center"
+				},
+				{
+					"targets": 2,
+					"className": "dt-head-center"
+				}, {
+					"targets": 3,
+					"className": "dt-head-center"
+				},{
+					"targets": 4,
+					"className": "dt-head-center"
+				}, {
+					"targets": 5,
+					"className": "dt-head-center"
+				}, {
+					"targets": 6,
+					"className": "dt-head-center"
+				}, {
+					"targets": 7,
+					"className": "dt-head-center"
+				}, {
+					"targets": 8,
+					"className": "dt-head-center"
+				}, 
+				{
+					"targets": 9,
+					"className": "dt-head-center",
+					
+					"orderable": false
+				},  {
+					"targets": 10,
+					"className": "dt-head-center",					
+					"orderable": false
+				},
+			],
 				"order": [
 					[1, "desc"]
 				],
@@ -639,45 +643,48 @@
 				"serverSide": true,
 
 
-				"columnDefs": [{
-						"targets": 0,
-						"className": "dt-body-center dt-head-center",
-						"width": "20px",
-						"orderable": false
-					},
-					{
-						"targets": 1,
-						"className": "dt-head-center"
-					},
-					{
-						"targets": 2,
-						"className": "dt-head-center"
-					}, {
-						"targets": 3,
-						"className": "dt-head-center"
-					}, {
-						"targets": 4,
-						"className": "dt-head-center"
-					}, {
-						"targets": 5,
-						"className": "dt-head-center"
-					}, {
-						"targets": 6,
-						"className": "dt-head-center"
-					}, {
-						"targets": 7,
-						"className": "dt-head-center"
-					}, {
-						"targets": 8,
-						"className": "dt-head-center"
-					}, {
-						"targets": 9,
-						"className": "dt-head-center"
-					}, {
-						"targets": 10,
-						"className": "dt-head-center"
-					},
-				],
+			"columnDefs": [{
+					"targets": 0,
+					"className": "dt-body-center dt-head-center",
+					"width": "20px",
+					"orderable": false
+				},
+				{
+					"targets": 1,
+					"className": "dt-head-center"
+				},
+				{
+					"targets": 2,
+					"className": "dt-head-center"
+				}, {
+					"targets": 3,
+					"className": "dt-head-center"
+				},{
+					"targets": 4,
+					"className": "dt-head-center"
+				}, {
+					"targets": 5,
+					"className": "dt-head-center"
+				}, {
+					"targets": 6,
+					"className": "dt-head-center"
+				}, {
+					"targets": 7,
+					"className": "dt-head-center"
+				}, {
+					"targets": 8,
+					"className": "dt-head-center"
+				},  {
+					"targets": 9,
+					"className": "dt-head-center",
+					
+					"orderable": false
+				},   {
+					"targets": 10,
+					"className": "dt-head-center",					
+					"orderable": false
+				},
+			],
 				"order": [
 					[1, "desc"]
 				],

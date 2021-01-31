@@ -690,13 +690,26 @@ class SiswaModel extends CI_Model
 	{
 		// var_dump($post);die;
 		$columns = array(
+			'k.nama_kelas',
 			'nama_mapel',
+			'n.nilai_harian',
+			'n.nilai_uts',
+			'n.nilai_uas',
+			'n.nilai_pengetahuan',
+			'n.nilai_karakter',
+			'n.keterangan'
 
 		);
 		// untuk search
 		$columnsSearch = array(
-			's.nama_lengkap',
-			'm.nama_mapel',
+			'k.nama_kelas',
+			'nama_mapel',
+			'n.nilai_harian',
+			'n.nilai_uts',
+			'n.nilai_uas',
+			'n.nilai_pengetahuan',
+			'n.nilai_karakter',
+			'n.keterangan'
 		);
 		// gunakan join disini
 		$from = 'kelas k';
