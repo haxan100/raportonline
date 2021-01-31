@@ -781,24 +781,18 @@ class SiswaModel extends CI_Model
 
 	{
 		$columns = array(
+			'nisn',
+			'nama_lengkap',
 			'nama_kelas',
-			// 'p.created_at',
-
-			// 'p.stok',
-
-			// 'p.view_count',
-
-			// 'p.harga_awal',
-
-			// // 'p.harga_awal',
-
-			// // 'p.created_at',
+			
 
 		);
 		// untuk search
 		$columnsSearch = array(
-			'k.nama_kelas',
-			// 's.nama_lengkap',
+			'k.nisn',
+			'nama_lengkap',
+			'nama_kelas',
+			
 		);
 
 

@@ -7,10 +7,6 @@
 			$id_kelas= $urlid;
 			// var_dump($urlid);
 
-
-
-
-
 			?>
 			<style>
 				#image {
@@ -28,9 +24,6 @@
 					<div class="card-box table-responsive">
 
 						<input type="hidden" id="id_kelas" value="<?= $id_kelas ?>" />
-
-						<!-- <button type="button" class="btn btn-primary btn_tambah" data-toggle="modal" data-target=".bs-example-modal-lg">Tambah</button> -->
-
 						<table id="datatable_siswa" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
@@ -493,7 +486,8 @@
 					"className": "dt-head-center"
 				}, {
 					"targets": 4,
-					"className": "dt-head-center"
+					"className": "dt-head-center",
+					"orderable": false
 				},
 			],
 			"order": [

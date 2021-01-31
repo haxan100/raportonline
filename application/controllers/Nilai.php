@@ -457,6 +457,7 @@ class Nilai extends CI_Controller {
 	public function kelas_detail()
 
 	{
+		// var_dump($_SESSION);die;
 		$urlid = $this->uri->segment(3);
 
 		$id_kelas = $_POST['id_kelas'];
@@ -475,8 +476,6 @@ class Nilai extends CI_Controller {
 				$data['content'] = 'nilai/data_detail_kelas';
 
 			} else {
-				// $dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
-				// echo" alert("s")";
 				echo '<script type="text/javascript">
 				    alert("Kelas Bukan Untuk Anda...");
 				</script>';
