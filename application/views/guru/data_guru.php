@@ -116,7 +116,7 @@
 											</div>
 										</div>
 
-										<div class="item form-group">
+										<!-- <div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Username <span class="required">*</span>
 											</label>
 											<div class="col-md-6 col-sm-6 ">
@@ -131,7 +131,9 @@
 												<input id="passwords" name="passwords" class="form-control " placeholder="Isikan Password" type="text" class="form-control">
 
 											</div>
-										</div>
+										</div> -->
+
+
 										<div class="item form-group">
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Tempat Lahir <span class="required">*</span>
 											</label>
