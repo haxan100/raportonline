@@ -1876,6 +1876,30 @@ class SiswaModel extends CI_Model
 		return $query->result();
 		# code...
 	}
+		public function getNilaiSiswaForAPI($nisn)
+	{
+		$this->db->select('*');
+		$this->db->where('nisn', $nisn);
+		$this->db->join('mapel m', 'm.kode_mapel = nilai.kode_mapel', 'left');
+		
+		$query = $this->db->get('nilai');
+        // var_dump($this->db->last_query());
+
+		return $query->result();
+		# code...
+	}
+		public function getDetailSiswa($nisn)
+
+	{
+		$this->db->select('s.*,k.nama_kelas');
+		
+		$this->db->join('kelas k', 'k.id_kelas = s.id_kelas', 'left');
+		$this->db->where('nisn', $nisn);
+		
+		$query = $this->db->get('siswa s');
+		// echo $this->db->last_query();die;
+		return $query->result();
+	}
 
 
 
