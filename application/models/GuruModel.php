@@ -66,7 +66,7 @@ class GuruModel extends CI_Model
 		public function GuruAllForStudent()
 
 	{
-		$this->db->select('g.id_guru,g.nik,g.nama_guru,m.nama_mapel,g.alamat,k.nama_kelas');
+		$this->db->select('g.id_guru,g.foto,g.nik,g.nama_guru,m.nama_mapel,g.alamat,k.nama_kelas');
 		
 		$this->db->join('kelas k', 'k.id_kelas = g.id_kelas', 'left');
 		$this->db->join('mapel m', 'm.kode_mapel = g.id_mapel', 'left');

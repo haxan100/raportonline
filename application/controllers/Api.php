@@ -245,6 +245,31 @@ class Api extends CI_Controller {
 		));
 			die;
 	}
+		public function getAllSiswa()
+	{	
+		
+		$status =true;
+		$dt = $this->SiswaModel->getAllSiswaForStuden()->result();
+		echo json_encode(array(
+			'status' => $status,
+			'data' => $dt,
+
+		));
+			die;
+	}
+		public function getAllMapel()
+	{	
+		
+		$status =true;
+		$dt = $this->SiswaModel->getAllMapelForStudent()->result();
+		echo json_encode(array(
+			'status' => $status,
+			'data' => $dt,
+
+		));
+			die;
+	}
+
 
 	
     
