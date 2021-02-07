@@ -35,17 +35,47 @@ class Api extends CI_Controller {
 	  	public function getVisiMisi()
 	{
         $jmlGuru = $this->GuruModel->GuruAll()->result();
+        $jmlSiswa = $this->SiswaModel->SiswaAll()->result();
+        $jmlMapel = $this->SiswaModel->MapelAll()->result();
 		$GuruC= count($jmlGuru);
+		$SiswaC= count($jmlSiswa);
+		$MapelC= count($jmlMapel);
+		// var_dump($MapelC);die;
 		$getVisi = $this->SekolahModel->visi()->result();
 		$getMisi = $this->SekolahModel->misi()->result();
 
-		$dataJML = array(
-			'guru' =>15 ,
-			'mapel' =>15 ,
-			'siswa' =>105 ,
+		$dataGuru = array(
+			"0" => array( 
+				"id" => 1, 
+				"nama" => 'Siswa', 
+				"jumlah" => $SiswaC, 
+			), 
+			"1" => array( 				
+					"id" => 1, 
+					"nama" => 'Guru', 
+					"jumlah" => $GuruC, 
+			), 
+			"2" => array( 
+				"id" => 1, 
+				"nama" => 'Mapel', 
+				"jumlah" => $MapelC, 
+			), 
+
 		 );
+
+		 $dataMapel = array(
+			'id' =>2 ,
+			'jumlah' =>209 ,
+			'nama' =>'mapel' ,
+		 );
+		 $dat = array(
+			 '1' =>$dataMapel ,
+			 '2' =>$dataGuru ,
+			 );
+		 
+
 		 $data = array(
-			 'jml' =>$dataJML ,
+			 'jml' =>$dataGuru ,
 			 'visi' =>$getVisi ,
 			 'misi' =>$getMisi ,
 		 );
@@ -65,47 +95,14 @@ class Api extends CI_Controller {
 		$username = $this->input->post('username', true);
 		$password = $this->input->post('password', true);
 		$where = array(
-			'username' => $username,
+			'nisn' => $username,
 			'password' => $password
 		);
-		$cek = $this->AdminModel->cek_login("admin", $where)->num_rows(); // cek admin
-		$cekWali = $this->AdminModel->cek_login("wali_kelas", $where)->num_rows(); // cek walikelas
+		// $cek = $this->AdminModel->cek_login("admin", $where)->num_rows(); // cek admin
+		// $cekWali = $this->AdminModel->cek_login("wali_kelas", $where)->num_rows(); // cek walikelas
 		$cekSiswa = $this->AdminModel->cek_login("siswa", $where)->num_rows(); // cek walikelas
-		// var_dump($cekSiswa);die;
 
-		if($cek>0){
-			// echo "admin";/
-			$r = $this->AdminModel->cek_login("admin", $where)->row();   
-			$data_session = array(
-				'nama' => $username,
-				'status' => "login",
-				'user' => "admin",
-				'admin_session' => true, // Buat session authenticated dengan value true
-				'id_user' => $r->id_user, // Buat session authenticated
-				'nama' => $r->nama,
-
-			);
-			$this->session->set_userdata($data_session);
-			$status = true;
-			$message = 'Selamat datang sedang mengalihkan..';
-		}else if($cekWali>0){
-			// echo "guru";
-			$r = $this->AdminModel->cek_login("wali_kelas", $where)->row();
-			
-			$data_session = array(
-				'nama' => $username,
-				'status' => "login",
-				'user' => "guru",
-				'admin_session' => true, // Buat session authenticated dengan value true
-				'id_user' => $r->kode_wali, // Buat session authenticated
-				'nama' => $r->nama_wali,
-				'id_kelas' => $r->id_kelas,
-
-			);
-			$this->session->set_userdata($data_session);
-			$status = true;
-			$message = 'Selamat datang Wali Kelas <span class="font-weight-bold"> ' . $r->nama_wali . '</span>, sedang mengalihkan..';
-		}else if($cekSiswa>0){
+		 if($cekSiswa>0){
 			// echo "guru";
 			$r = $this->AdminModel->cek_login("siswa", $where)->row();
 			// var_dump($r);die;
@@ -118,7 +115,6 @@ class Api extends CI_Controller {
 				'nisn' => $r->nisn, // Buat session authenticated
 				'id_kelas' => $r->id_kelas,
 				'foto' => $r->foto,
-
 			);
 			$this->session->set_userdata($data_session);
 			$status = true;
@@ -222,7 +218,7 @@ class Api extends CI_Controller {
 		$nisn = $_POST['nisn'];
 		
 		$status =true;
-		$dt = $this->SiswaModel->getDetailSiswa($nisn);
+		$dt = $this->SiswaModel->getDetailSiswaSatu($nisn);
 		
 		// var_dump(json_encode($dt));die;
 		echo json_encode(array(
