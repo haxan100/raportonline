@@ -23,11 +23,8 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		if (!$this->isLoggedInAdmin()) {
-
-			echo 'Anda Harus Login!';
-
+			// echo 'Anda Harus Login!';
 			redirect('login', 'refresh');
-
 			exit();
 		}
 

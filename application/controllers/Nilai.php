@@ -457,10 +457,10 @@ class Nilai extends CI_Controller {
 	public function kelas_detail()
 
 	{
-		// var_dump($_SESSION);die;
 		$urlid = $this->uri->segment(3);
-
+		
 		$id_kelas = $_POST['id_kelas'];
+		// var_dump($id_kelas);die;
 		$getKelasFromSess =  $_SESSION['id_kelas'];
 
 		if (!$this->isLoggedInAdmin()) {
