@@ -186,10 +186,6 @@
 								<form class="form-group" action="<?= base_url('Murid/formProfilSiswa') ?>" method="post">
 									<div>
 										<input type="hidden" name="id_user" class="form-control" value="<?= $p['nisn']; ?>" required="required" />
-
-										<label for="exampleInputEmail1">Username</label>
-										<input type="text" class="form-control" id="username" aria-describedby="username" name="username" placeholder=" Enter username" value="<?= $p['username']; ?>">
-										<small id="username" class="form-text text-muted">We'll never share your email with anyone else.</small>
 									</div>
 									<div class="form-group">
 										<label for="password">Password</label>
