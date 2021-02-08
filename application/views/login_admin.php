@@ -38,7 +38,7 @@
 			<div class="animate form login_form">
 				<section class="login_content">
 					<form>
-						<h1>Login Siswa</h1>
+						<h1>Login Admin</h1>
 						<div>
 							<input type="text" class="form-control" placeholder="Username" id="username" required="" />
 						</div>
@@ -47,7 +47,8 @@
 						</div>
 						<div>
 							<a class="btn btn-default submit" type="submit" id="loginBtn">Log in</a>
-							<a class=" reset_pass" href="<?= base_url()?>Login/Admin">Login Untuk Admin</a>
+						
+							<a class=" reset_pass" href="<?= base_url()?>Login">Login Untuk Siswa</a>
 						</div>
 
 						<div class="clearfix"></div>
@@ -154,7 +155,7 @@
 				$.ajax({
 					type: "POST",
 					dataType: 'json',
-					url: "<?php echo $bu; ?>login/login_proses",
+					url: "<?php echo $bu; ?>login/login_proses_admin",
 					data: {
 						username: username,
 						password: password,
