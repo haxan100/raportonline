@@ -6,11 +6,7 @@
 			$urlid = $this->uri->segment(3);
 			$nisn = $urlid;
 			// var_dump($urlid);
-
-
-
-
-
+			$role=0;
 			?>
 			<style>
 				#image {
@@ -55,7 +51,9 @@
 									<td>Nilai Pengetahuan</td>
 									<td>Nilai Karakter</td>
 									<td>Keterangan</td>
+
 									<?php if($_SESSION['user']=="guru" or $_SESSION['user']=="admin" ){
+										$role=1;
 										?>
 										<th>Opsi</th>
 									<?php 
@@ -189,6 +187,7 @@
 		var url_form_ubah = bu + 'nilai/ubah_nilai_siswa_proses';
 		var url_form_tambah = bu + 'nilai/tambah_nilai_siswa_proses';
 
+    var role_harga_awal = <?= $role; ?>;	
 
 
 		$('body').on('click', '.btn_detail', function() {
@@ -291,10 +290,6 @@
 			}
 			// return false;
 		});
-		// var table = $('#datatable-buttons').DataTable({
-		// 	lengthChange: false,
-		// 	buttons: ['copy', 'excel', 'pdf']
-		// });
 		$('body').on('click', '.hapus', function() {
 
 			var id_nilai = $(this).data('id_nilai');
@@ -529,7 +524,8 @@
 				},  {
 					"targets": 9,
 					"className": "dt-head-center",					
-					"orderable": false
+					"orderable": false,
+					"visible": false,
 				},
 			],
 			"order": [
@@ -586,7 +582,14 @@
 			]
 
 		});
-
+	function coba() {
+            var column = datatable.column(9);	
+            $(this).toggleClass("active");
+            column.visible(!column.visible());
+	  }
+	  if(role_harga_awal==1){
+	  	coba()
+	  }
 
 	});
 </script>

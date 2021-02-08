@@ -652,7 +652,6 @@ class Nilai extends CI_Controller {
 
 
 	public function detail_nilai_siswa()
-
 	{
 			if (!$this->isLoggedInAdmin()) {
 			echo 'Anda Harus Login!';
@@ -675,13 +674,9 @@ class Nilai extends CI_Controller {
 			$data['content'] = 'nilai/data_detail_nilai_siswa';
 
 			} else {
-				// $dt = $this->SiswaModel->data_AllKelasSiswa($_POST, $id_kelas);
-				// echo" alert("s")";
 				echo '<script type="text/javascript">
 				    alert("Siswa Bukan Untuk Anda...");
 				</script>';
-
-
 				redirect('siswa/Kelas', 'refresh');
 			}
 		} else if ($_SESSION['user'] == "admin") {
