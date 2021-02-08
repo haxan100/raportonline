@@ -1,31 +1,23 @@
 ini adalah aplikasi Raport online sederhana yang saya buat.. <br>
 
 #jualan #share #oot
-Jual aplikasi E-raport
-Harga : Donasi Internet + uang Jajan
-Link demo :
-http://heyiamhasan.com/raportonline/
-User :
--admin :
-username : admins
-Pass : admins
+Jual aplikasi E-raport (web base php frameword ci) 
+bonus + aplikasi android dengan bahasa react native
+Harga : pm (untuk 10 pembeli pertama, dapat diskon 50%, itung itung untuk pembelajaran)
 
--Wali Kelas (bisa di cek di Wali kelas)
-username: sepuluhas
-Pass 	: sepuluhas
+Link demo :pm
 
--Siswa  :
-username: pems
-Pass 	: pems
+User / siswa akun (pm)
+-admin : (pm)
 
-
+-Wali Kelas: (pm)
 ++++++++++++++++++++++++++++++++++++++++++++++++++++
 Role Siswa: 
 	- dashboard
 	- bisa melihat nilai sendiri
 	- bisa cetak nilai sendiri
 	- ada peringatan ketika mengecek nilai orang lain
-	- ubah username dan password 
+	- ubah  password 
 
 Role Wali :
 	- dashboard
@@ -49,6 +41,14 @@ Role Admin :
 		+crud visi
 		+crud misi
 
+keunggulan:
+-ketika menambah user / siswa dengan nisn yang sudah ada, maka akan eror/ tidak dapat menambahkan lagi
+-ketika akan menambah guru mapel kelas, akan eror / warning jika guru lain sudah mengisi mapel kelas tsb
+-ketika tambah wali kelas, dan sudah ada guru lain yang jadi wali, maka akan ada warning,
+-apliasi android enggunakan react native, masih sederhana...
+-bisa untuk belajar dasar ci, dan datable client side, 
+-sudah di taruh api untuk user/ siswa,,
+- dapat auto updte dari saya(setiap ada update akan di kasih pemberitahuan menggunakan pesan wa / messanger)
 
 
 +++++++++++++++++++++++++++++++++++++++++++
@@ -65,22 +65,7 @@ Role Admin :
 
 Minat hubungi saya
 Wa : 089602350857
+atau fb disnin
+pembuatan dari saya dr 0,
+link github di @haxan100
 
-
-<p align="center">
-  <img src="screenshoot/1 (1).png" width="350" title="hover text">
-  <img src="screenshoot/1 (2).png" width="350" alt="accessibility text">
-    <img src="screenshoot/1 (3).png" width="350" alt="accessibility text">
-      <img src="screenshoot/1 (4).png" width="350" alt="accessibility text">
-        <img src="screenshoot/1 (5).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (6).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (7).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (8).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (9).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (10).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (11).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (12).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (13).png" width="350" alt="accessibility text">
-          <img src="screenshoot/1 (14).png" width="350" alt="accessibility text">
-  
-</p>
