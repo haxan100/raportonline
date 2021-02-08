@@ -41,7 +41,6 @@ class GuruModel extends CI_Model
 	}
 		public function UpdateProf($data)
 	{
-
 		$arr = [
 			'username' => trim($data['username']),
 			'password' => trim($data['password']),
@@ -52,6 +51,23 @@ class GuruModel extends CI_Model
 			$this->db->update('guru', $arr);
 		} else {
 			$this->db->insert('guru', $arr);
+			if (!empty($this->db->error()['message'])) {
+				return $this->db->error();
+			}
+		}
+	}
+		public function UpdateProfWaliGuru($data)
+	{
+		$arr = [
+			'username' => trim($data['username']),
+			'password' => trim($data['password']),
+		];
+		if (!empty($data['id_user'])) {
+			$this->db->where('id_wali_kelas', $data['id_user']);
+			$this->db->where('id_kelas', $data['id_kelas']);
+			$this->db->update('wali_kelas', $arr);
+		} else {
+			$this->db->insert('wali_kelas', $arr);
 			if (!empty($this->db->error()['message'])) {
 				return $this->db->error();
 			}

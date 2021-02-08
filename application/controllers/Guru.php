@@ -130,7 +130,7 @@ class Guru extends CI_Controller {
 		// var_dump($_POST);die;
 		if ($_POST) {
 			$id_user = $_POST['id_user'];
-			$result = $this->GuruModel->UpdateProf($_POST);
+			$result = $this->GuruModel->UpdateProfWaliGuru($_POST);
 			if (isset($result['code'])) {
 				$this->session->set_flashdata('flash_data', $result['message']);
 			} else {

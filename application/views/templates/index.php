@@ -63,6 +63,8 @@
 						</div>
 						<?php
 						$userSiapa = $_SESSION['user'];
+						// $userSiapa == "guru"
+						// var_dump($userSiapa == "guru");die;
 						// var_dump($userSiapa == "guru");die;
 						$who = "";
 						if ($userSiapa == "admin") {
@@ -141,7 +143,8 @@
 
 							$id_user = $_SESSION['id_user'];
 							$id_kelas = $_SESSION['id_kelas'];
-							$pu = $this->db->query('select * from guru where id_guru='.$id_user.' and id_kelas='.$id_kelas.'' );
+							$pu = $this->db->query('select * from wali_kelas where kode_wali='.$id_user.' and id_kelas='.$id_kelas.'' );
+							// var_dump($pu->result_array());die;
 						
 							foreach ($pu->result_array() as $p) {
 								// var_dump($p);die;
@@ -149,7 +152,7 @@
 							<div class="modal-body">
 								<form class="form-group" action="<?= base_url('Guru/formProfil') ?>" method="post">
 									<div>
-										<input type="hidden" name="id_user" class="form-control" value="<?= $p['id_guru']; ?>" required="required" />
+										<input type="hidden" name="id_user" class="form-control" value="<?= $p['id_wali_kelas']; ?>" required="required" />
 										<input type="hidden" name="id_kelas" class="form-control" value="<?= $p['id_kelas']; ?>" required="required" />
 
 										<label for="exampleInputEmail1">Username</label>
@@ -167,7 +170,7 @@
 
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-secondary" data-dismiss="modal">Closes</button>
 								<button type="submit" class="btn btn-primary">Save changes</button>
 							</div>
 							</form>
@@ -203,9 +206,7 @@
 								<button type="submit" class="btn btn-primary">Save changes</button>
 							</div>
 							</form>
-							<?php ?>
-
-						<?php } } ?>
+							<?php } }  ?>
 
 					</div>
 				</div>
