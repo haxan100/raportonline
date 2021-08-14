@@ -67,6 +67,26 @@
 
 									</ul>
 								</li>
+
+								<li><a><i class="fa fa-edit"></i> Materi  <span class="fa fa-chevron-down"></span></a>
+									<ul class="nav child_menu">
+									<?php 
+										$id_user = $_SESSION['id_user'];
+										// var_dump($id_user);
+										?>
+												<?php if($_SESSION['user']=="guru" or $_SESSION['user']=="admin" ){
+												?>
+													<li><a href="<?php echo site_url('Nilai/Materi') ?>">Isi Materi</a></li>
+												<?php 
+													} else{
+												?>
+									
+
+										<li><a href="<?php echo site_url('Nilai/detail_nilai_siswa/'.$id_user) ?>">Lihat Nilai Saya</a></li>
+													<?php }?>
+
+									</ul>
+								</li>
 								<li><a><i class="glyphicon glyphicon-print"></i> Cetak <span class="fa fa-chevron-down"></span></a>
 									<ul class="nav child_menu">
 

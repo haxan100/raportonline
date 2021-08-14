@@ -397,7 +397,6 @@ class Siswa extends CI_Controller {
 		));
 	}
 	public function getAllKelas()
-
 	{
 
 		if (!$this->isLoggedInAdmin()) {
@@ -470,7 +469,6 @@ class Siswa extends CI_Controller {
 		exit();
 	}
 	public function getAllSiswa()
-
 	{
 		// var_dump($_SESSION);die;
 
@@ -550,7 +548,6 @@ class Siswa extends CI_Controller {
 	}
 	public function ubah_kelas()
 	{
-
 		// var_dump($this->input->post());die;
 		$nama = $this->input->post('nama', TRUE);
 		$kelas = $this->input->post('kelas', TRUE);
@@ -835,6 +832,110 @@ class Siswa extends CI_Controller {
 
 		$sFileName = 'assets/template/kelas.xlsx'; 
 		force_download($sFileName, NULL);
+	}
+		public function tambah_materi_proses()
+	{
+		$kelas = $this->input->post('kelas', TRUE);
+		$mapel = $this->input->post('mapel', TRUE);
+		$materi = $this->input->post('materi', TRUE);
+		$link = $this->input->post('link', TRUE);
+		$statusInput = $this->input->post('status', TRUE);
+		$message = 'Gagal menambah data siswa!<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+		if (empty($materi)) {
+			$status = false;
+			$message = "Nama Harus Di Isi!";
+		}
+		if (empty($kelas) or $kelas=='default') {
+			$status = false;
+			$message = "Kelas Harus Di Isi!";
+		}
+		if (empty($mapel)) {
+			$status = false;
+			$message = "Alamat Harus Di Isi!";
+		}
+		if (empty($link)) {
+			$status = false;
+			$message = "Password Harus Di Isi!";
+		}
+		if($status){			
+			$now = date	("Y-m-d H-i-s");	
+				$in = array(
+					'id_mapel' => $mapel,
+					'id_kelas' => $kelas,
+					'materi' => $materi,
+					'link' => $link,
+					'status' => $statusInput,
+					'created_at' => $now,
+				);
+			$this->SiswaModel->tambah_materi($in);
+			$message = "Berhasil Menambah Materi #1";
+		}else{
+			$message = "Gagal Menambah Materi!";
+			$status = false;			
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
+
+	}
+		public function ubah_materi()
+	{
+		// var_dump($this->input->post());die;
+		$id_materi = $this->input->post('id_materi', TRUE);
+		$kelas = $this->input->post('kelas', TRUE);
+		$mapel = $this->input->post('mapel', TRUE);
+		$materi = $this->input->post('materi', TRUE);
+		$link = $this->input->post('link', TRUE);
+		$statusInput = $this->input->post('status', TRUE);
+
+		$message = 'Gagal mengedit Materi!<br>Silahkan lengkapi data yang diperlukan.';
+		$errorInputs = array();
+		$status = true;
+
+		$in = array(
+			'id_mapel' => $mapel,
+			'id_kelas' => $kelas,
+			'materi' => $materi,
+			'link' => $link,
+			'status' => $statusInput,
+		);	
+		// var_dump($in);die;
+		if (empty($id_materi)) {
+			$status = false;
+		}
+		if (empty($kelas)) {
+			$status = false;
+		}
+		if (empty($mapel)) {
+			$status = false;
+		}
+		if (empty($materi)) {
+			$status = false;
+		}
+		if (empty($link)) {
+			$status = false;
+		}
+		// var_dump($status);die;
+		if ($status) {
+				if ($this->SiswaModel->edit_materi($in, $id_materi)) {
+					$message = "Berhasil Mengubah Materi #1";
+				}else{
+					$message = "Gagal #1";
+				}	
+			} else {
+				$message = "Gagal Mengubah Materi. Harap DiIsi Semua  Field #1";
+			}
+
+
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+			'errorInputs' => $errorInputs
+		));
 	}
 
 

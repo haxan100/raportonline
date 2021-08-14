@@ -451,9 +451,6 @@ class Nilai extends CI_Controller {
 
 		exit();
 	}
-
-
-
 	public function kelas_detail()
 
 	{
@@ -1400,6 +1397,117 @@ class Nilai extends CI_Controller {
 		$sFileName = 'assets/template/template_nilai.xlsx';
 		force_download($sFileName, NULL);
 	}
+		public function Materi()
+	{
+		if (!$this->isLoggedInAdmin()) {
+			echo 'Anda Harus Login!';			
+			redirect('login','refresh');
+			exit();
+		}
+			if($_SESSION['user']=="siswa"){			             
+            echo '<script type="text/javascript">
+                        alert("Siswa Tidak Dapat Memasuki Menu Ini...");
+                    </script>';
+			echo 'Siswa Tidak Dapat Memasuki Menu Ini!';
+			redirect('dashboard', 'refresh');
+			exit();
+		}
+		if ($_SESSION['user'] == 'guru') {
+			$id_kelasFromWali = $_SESSION['id_kelas'];
+			$data['listKelas'] = $this->SiswaModel->getKelasByid_kelas($id_kelasFromWali);
+			$data['siswa'] = $this->SiswaModel->getSiswaByid_kelas($id_kelasFromWali);
+			$data['listMapel'] = $this->SiswaModel->getMapelByidKelas($id_kelasFromWali);
+		} else {
+			$data['listKelas'] = $this->SiswaModel->getAllKelas();
+			$data['listMapel'] = $this->SiswaModel->getAllMapel();
+			$data['siswa'] = $this->SiswaModel->siswa();
+		}		
+		$data['content']= 'materi/data_materi';	
+		$this->load->view('templates/index',$data);
+
+	}
+		public function getMateri()
+	{
+		$bu = base_url();
+		$dt = $this->SiswaModel->data_allMateri($_POST);
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+
+		$no = $start + 1;
+
+		foreach ($dt['data']->result() as $row) {
+		$stat = "Publish";
+		if($row->status==0){
+			$stat = "Draft";
+		}
+		
+			$fields = array($no++);
+
+			$fields[] = $row->nama_kelas . '<br>';
+			$fields[] = $row->nama_mapel . '<br>';
+			$fields[] = $row->materi . '<br>';
+			$fields[] = $stat . '<br>';
+			$fields[] = '
+
+			<button class="btn btn-round btn-info btn_edit"  data-toggle="modal" data-target=".bs-example-modal-lg" 
+			
+			data-id_materi="' . $row->id_materi . ' " 
+			
+			data-id_kelas="' . $row->id_kelas . '" 
+			data-id_mapel="' . $row->id_mapel . '" 		
+			data-status="' . $row->status . '" 
+			data-link="' . $row->link . '" >
+			</i> Ubah</button>
+
+        <button class="btn btn-round btn-danger hapus" data-id_materi="' . $row->id_materi . '" 
+        >Hapus</button>               
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+		public function hapusMateri()
+	{
+
+		$id_materi = $this->input->post('id_materi', TRUE);
+		
+		$data = $this->SiswaModel->getMateriById($id_materi);
+		// var_dump($data);die;
+		$status = false;
+
+		$message = 'Gagal menghapus Materi!';
+		if (count($data) == 0) {
+			$message .= '<br>Tidak terdapat  Materi yang dimaksud.';
+		} else {
+			$this->SiswaModel->HapusMateri($id_materi);
+
+			$status = true;
+			$message = 'Berhasil menghapus Materi';
+		}
+		echo json_encode(array(
+			'status' => $status,
+			'message' => $message,
+		));
+	}
+		public function getMateriById()
+	{
+		$id_nilai = $_POST['id_materi'];
+		$data = $this->SiswaModel->getMateriById($id_nilai);
+		echo json_encode($data);
+
+		# code...
+	}
+	
 
 
 

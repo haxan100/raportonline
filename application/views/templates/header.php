@@ -26,6 +26,7 @@
 	<link href="<?php echo base_url() . "templates/"; ?>/vendors/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
 	<!-- bootstrap-daterangepicker -->
 	<link href="<?php echo base_url() . "templates/"; ?>/vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+	<link href='https://cdn.jsdelivr.net/npm/froala-editor@4.0.1/css/froala_editor.pkgd.min.css' rel='stylesheet' type='text/css' />
 
 	<!-- Custom Theme Style -->
 	<link href="<?php echo base_url() . "templates/"; ?>/build/css/custom.min.css" rel="stylesheet">

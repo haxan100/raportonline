@@ -74,6 +74,7 @@
 			<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.html5.min.js"></script>
 			<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.print.min.js"></script>
 			<script src="https://cdn.datatables.net/buttons/1.6.2/js/buttons.flash.min.js"></script> -->
+			<script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@4.0.1/js/froala_editor.pkgd.min.js'></script>
 
 
 
