@@ -1444,12 +1444,13 @@ class Nilai extends CI_Controller {
 		if($row->status==0){
 			$stat = "Draft";
 		}
+		$small = substr($row->materi, 0, 100);
 		
 			$fields = array($no++);
 
 			$fields[] = $row->nama_kelas . '<br>';
 			$fields[] = $row->nama_mapel . '<br>';
-			$fields[] = $row->materi . '<br>';
+			$fields[] = $small . '<br>';
 			$fields[] = $stat . '<br>';
 			$fields[] = '
 
@@ -1506,6 +1507,77 @@ class Nilai extends CI_Controller {
 		echo json_encode($data);
 
 		# code...
+	}
+		public function data_materi()
+	{
+			if (!$this->isLoggedInAdmin()) {
+			echo 'Anda Harus Login!';
+			redirect('login', 'refresh');
+			exit();
+		}
+		$urlid = $this->uri->segment(3);
+		$id_kelas = $this->SiswaModel->getIdKelasByNISN($urlid);
+		$id_kelasFromNisn =$id_kelas[0]->id_kelas;
+		$data['nama']= $id_kelas[0]->nama_lengkap;		
+		if ($_SESSION['user'] == "siswa") {			
+			$getKelasFromSess =  $_SESSION['id_kelas'];
+			// var_dump($id_kelas);die;
+			$data['id_kelas']=$id_kelas[0]->id_kelas;
+			if ($getKelasFromSess == $id_kelasFromNisn) {
+			$data['listMapel'] = $this->SiswaModel->getAllMapelByIdKelas($id_kelas[0]->id_kelas);
+			$data['content'] = 'Materi/data_materi_siswa';
+			} else {
+				echo '<script type="text/javascript">
+				    alert("Nilai Siswa Bukan Untuk Anda...");
+				</script>';
+				redirect('siswa/Kelas', 'refresh');
+			}
+		}
+		$this->load->view('templates/index', $data);
+	}
+		public function getMateriForKelas()
+	{
+		$bu = base_url();
+		$dt = $this->SiswaModel->data_Materi_for_siswa($_POST);
+		$datatable['draw']      = isset($_POST['draw']) ? $_POST['draw'] : 1;
+		$datatable['recordsTotal']    = $dt['totalData'];
+		$datatable['recordsFiltered'] = $dt['totalData'];
+		$datatable['data']            = array();
+		$start  = isset($_POST['start']) ? $_POST['start'] : 0;
+		// var_dump($dt['data']->result());die();
+
+		$no = $start + 1;
+
+		foreach ($dt['data']->result() as $row) {
+		$small = substr($row->materi, 0, 100);
+		
+			$fields = array($no++);
+
+			$fields[] = $row->nama_kelas . '<br>';
+			$fields[] = $row->nama_mapel . '<br>';
+			$fields[] = $small . '<br>';
+			$fields[] = '
+        <button class="btn  btn-info btn_detail" data-id_materi="' . $row->id_materi . '" 
+        >Lihat </button>               
+
+        ';
+			$datatable['data'][] = $fields;
+		}
+
+
+
+		echo json_encode($datatable);
+
+		exit();
+	}
+		public function DetailMateri($id)
+	{
+		// $data = $this->SiswaModel->getMateriKelasMapelById($id);
+		// var_dump($data);die;
+		$data['data'] = $this->SiswaModel->getMateriKelasMapelById($id);
+		$data['content']= 'materi/detail_materi';	
+		$this->load->view('templates/index',$data);
+
 	}
 	
 

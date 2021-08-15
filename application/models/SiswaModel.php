@@ -1947,7 +1947,6 @@ class SiswaModel extends CI_Model
 		return $query->row();
 	}
 		public function data_allMateri($post)
-
 	{
 		// var_dump($post);die;
 		$columns = array(
@@ -2046,6 +2045,92 @@ class SiswaModel extends CI_Model
 	{
 		$this->db->where('id_materi', $id_nilai);
 		return $this->db->update('materi', $in);
+	}
+			public function data_Materi_for_siswa($post)
+	{
+		// var_dump($post);die;
+		$columns = array(
+		'kelas',
+		'mapel',
+		'materi',
+		'status',
+
+		);
+		// untuk search
+		$columnsSearch = array(
+		'kelas',
+		'mapel',
+		'materi',
+		'status',
+		);
+		$id_kelas = $post['id_kelas'];
+		// var_dump($post['id_kelas']);die;
+
+		$sql = "SELECT mat.*,
+									map.kode_mapel,map.nama_mapel,
+									k.nama_kelas
+					 FROM `materi` mat
+					join mapel map on map.kode_mapel=mat.id_mapel					
+					join kelas k on k.id_kelas=mat.id_kelas 
+					where mat.id_kelas = $id_kelas and mat.status=1
+		";
+		// var_dump($sql);
+		$where = "";
+		// if (isset($post['kelas']) && $post['kelas'] != 'default') {
+		// 	if ($where != "") $where .= "AND";
+		// 	$where .= " (mat.id_kelas='" . $post['kelas'] . "')";
+		// }
+		if (isset($post['mapel']) && $post['mapel'] != 'default') {
+			if ($where != "") $where .= "AND";
+			$where .= " (mat.id_mapel='" . $post['mapel'] . "')";
+		}
+		$whereTemp = "";
+		if ($whereTemp != '' && $where != '') $where .= " AND (" . $whereTemp . ")";
+		else if ($whereTemp != '') $where .= $whereTemp;
+		// search
+		if (isset($post['search']['value']) && $post['search']['value'] != '') {
+			$search = $post['search']['value'];
+			// create parameter pencarian kesemua kolom yang tertulis
+			// di $columns
+			$whereTemp = "";
+			for ($i = 0; $i < count($columnsSearch); $i++) {
+				$whereTemp .= $columnsSearch[$i] . ' LIKE "%' . $search . '%"';
+				// agar tidak menambahkan 'OR' diakhir Looping
+				if ($i < count($columnsSearch) - 1) {
+					$whereTemp .= ' OR ';
+				}
+			}
+			if ($where != '') $where .= " AND (" . $whereTemp . ")";
+			else $where .= $whereTemp;
+		}
+		if ($where != '') $sql .= ' and (' . $where . ')';
+		//SORT Kolom
+		$sortColumn = isset($post['order'][0]['column']) ? $post['order'][0]['column'] : 1;
+		$sortDir    = isset($post['order'][0]['dir']) ? $post['order'][0]['dir'] : 'asc';
+		$sortColumn = $columns[$sortColumn - 1];
+		// $sql .= " ORDER BY {$sortColumn} {$sortDir}";
+
+		$count = $this->db->query($sql);
+		$totaldata = $count->num_rows();
+		$start  = isset($post['start']) ? $post['start'] : 0;
+		$length = isset($post['length']) ? $post['length'] : 10;
+		$sql .= " LIMIT {$start}, {$length}";
+		$data  = $this->db->query($sql);
+		// var_dump($sql);die;
+		return array(
+			'totalData' => $totaldata,
+			'data' => $data,
+		);
+	}
+		public function getMateriKelasMapelById($id_nilai)
+	{
+		$this->db->select('*');	
+		$this->db->where('id_materi', $id_nilai);
+		$this->db->join('kelas k', 'k.id_kelas = s.id_kelas', 'left');
+		$this->db->join('mapel m', 'm.kode_mapel = s.id_mapel', 'left');
+		$query = $this->db->get('materi s');
+		return $query->row();
+		# code...
 	}
 
 

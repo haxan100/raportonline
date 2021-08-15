@@ -106,6 +106,14 @@ class Laporan extends CI_Controller {
 
             }
         }
+            public function Materi($id)
+        {            
+            $data['data'] = $this->SiswaModel->getMateriKelasMapelById($id);
+            $dt = $this->SiswaModel->siswa();          
+            $data['judul']="SISWA";
+            $data['siswa']=$dt->result();
+            $this->load->view('materi/cetak',$data);
+        }
         
        
 }

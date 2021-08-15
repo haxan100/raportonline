@@ -21,7 +21,7 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 $pdf->AddPage();
 
 $pdf->Cell(190,7,'DINAS PENDIDIKAN PEMUDA DAN OLAHRAGA',0,1,'C');
-$pdf->Cell(190,7,'JAWA TENGAH',0,1,'C');
+$pdf->Cell(190,19,'JAWA TENGAH',0,1,'C');
 
 $pdf->Ln();
             $i=0;

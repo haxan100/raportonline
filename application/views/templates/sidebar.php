@@ -82,7 +82,7 @@
 												?>
 									
 
-										<li><a href="<?php echo site_url('Nilai/detail_nilai_siswa/'.$id_user) ?>">Lihat Nilai Saya</a></li>
+										<li><a href="<?php echo site_url('Nilai/data_materi/'.$id_user) ?>">Lihat Materi</a></li>
 													<?php }?>
 
 									</ul>

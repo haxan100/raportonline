@@ -1,4 +1,3 @@
-ini adalah aplikasi Raport online sederhana yang saya buat.. <br>
 
 #jualan #share #oot
 Jual aplikasi E-raport (web base php frameword ci) 
@@ -49,6 +48,7 @@ keunggulan:
 -bisa untuk belajar dasar ci, dan datable client side, 
 -sudah di taruh api untuk user/ siswa,,
 - dapat auto updte dari saya(setiap ada update akan di kasih pemberitahuan menggunakan pesan wa / messanger)
+-bantu seting ke domain / ke hosting jika ada eror...
 
 
 +++++++++++++++++++++++++++++++++++++++++++
@@ -61,11 +61,4 @@ keunggulan:
 	+ Gentelella
 	+ sweetalert
 	+ tcpdf
-
-
-Minat hubungi saya
-Wa : 089602350857
-atau fb disnin
-pembuatan dari saya dr 0,
-link github di @haxan100
 
