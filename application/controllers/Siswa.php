@@ -833,10 +833,11 @@ class Siswa extends CI_Controller {
 		$sFileName = 'assets/template/kelas.xlsx'; 
 		force_download($sFileName, NULL);
 	}
-		public function tambah_materi_proses()
+	public function tambah_materi_proses()
 	{
+	   // var_dump($this->input->post());die;
 		$kelas = $this->input->post('kelas', TRUE);
-		$mapel = $this->input->post('mapel', TRUE);
+		$mapel = $this->input->post('mapelInput', TRUE);
 		$materi = $this->input->post('materi', TRUE);
 		$link = $this->input->post('link', TRUE);
 		$statusInput = $this->input->post('status', TRUE);
@@ -859,6 +860,7 @@ class Siswa extends CI_Controller {
 			$status = false;
 			$message = "Password Harus Di Isi!";
 		}
+		var_dump($status);die;
 		if($status){			
 			$now = date	("Y-m-d H-i-s");	
 				$in = array(
@@ -882,12 +884,13 @@ class Siswa extends CI_Controller {
 		));
 
 	}
+
 		public function ubah_materi()
 	{
-		// var_dump($this->input->post());die;
+        //var_dump($this->input->post());die;
 		$id_materi = $this->input->post('id_materi', TRUE);
 		$kelas = $this->input->post('kelas', TRUE);
-		$mapel = $this->input->post('mapel', TRUE);
+		$mapel = $this->input->post('mapelInput', TRUE);
 		$materi = $this->input->post('materi', TRUE);
 		$link = $this->input->post('link', TRUE);
 		$statusInput = $this->input->post('status', TRUE);
@@ -937,6 +940,7 @@ class Siswa extends CI_Controller {
 			'errorInputs' => $errorInputs
 		));
 	}
+
 
 
 

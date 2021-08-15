@@ -131,7 +131,7 @@
 											<label class="col-form-label col-md-3 col-sm-3 label-align" for="last-name">Mapel<span class="required">*</span>
 											</label>
 											<div class="col-md-9 col-sm-9 ">
-											<select class="form-control" id="mapelInput" name="mapel">
+											<select class="form-control" id="mapelInput" name="mapelInput">
 											<option value="">Pilih Mapel</option>
 											<?php
 											foreach ($listMapel as $r) {
@@ -445,12 +445,13 @@
 			$('#tambahmateri').show();
 			$('#tambah_act').show();
 			
-			var kelas = $('#kelas').val();
+			var kelas = $('#kelasInput').val();
 			var mapel = $('#mapelInput').val();
-			var materi = $('#materiInput').val();
+			var materi = $('#materi').val();
 			var link = $('#link').val();
 			var status = $('#status').val();
 			console.log(kelas,mapel,materi,link,status)
+			// return false
 			if (
 				mapel && kelas && materi && link && status
 				) {

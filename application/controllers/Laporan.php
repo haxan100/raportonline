@@ -112,7 +112,7 @@ class Laporan extends CI_Controller {
             $dt = $this->SiswaModel->siswa();          
             $data['judul']="SISWA";
             $data['siswa']=$dt->result();
-            $this->load->view('materi/cetak',$data);
+            $this->load->view('Materi/cetak',$data);
         }
         
        
