@@ -10,6 +10,7 @@ class Laporan extends CI_Controller {
 		    $this->load->model('SiswaModel');
 		$this->load->model('KonfigModel');
 		    $this->load->model('GuruModel');
+		    $this->load->model('SekolahModel');
         }
     public function index()
         {
@@ -18,6 +19,9 @@ class Laporan extends CI_Controller {
         }
             public function SiswaAll()
         {            
+            $sekolah = $this->SekolahModel->dataSekolah()->row();
+            // var_dump($data);die;
+            $data['sekolah'] = $sekolah;
             $dt = $this->SiswaModel->siswa();          
             $data['judul']="SISWA";
             $data['siswa']=$dt->result();
@@ -25,6 +29,10 @@ class Laporan extends CI_Controller {
         }
               public function GuruAll()
         {            
+            
+            $sekolah = $this->SekolahModel->dataSekolah()->row();
+            // var_dump($data);die;
+            $data['sekolah'] = $sekolah;
             $dt = $this->GuruModel->GuruAll();          
             $data['judul']="Guru_All";
             $data['judulData']="Data Guru";
@@ -33,6 +41,8 @@ class Laporan extends CI_Controller {
         }             
          public function MapelAll()
         {            
+               $sekolah = $this->SekolahModel->dataSekolah()->row();
+            $data['sekolah'] = $sekolah;
 			$dt= $this->SiswaModel->getAllMapelAndKelas();      
             $data['judul']="Mapel_All";
             $data['judulData']="Data Mapel";
@@ -41,6 +51,8 @@ class Laporan extends CI_Controller {
         }
         public function CetakNilaiByNISN($post)
         {           
+               $sekolah = $this->SekolahModel->dataSekolah()->row();
+            $data['sekolah'] = $sekolah;
             // var_dump($_SESSION);die;
             if ($_SESSION['user'] == "siswa") {
                 
@@ -49,6 +61,8 @@ class Laporan extends CI_Controller {
                     $urlid = $this->uri->segment(3);
                     // $nisn = $urlid;
                     // var_dump($urlid);
+                        $sekolah = $this->SekolahModel->dataSekolah()->row();
+                    $data['sekolah'] = $sekolah;
                     $dt = $this->SiswaModel->getNilaiSiswaByNISN($nisn); 
                     $siswa = $this->SiswaModel->getSiswaByNisn($nisn)[0]->nama_lengkap; 
                     $id_kelas = $this->SiswaModel->getSiswaByNisn($nisn)[0]->id_kelas; 
@@ -86,7 +100,8 @@ class Laporan extends CI_Controller {
                     $dt = $this->SiswaModel->getNilaiSiswaByNISN($nisn); 
                     $siswa = $this->SiswaModel->getSiswaByNisn($nisn)[0]->nama_lengkap; 
                     $id_kelas = $this->SiswaModel->getSiswaByNisn($nisn)[0]->id_kelas; 
-
+                    $sekolah = $this->SekolahModel->dataSekolah()->row();
+                    $data['sekolah'] = $sekolah;
                     $kelas = $this->SiswaModel->getKelasByid_kelas($id_kelas)[0]->nama_kelas; 
                     # pendekatan prosedural
                     setlocale(LC_ALL, 'id-ID', 'id_ID');
@@ -108,6 +123,9 @@ class Laporan extends CI_Controller {
         }
             public function Materi($id)
         {            
+            
+               $sekolah = $this->SekolahModel->dataSekolah()->row();
+            $data['sekolah'] = $sekolah;
             $data['data'] = $this->SiswaModel->getMateriKelasMapelById($id);
             $dt = $this->SiswaModel->siswa();          
             $data['judul']="SISWA";

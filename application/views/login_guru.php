@@ -55,7 +55,7 @@
 							<br />
 
 							<div>
-								<h1><i class="fa fa-paw"></i> Raport Online</h1>
+								<h1><img src=" <?php echo base_url() . "assets/images/CIF.png"; ?>" alt=""> Raport Online</h1>
 								<p>2020</p>
 							</div>
 						</div>

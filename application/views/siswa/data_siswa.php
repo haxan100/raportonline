@@ -448,6 +448,7 @@
 			url_form = url_form_tambah;
 			console.log(url_form);
 			$('#Edit').hide();
+			$('#tambah_act').show();
 			$("#nisn").removeAttr('readonly');
 
 

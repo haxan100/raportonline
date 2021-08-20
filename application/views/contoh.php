@@ -1,7 +1,7 @@
 <?php
 
 $pdf = new Pdf('P', 'mm', 'A4', true, 'UTF-8', false);
-$pdf->SetTitle('My Title');
+$pdf->SetTitle($judul);
 $pdf->SetHeaderMargin(30);
 $pdf->SetTopMargin(20);
 $pdf->setFooterMargin(20);
@@ -20,8 +20,16 @@ $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 $pdf->AddPage();
 
-$pdf->Cell(190,7,'DINAS PENDIDIKAN PEMUDA DAN OLAHRAGA',0,1,'C');
-$pdf->Cell(190,19,'JAWA TENGAH',0,1,'C');
+$pdf->SetFont('helvetica', 'B', 20);
+
+$pdf->Cell(190,1,$sekolah->nama, 0,1,'C', 0, '', 0, false, 'M', 'M');
+// $pdf->Cell(0, 15, 'SMP 4 TAMAN PEMALANG ', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+// $pdf->SetFont('helvetica', 'S', 10);
+
+$pdf->SetFontSize(15);
+$pdf->Cell(190,10, $sekolah->alamat ,0,1,'C');
+$pdf->SetFontSize(10);
+ $pdf->setFont('freesans','');
 
 $pdf->Ln();
             $i=0;
@@ -59,7 +67,6 @@ $pdf->Ln();
 
 $pdf->endPage();
 
-// $pdf->Write(7, 'Some sample text');
 $pdf->Output($judul, 'I');
 
 
